@@ -12,30 +12,7 @@ const RegisterForm = () => {
   });
 
   const handleChange = (e) => {
-    switch (e.target.name) {
-      case "name":
-        setInitialValues({ ...initialValues, name: e.target.value });
-        break;
-
-      case "lastName":
-        setInitialValues({ ...initialValues, lastName: e.target.value });
-        break;
-
-      case "email":
-        setInitialValues({ ...initialValues, email: e.target.value });
-        break;
-
-      case "password":
-        setInitialValues({ ...initialValues, password: e.target.value });
-        break;
-
-      case "confirmPassword":
-        setInitialValues({ ...initialValues, confirmPassword: e.target.value });
-        break;
-
-      default:
-        return e.target.name;
-    }
+    setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
   };
 
   //   Formula para validar todos los campos.
