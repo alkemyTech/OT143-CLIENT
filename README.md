@@ -30,6 +30,7 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
+<<<<<<< HEAD
 # Ong Client
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
@@ -62,6 +63,8 @@ Your app is ready to be deployed!
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 
+=======
+>>>>>>> ef1b70474509ded7ba5f2824845a0568a73d42f7
 ## Branchs y Commits
 
 **1. Regular Branches**
@@ -134,9 +137,16 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 2. Repositorios:
 	- [OT143 ONG](https://github.com/alkemyTech/OT143-CLIENT)
 3. Tickets:
+<<<<<<< HEAD
 	- [Jira](http://redmine.yvera.gob.ar/)
+=======
+	- [Jira](https://alkemy-labs.atlassian.net/jira/software/c/projects/OT143/boards/216/)
+>>>>>>> ef1b70474509ded7ba5f2824845a0568a73d42f7
 4. Otros:
 	- [Material UI Doc](https://mui.com/)
 	- [PropTypes Doc](https://es.reactjs.org/docs/typechecking-with-proptypes.html)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ef1b70474509ded7ba5f2824845a0568a73d42f7
