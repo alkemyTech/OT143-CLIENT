@@ -9,35 +9,37 @@ const LoginForm = () => {
   });
 
   const handleChange = (e) => {
-    switch (e.target.name) {
-      case "email":
-        setInitialValues({ ...initialValues, email: e.target.value });
-        break;
-      case "password":
-        setInitialValues({ ...initialValues, password: e.target.value });
-        break;
-      default:
-        return e.target.value;
-    }
+    setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
   };
+
+
+
+  // Funcion para validar campos y el formato requerido de cada uno
 
   const validate = () => {
     let errors = {};
 
-    const validateEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
+    const validateEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 
     const validatePassword = new RegExp(
       /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]/
     );
 
-    if (initialValues.email === "" || !validateEmail.test(initialValues.email)) {
+    // Si el email está vacio o no cumple el formato, da error
+
+    if (
+      initialValues.email === "" ||
+      !validateEmail.test(initialValues.email)
+    ) {
       errors.email = "Ingresa una direccion de email válida";
     }
 
-    
-    // Si la contraseña esta vacia, es menor a 6 caracteres o no tiene el formato requerido da error (minimo 1 letra, 1 numero y 1 simbolo)
+    // Si la contraseña esta vacia,
+    // es menor a 6 caracteres o no tiene el formato requerido da error
+    // (minimo 1 letra, 1 numero y 1 simbolo)
 
-    if (initialValues.password === "" ||
+    if (
+      initialValues.password === "" ||
       initialValues.password.length < 6 ||
       !validatePassword.test(initialValues.password)
     ) {
@@ -70,7 +72,7 @@ const LoginForm = () => {
               onChange={handleChange}
               placeholder="Email"
             ></Field>
-            <ErrorMessage name="email"/>
+            <ErrorMessage name="email" />
             <Field
               className="input-field"
               name="password"
@@ -79,7 +81,7 @@ const LoginForm = () => {
               onChange={handleChange}
               placeholder="Password"
             ></Field>
-            <ErrorMessage name="password"/>
+            <ErrorMessage name="password" />
             <button className="submit-btn" type="submit">
               Log In
             </button>
