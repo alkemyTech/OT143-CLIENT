@@ -29,44 +29,44 @@ const NewsletterForm = ()=>{
     if(value.email === ""){
       errors.email = "Campo requerido";
     }else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value.email)) {
-      errors.email = 'Email invalido';
+      errors.email = 'Email inválido';
     }
     return errors
   }
+
   const handleSubmit = (e)=>{
-    localStorage.setItem('Newsletter', JSON.stringify(e))
+    localStorage.setItem('Newsletter', JSON.stringify(e));
   }
+
   return(
     <>
-    {localStorage.getItem('Newsletter')? null:
-      <Formik 
-        initialValues={{
-          name: "",
-          lastname: "",
-          email: "",
-        }}
-        validate={validate}
-        onSubmit={handleSubmit}>
-        <Form >
-          <TextInput
-            name="name"
-            type="text"
-            placeholder="Nombre"
-          />
-          <TextInput
-            name="lastname"
-            type="text"
-            placeholder="Apellido"
-          />
-          <TextInput
-            name="email"
-            type="email"
-            placeholder="Email"
-          />
-          <button type="submit">Enviar</button>
-        </Form>
-      </Formik>
-    }  
+    <Formik 
+      initialValues={{
+        name: "",
+        lastname: "",
+        email: "",
+      }}
+      validate={validate}
+      onSubmit={handleSubmit}>
+      <Form >
+        <TextInput
+          name="name"
+          type="text"
+          placeholder="Nombre"
+        />
+        <TextInput
+          name="lastname"
+          type="text"
+          placeholder="Apellido"
+        />
+        <TextInput
+          name="email"
+          type="email"
+          placeholder="Email"
+        />
+        <button type="submit">Enviar</button>
+      </Form>
+    </Formik> 
     </>
   )
 }
