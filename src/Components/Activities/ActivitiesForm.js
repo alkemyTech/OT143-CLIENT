@@ -24,7 +24,9 @@ const FileInput = ({ label, ...props }) => {
 		<>
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className="file-input" {...field} {...props} />
-			{meta.error ? <div className="error">{meta.error}</div> : null}
+			{meta.touched && meta.error ? (
+				<div className="error">{meta.error}</div>
+			) : null}
 		</>
 	);
 };
@@ -45,13 +47,21 @@ const ActivitiesForm = () => {
 				}}
 				validationSchema={Yup.object({
 					title: Yup.string().required('Required'),
-					// image: Yup.mixed()
-					// 	.test(
-					// 		'fileType',
-					// 		'Unsupported File Format',
-					// 		value => value && ['image/jpg', 'image/png'].includes(value.type)
-					// 	)
-					// 	.required('Required'),
+					image: Yup.mixed()
+						.required('Required')
+						.test('fileType', 'Unsupported File Format', value => {
+							if (value) {
+								if (value.includes('png')) {
+									return true;
+								} else if (value.includes('jpg')) {
+									return true;
+								} else if (value.includes('jpeg')) {
+									return true;
+								} else {
+									return false;
+								}
+							}
+						}),
 				})}
 				onSubmit={(values, { setSubmitting }) => {
 					console.log(values);
@@ -79,7 +89,6 @@ const ActivitiesForm = () => {
 						placeholder="Imagen"
 						accept=".jpg, .jpeg, .png"
 					/>
-
 					<button type="submit">Submit</button>
 				</Form>
 			</Formik>

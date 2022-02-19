@@ -34,15 +34,7 @@ function App() {
 			</BrowserRouter> */}
 			<div className="App">
 				<ActivitiesForm />
-			</div>
-		</>
-	);
-}
-
-export default App;
-
-{
-	/* <header className="App-header">
+				{/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
@@ -86,5 +78,10 @@ export default App;
             React Redux
           </a>
         </span>
-      </header> */
+      </header> */}
+			</div>
+		</>
+	);
 }
+
+export default App;
