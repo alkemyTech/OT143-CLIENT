@@ -1,0 +1,47 @@
+.carousel {
+  width: 100%;
+  height: 600px;
+}
+.carousel__portada {
+  width: 100%;
+  height: 600px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  opacity: 0;
+  transition: 2s;
+  object-fit: cover;
+  filter: brightness(30%);
+}
+.carousel__portada.loaded {
+  opacity: 1;
+}
+.carousel__desc {
+  width: 100%;
+  height: 600px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: grid;
+  place-content: center;
+  color: #fff;
+  text-align: center;
+}
+.carousel__btns {
+  width: 100%;
+  height: 600px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2em;
+}
+.carousel__btns button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: none;
+  filter: drop-shadow(0 0 1px #fffcfc);
+  cursor: pointer;
+}/*# sourceMappingURL=styles.css.map */

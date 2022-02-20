@@ -13,6 +13,7 @@ import SchoolCampaign from './Campaigns/School/SchoolCampaign';
 import ToysCampaign from './Campaigns/Toys/ToysCampaign';
 import MembersForm from './Components/Members/MembersForm';
 import ProjectsForm from './Components/Projects/ProjectsForm';
+import Carousel from './Components/Carousel/Carousel';
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
         </Switch>
       </BrowserRouter>
     <div className="App">
+      <Carousel />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
