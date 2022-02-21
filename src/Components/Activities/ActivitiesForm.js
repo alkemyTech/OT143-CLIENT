@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	getImage,
+	getDescription,
+	getTitle,
+} from '../../features/Activities/activitiesSlice';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik, Form, useField } from 'formik';
@@ -31,19 +37,33 @@ const FileInput = ({ label, ...props }) => {
 	);
 };
 
-const handleEditor = (e, editor) => {
-	const data = editor.getData();
-	console.log({ e, editor, data });
-};
-
 const ActivitiesForm = () => {
+	const titulo = useSelector(state => state.activities.title);
+	const info = useSelector(state => state.activities.description);
+	const imagen = useSelector(state => state.activities.image);
+	const dispatch = useDispatch();
+
+	let timeout = null;
+	let data = '';
+
+	const handleEditor = (e, editor) => {
+		const desc = editor.getData();
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			data = desc;
+		}, 1000);
+	};
+
+	const handleReady = editor => {
+		editor.setData(info);
+	};
+
 	return (
 		<>
 			<Formik
 				initialValues={{
-					title: '',
-					description: '',
-					image: '',
+					title: titulo,
+					image: imagen,
 				}}
 				validationSchema={Yup.object({
 					title: Yup.string().required('Required'),
@@ -64,7 +84,9 @@ const ActivitiesForm = () => {
 						}),
 				})}
 				onSubmit={(values, { setSubmitting }) => {
-					console.log(values);
+					dispatch(getTitle(values.title));
+					dispatch(getImage(values.image));
+					dispatch(getDescription(data));
 				}}>
 				<Form>
 					<TextInput
@@ -81,6 +103,7 @@ const ActivitiesForm = () => {
 						type="text"
 						placeholder="Descripción"
 						onChange={handleEditor}
+						onReady={handleReady}
 					/>
 					<FileInput
 						label="Imagen"
@@ -89,6 +112,7 @@ const ActivitiesForm = () => {
 						placeholder="Imagen"
 						accept=".jpg, .jpeg, .png"
 					/>
+					<img src={info} alt="" />
 					<button type="submit">Submit</button>
 				</Form>
 			</Formik>
