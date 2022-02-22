@@ -5,16 +5,19 @@ const NewsForm = () => {
     const [initialValues, setInitialValues] = useState({
         title: '',
         content: '',
-        category: ''
+        category: '',
+        image: ''
     });
 
     const handleChange = (e) => {
-        if(e.target.name === 'title'){
-            setInitialValues({...initialValues, title: e.target.value})
-        } if(e.target.name === 'content'){
-            setInitialValues({...initialValues, content: e.target.value})
+        if(e.target.name === 'title') {
+            setInitialValues({...initialValues, title: e.target.value});
+        } if(e.target.name === 'content') {
+            setInitialValues({...initialValues, content: e.target.value});
         } if(e.target.name === 'category') {
-            setInitialValues({...initialValues, category: e.target.value})
+            setInitialValues({...initialValues, category: e.target.value});
+        } if (e.target.name === 'image') {
+            setInitialValues({...initialValues, image: e.target.value});
         }
     }
 
@@ -25,14 +28,15 @@ const NewsForm = () => {
 
     return (
         <form className="form-container" onSubmit={handleSubmit}>
-            <input className="input-field" type="text" name="title" value={initialValues.title || ''} onChange={handleChange}></input>
-            <input className="input-field" type="text" name="content" value={initialValues.content || ''} onChange={handleChange}></input>
-            <select className="select-field" name="category" value={initialValues.category || ''} onChange={handleChange}>
+            <input className="input-field" type="text" name="title" value={initialValues.title || ''} onChange={handleChange} ></input>
+            <input className="input-field" type="text" name="content" value={initialValues.content || ''} onChange={handleChange} ></input>
+            <select className="select-field" name="category" value={initialValues.category || ''} onChange={handleChange} >
                 <option value="" disabled>Select category</option>
                 <option value="1">Demo option 1</option>
                 <option value="2">Demo option 2</option>
                 <option value="3">Demo option 3</option>
             </select>
+            <input className='input-field' type="file" name="image" accept="image/png, image/jpeg" onChange={handleChange} ></input>
             <button className="submit-btn" type="submit">Send</button>
         </form>
     );
