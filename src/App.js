@@ -17,9 +17,9 @@ import ProjectsForm from './Components/Projects/ProjectsForm';
 function App() {
 	return (
 		<>
-			<BrowserRouter>
+			 <BrowserRouter>
 				<Switch>
-					{/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
+					<Route path="/" exact component={} />           Esta ruta debe ser para el Home
 					<Route path="/create-activity" component={ActivitiesForm} />
 					<Route path="/create-category" component={CategoriesForm} />
 					<Route path="/create-news" component={NewsForm} />
@@ -31,10 +31,10 @@ function App() {
 					<Route path="/school-campaign" component={SchoolCampaign} />
 					<Route path="/toys-campaign" component={ToysCampaign} />
 				</Switch>
-			</BrowserRouter>
+			</BrowserRouter> 
 			<div className="App">
-				<ActivitiesForm />
-				{/* <header className="App-header">
+				
+				<header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
@@ -78,7 +78,7 @@ function App() {
             React Redux
           </a>
         </span>
-      </header> */}
+      </header>
 			</div>
 		</>
 	);
