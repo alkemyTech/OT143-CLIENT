@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 import {
 	getImage,
 	getDescription,
@@ -41,6 +43,7 @@ const ActivitiesForm = () => {
 	const titulo = useSelector(state => state.activities.title);
 	const info = useSelector(state => state.activities.description);
 	const imagen = useSelector(state => state.activities.image);
+	const edicion = useSelector(state => state.activities.edit);
 	const dispatch = useDispatch();
 
 	let timeout = null;
@@ -56,6 +59,30 @@ const ActivitiesForm = () => {
 
 	const handleReady = editor => {
 		editor.setData(info);
+	};
+
+	const createActivity = (values, id) => {
+		if (titulo === '' && imagen === '') {
+			axios.post('http://ongapi.alkemy.org/api/activities', {
+				id: uuid(),
+				title: values.title,
+				description: data,
+				image: values.image,
+				user_id: 0,
+				category_id: 1,
+				created_at: Date(),
+			});
+		} else {
+			axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
+				id: id,
+				title: values.title,
+				description: data,
+				image: values.image,
+				user_id: 0,
+				category_id: 1,
+				created_at: Date(),
+			});
+		}
 	};
 
 	return (
@@ -84,11 +111,7 @@ const ActivitiesForm = () => {
 						}),
 				})}
 				onSubmit={(values, { setSubmitting }) => {
-					// dispatch(getTitle(values.title));
-					// dispatch(getImage(values.image));
-					// dispatch(getDescription(data));
-
-					console.log('hola');
+					createActivity(values);
 				}}>
 				<Form>
 					<TextInput
@@ -115,7 +138,7 @@ const ActivitiesForm = () => {
 						accept=".jpg, .jpeg, .png"
 					/>
 					<img src={info} alt="" />
-					<button type="submit">Submit</button>
+					<button type="submit">{edicion === false ? 'Submit' : 'Edit'}</button>
 				</Form>
 			</Formik>
 		</>
