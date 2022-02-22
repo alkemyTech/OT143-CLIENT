@@ -12,11 +12,17 @@ import UserForm from './Components/Users/UsersForm';
 import SchoolCampaign from './Campaigns/School/SchoolCampaign';
 import ToysCampaign from './Campaigns/Toys/ToysCampaign';
 import MembersForm from './Components/Members/MembersForm';
+import MembersEdit from './Components/Members/MembersEdit';
 import ProjectsForm from './Components/Projects/ProjectsForm';
+<<<<<<< HEAD
 import HomeForm from './Components/HomeForm/HomeForm';
+=======
+import NewsletterForm from './Components/Newsletter/NewsletterForm';
+import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
+import Title from './Components/Title/Title';
+>>>>>>> 3cd8f49f084a4e75347e3199ae5161129755fefa
 
 function App() {
-  
   return (
     <>
       <BrowserRouter>
@@ -25,14 +31,20 @@ function App() {
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
           <Route path="/create-news" component={NewsForm} />
+<<<<<<< HEAD
           <Route path="/backoffice/Organization" component={HomeForm} />
+=======
+          <Route path="/backoffice" component={ScreenDashboard} />
+>>>>>>> 3cd8f49f084a4e75347e3199ae5161129755fefa
           <Route path="/backoffice/create-slide" component={SlidesForm} />
+          <Route path="/backoffice/members/edit" component={MembersEdit} />
           <Route path="/create-testimonials" component={TestimonialForm} />
           <Route path="/create-user" component={UserForm} />
           <Route path="/create-member" component={MembersForm} />
           <Route path="/create-project" component={ProjectsForm} />
           <Route path="/school-campaign" component={SchoolCampaign} />
           <Route path="/toys-campaign" component={ToysCampaign} />
+          <Route path="/actividades"><Title text="Actividades"/></Route>
         </Switch>
       </BrowserRouter>
     <div className="App">
@@ -81,6 +93,10 @@ function App() {
           </a>
         </span>
       </header>
+      <div className='mb-5'>
+        {!localStorage.getItem('Newsletter') &&
+        <NewsletterForm/>}
+      </div>
     </div>
     </>
   );
