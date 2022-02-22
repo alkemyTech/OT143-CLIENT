@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import * as Yup from 'yup';
 import { Formik, Form, useField } from 'formik';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '../FormStyles.css';
 
 const TextInput = ({ label, ...props }) => {
@@ -28,6 +31,16 @@ const FileInput = ({ label, ...props }) => {
 		</>
 	);
 };
+
+const handleChange = (event, editor) => {
+	const data = editor.getData();
+};
+
+const handleReady = editor => {
+	console.log('Editor is ready to use!', editor);
+};
+
+const
 
 const ProjectsForm = () => {
 	return (
@@ -69,7 +82,12 @@ const ProjectsForm = () => {
 				<Form>
 					<TextInput label="Title" name="title" type="text" />
 
-					<TextInput label="Description" name="desc" type="text" />
+					<CKEditor
+						editor={ClassicEditor}
+						data="<p>Hello from CKEditor 5!</p>"
+						onReady={handleReady}
+						onChange={handleChange}
+					/>
 
 					<TextInput label="Date" name="due_date" type="date" />
 
