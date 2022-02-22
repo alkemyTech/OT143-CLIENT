@@ -29,7 +29,6 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-
 ## Branchs y Commits
 
 **1. Regular Branches**
@@ -102,8 +101,6 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 2. Repositorios:
 	- [OT143 ONG](https://github.com/alkemyTech/OT143-CLIENT)
 3. Tickets:
-<<<<<<< HEAD
-<<<<<<< HEAD
 	- [Jira](http://redmine.yvera.gob.ar/)
 	- [Jira](https://alkemy-labs.atlassian.net/jira/software/c/projects/OT143/boards/216/)
 4. Otros:
@@ -111,4 +108,3 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 	- [PropTypes Doc](https://es.reactjs.org/docs/typechecking-with-proptypes.html)
 
 
-=======

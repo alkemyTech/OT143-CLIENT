@@ -18,7 +18,6 @@ import NewsletterForm from './Components/Newsletter/NewsletterForm';
 import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
 import Title from './Components/Title/Title';
 
-
 function App() {
   return (
     <>
