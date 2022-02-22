@@ -29,42 +29,6 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-
-<<<<<<< HEAD
-# Ong Client
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
-=======
->>>>>>> ef1b70474509ded7ba5f2824845a0568a73d42f7
 ## Branchs y Commits
 
 **1. Regular Branches**
@@ -137,16 +101,10 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 2. Repositorios:
 	- [OT143 ONG](https://github.com/alkemyTech/OT143-CLIENT)
 3. Tickets:
-<<<<<<< HEAD
 	- [Jira](http://redmine.yvera.gob.ar/)
-=======
 	- [Jira](https://alkemy-labs.atlassian.net/jira/software/c/projects/OT143/boards/216/)
->>>>>>> ef1b70474509ded7ba5f2824845a0568a73d42f7
+	- [Jira](https://alkemy-labs.atlassian.net/jira/software/c/projects/OT143/boards/216/)
 4. Otros:
 	- [Material UI Doc](https://mui.com/)
 	- [PropTypes Doc](https://es.reactjs.org/docs/typechecking-with-proptypes.html)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ef1b70474509ded7ba5f2824845a0568a73d42f7
