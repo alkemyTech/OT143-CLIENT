@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	getImage,
@@ -40,6 +40,10 @@ const FileInput = ({ label, ...props }) => {
 	);
 };
 
+// const DescInput = ({ label, ...props }) => {
+// 	return hola;
+// };
+
 const ProjectsForm = () => {
 	const titulo = useSelector(state => state.project.title);
 	const info = useSelector(state => state.project.description);
@@ -62,8 +66,8 @@ const ProjectsForm = () => {
 		editor.setData(info);
 	};
 
-	const createProject = async values => {
-		await axios.post('http://ongapi.alkemy.org/api/projects', {
+	const createProject = values => {
+		axios.post('http://ongapi.alkemy.org/api/projects', {
 			id: uuid(),
 			title: values.title,
 			description: data,
@@ -78,8 +82,8 @@ const ProjectsForm = () => {
 			<Formik
 				initialValues={{
 					title: titulo,
-					image: '',
-					due_date: '',
+					image: imagen,
+					due_date: fecha,
 				}}
 				validationSchema={Yup.object({
 					title: Yup.string().required('Required'),
@@ -102,11 +106,16 @@ const ProjectsForm = () => {
 						}),
 				})}
 				onSubmit={(values, { setSubmitting }) => {
-					console.log('submitted');
+					console.log(values);
 					// createProject(values);
 				}}>
 				<Form>
-					<TextInput label="Titulo" name="title" type="text" />
+					<TextInput
+						label="Titulo "
+						name="title"
+						type="text"
+						placeholder="Titulo"
+					/>
 
 					<CKEditor
 						label="Descripción"
@@ -115,14 +124,14 @@ const ProjectsForm = () => {
 						name="description"
 						type="text"
 						placeholder="Descripción"
-						onChange={handleEditor}
-						onReady={handleReady}
+						// onChange={handleEditor}
+						// onReady={handleReady}
 					/>
 
-					<TextInput label="Date" name="due_date" type="date" />
+					<TextInput label="Fecha " name="due_date" type="date" />
 
 					<FileInput
-						label="Imagen"
+						label=" Imagen "
 						name="image"
 						type="file"
 						accept=".jpg, .jpeg, .png"
