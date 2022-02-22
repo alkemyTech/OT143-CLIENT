@@ -84,9 +84,11 @@ const ActivitiesForm = () => {
 						}),
 				})}
 				onSubmit={(values, { setSubmitting }) => {
-					dispatch(getTitle(values.title));
-					dispatch(getImage(values.image));
-					dispatch(getDescription(data));
+					// dispatch(getTitle(values.title));
+					// dispatch(getImage(values.image));
+					// dispatch(getDescription(data));
+
+					console.log('hola');
 				}}>
 				<Form>
 					<TextInput
