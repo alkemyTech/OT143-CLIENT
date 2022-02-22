@@ -1,12 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
-import {
-	getImage,
-	getDescription,
-	getTitle,
-} from '../../features/Activities/activitiesSlice';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik, Form, useField } from 'formik';
@@ -39,11 +34,12 @@ const FileInput = ({ label, ...props }) => {
 	);
 };
 
-const ActivitiesForm = () => {
+const ActivitiesForm = ({ id }) => {
+	const edicion = useSelector(state => state.activities.edit);
 	const titulo = useSelector(state => state.activities.title);
 	const info = useSelector(state => state.activities.description);
 	const imagen = useSelector(state => state.activities.image);
-	const edicion = useSelector(state => state.activities.edit);
+
 	const dispatch = useDispatch();
 
 	let timeout = null;
@@ -62,7 +58,7 @@ const ActivitiesForm = () => {
 	};
 
 	const createActivity = (values, id) => {
-		if (titulo === '' && imagen === '') {
+		if (edicion !== true) {
 			axios.post('http://ongapi.alkemy.org/api/activities', {
 				id: uuid(),
 				title: values.title,
