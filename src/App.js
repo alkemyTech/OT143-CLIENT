@@ -16,13 +16,14 @@ import MembersEdit from './Components/Members/MembersEdit';
 import ProjectsForm from './Components/Projects/ProjectsForm';
 import NewsletterForm from "./Components/Newsletter/NewsletterForm";
 import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
+import Home from './Components/Home';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Switch>
-          {/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
+          <Route path="/" exact component={Home} />        
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
           <Route path="/create-news" component={NewsForm} />
