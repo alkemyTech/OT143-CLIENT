@@ -6,7 +6,7 @@ const Detail = () => {
 
 	return (
 		<>
-			<Title text={} image={}/>
+			<Title text={'Detalle de actividad'} />
 			<div>{Content}</div>
 		</>
 	);
