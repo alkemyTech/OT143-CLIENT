@@ -14,13 +14,10 @@ import ToysCampaign from './Campaigns/Toys/ToysCampaign';
 import MembersForm from './Components/Members/MembersForm';
 import MembersEdit from './Components/Members/MembersEdit';
 import ProjectsForm from './Components/Projects/ProjectsForm';
-<<<<<<< HEAD
 import HomeForm from './Components/HomeForm/HomeForm';
-=======
 import NewsletterForm from './Components/Newsletter/NewsletterForm';
 import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
 import Title from './Components/Title/Title';
->>>>>>> 3cd8f49f084a4e75347e3199ae5161129755fefa
 
 function App() {
   return (
@@ -31,11 +28,8 @@ function App() {
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
           <Route path="/create-news" component={NewsForm} />
-<<<<<<< HEAD
           <Route path="/backoffice/Organization" component={HomeForm} />
-=======
           <Route path="/backoffice" component={ScreenDashboard} />
->>>>>>> 3cd8f49f084a4e75347e3199ae5161129755fefa
           <Route path="/backoffice/create-slide" component={SlidesForm} />
           <Route path="/backoffice/members/edit" component={MembersEdit} />
           <Route path="/create-testimonials" component={TestimonialForm} />
