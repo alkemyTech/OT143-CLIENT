@@ -1,9 +1,7 @@
 import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
-import { useState } from 'react';
 
 const HomeForm = ()=>{
-    const [value, setValue] = useState("");
 
     const InputField = ({ label, ...props }) => {
         const [field, meta] = useField(props);
@@ -25,10 +23,6 @@ const HomeForm = ()=>{
         .min(20, "El campo debe contener mínimo 20 caracteres"),
     })
 
-    const handleInput = (e)=>{
-        let InputValue = e.target.value;
-        setValue(InputValue)
-    }
     const handleChange = (e)=>{
         e.preventDefault()
     }
@@ -38,38 +32,59 @@ const HomeForm = ()=>{
         <Formik 
             initialValues={{
                 welcomeText: "",
-                image: "",
-                textSlide: "" 
+                imageSlideOne: "",
+                textSlideOne: "",
+                imageSlideTwo: "",
+                textSlideTwo: "",
+                imageSlideThree: "",
+                textSlideThree: "",
             }}
             validationSchema={validationSchemaYup}
             onSubmit={handleChange}>
             <Form >
+                <p>Texto de bienvenida</p>
                 <InputField
                 name="welcomeText"
                 type="text"
-                label="Editar texto de bienvenida"
+                label="Editar texto"
                 />
-                <span>Editar slides</span>
-                <select name="select" onChange={handleInput}>
-                    <option value="" >Seleccionar</option>
-                    <option value="slide1">Slide n°1</option>
-                    <option value="slide2">Slide n°2</option>
-                    <option value="slide3">Slide n°3</option>
-                </select>
+                
+                <p>Slides</p> 
+                <span>Slide 1</span>
+                <InputField
+                name="imageSlideOne"
+                type="file"
+                label="Imagen"
+                />
+                <InputField
+                name="textSlideOne"
+                type="text"
+                label="Editar texto"
+                />
 
-                {(value === "slide1" || "slide2" || "slide3") && 
-                <div id={value}>
-                    <InputField
-                    name="image"
-                    type="file"
-                    label="Imagen"
-                    />
-                    <InputField
-                    name="textSlide"
-                    type="text"
-                    label="Texto"
-                    />
-                </div>}
+                <span>Slide 2</span>
+                <InputField
+                name="imageSlideTwo"
+                type="file"
+                label="Imagen"
+                />
+                <InputField
+                name="textSlideTwo"
+                type="text"
+                label="Editar texto"
+                />
+
+                <span>Slide 3</span>
+                <InputField
+                name="imageSlideThree"
+                type="file"
+                label="Imagen"
+                />
+                <InputField
+                name="textSlideThree"
+                type="text"
+                label="Editar texto"
+                />
 
                 <button type="submit">Guardar cambios</button>
             </Form>
