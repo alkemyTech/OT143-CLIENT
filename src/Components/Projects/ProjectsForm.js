@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getImage, getDescription, getTitle, getDate } from '../../';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { Formik, Form, useField } from 'formik';
@@ -32,7 +34,7 @@ const FileInput = ({ label, ...props }) => {
 	);
 };
 
-const handleChange = (event, editor) => {
+const handleEditor = (event, editor) => {
 	const data = editor.getData();
 };
 
@@ -40,7 +42,9 @@ const handleReady = editor => {
 	console.log('Editor is ready to use!', editor);
 };
 
-const
+const createProject = () => {
+	axios.post('http://ongapi.alkemy.org/api/projects');
+};
 
 const ProjectsForm = () => {
 	return (
@@ -80,19 +84,23 @@ const ProjectsForm = () => {
 					}, 400);
 				}}>
 				<Form>
-					<TextInput label="Title" name="title" type="text" />
+					<TextInput label="Titulo" name="title" type="text" />
 
 					<CKEditor
+						label="Descripción"
 						editor={ClassicEditor}
-						data="<p>Hello from CKEditor 5!</p>"
+						data=""
+						name="description"
+						type="text"
+						placeholder="Descripción"
+						onChange={handleEditor}
 						onReady={handleReady}
-						onChange={handleChange}
 					/>
 
 					<TextInput label="Date" name="due_date" type="date" />
 
 					<FileInput
-						label="Image"
+						label="Imagen"
 						name="image"
 						type="file"
 						accept=".jpg, .jpeg, .png"
