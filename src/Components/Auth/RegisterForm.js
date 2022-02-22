@@ -1,33 +1,140 @@
-import React, { useState } from 'react';
-import '../FormStyles.css';
+import React, { useState } from "react";
+import "../FormStyles.css";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const RegisterForm = () => {
-    const [initialValues, setInitialValues] = useState({
-        name: '',
-        lastName: ''
-    })
-    
-    const handleChange = (e) => {
-        if(e.target.name === 'name'){
-            setInitialValues({...initialValues, name: e.target.value})
-        } if(e.target.name === 'lastName'){
-            setInitialValues({...initialValues, lastName: e.target.value})
-        }
-    }
+  const [initialValues, setInitialValues] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(initialValues);
-        localStorage.setItem('token', 'tokenValueExample')
-    }
+  const handleChange = (e) => {
+    setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
+  };
 
-    return (
-        <form className="form-container" onSubmit={handleSubmit}>
-            <input className="input-field" type="text" name="name" value={initialValues.name} onChange={handleChange} placeholder="Enter name"></input>
-            <input className="input-field" type="text" name="lastName" value={initialValues.lastName} onChange={handleChange} placeholder="Enter last name"></input>
-            <button className="submit-btn" type="submit">Register</button>
-        </form>
+  //   Formula para validar todos los campos.
+  //   Que todos sean requeridos, longitud mínima e igualdad de contraseñas
+
+  const validate = () => {
+    let errors = {};
+
+    // Expresion regular para validar que al contraseña tenga al menos una letra, un numero y un simbolo especial
+
+    const validatePassword = new RegExp(
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]/
     );
-}
- 
+
+    if (initialValues.name === "") {
+      errors.name = "Introduce un nombre";
+    }
+
+    if (initialValues.lastName === "") {
+      errors.lastName = "Introduce un apellido";
+    }
+
+    if (initialValues.email === "") {
+      errors.email = "Introduce un email";
+    }
+
+    if (initialValues.password === "") {
+      errors.password = "Introduce una contraseña";
+    }
+
+    if (initialValues.confirmPassword === "") {
+      errors.confirmPassword = "Confirma tu contraseña";
+    }
+
+    if (initialValues.password.length < 6) {
+      errors.password =
+        "La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)";
+    }
+
+    if (!validatePassword.test(initialValues.password)) {
+      errors.password =
+        "La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)";
+    }
+
+    if (initialValues.confirmPassword !== initialValues.password) {
+      errors.confirmPassword = "Las contraseñas deben ser iguales";
+    }
+
+    return errors;
+  };
+
+  //   Funcion para submit
+
+  const handleSubmit = (e) => {
+    console.log(initialValues);
+    localStorage.setItem("token", "tokenValueExample");
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validate={validate}
+    >
+      {() => (
+        <Form>
+          <Field
+            className="input-field"
+            name="name"
+            value={initialValues.name}
+            placeholder="Nombre"
+            type="text"
+            onChange={handleChange}
+          />
+          <ErrorMessage name="name" />
+
+          <Field
+            className="input-field"
+            name="lastName"
+            value={initialValues.lastName}
+            placeholder="Apellido"
+            type="text"
+            onChange={handleChange}
+          />
+
+          <ErrorMessage name="lastName" />
+
+          <Field
+            className="input-field"
+            name="email"
+            value={initialValues.email}
+            placeholder="Email"
+            type="email"
+            onChange={handleChange}
+          />
+          <ErrorMessage name="email" />
+
+          <Field
+            className="input-field"
+            name="password"
+            value={initialValues.password}
+            placeholder="Contraseña"
+            type="password"
+            onChange={handleChange}
+          />
+          <ErrorMessage name="password" />
+
+          <Field
+            className="input-field"
+            name="confirmPassword"
+            value={initialValues.confirmPassword}
+            placeholder="Confirmar contraseña"
+            type="password"
+            onChange={handleChange}
+          />
+          <ErrorMessage name="confirmPassword" />
+
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
 export default RegisterForm;

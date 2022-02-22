@@ -12,9 +12,15 @@ import UserForm from './Components/Users/UsersForm';
 import SchoolCampaign from './Campaigns/School/SchoolCampaign';
 import ToysCampaign from './Campaigns/Toys/ToysCampaign';
 import MembersForm from './Components/Members/MembersForm';
+import MembersEdit from './Components/Members/MembersEdit';
 import ProjectsForm from './Components/Projects/ProjectsForm';
+import HomeForm from './Components/HomeForm/HomeForm';
+import NewsletterForm from './Components/Newsletter/NewsletterForm';
+import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
+import Title from './Components/Title/Title';
 
 function App() {
+
 	return (
 		<>
 			<BrowserRouter>
@@ -23,13 +29,17 @@ function App() {
 					<Route path="/create-activity" component={ActivitiesForm} />
 					<Route path="/create-category" component={CategoriesForm} />
 					<Route path="/create-news" component={NewsForm} />
+					<Route path="/backoffice" component={ScreenDashboard} />
+					<Route path="/backoffice/Organization" component={HomeForm} />
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/create-testimonials" component={TestimonialForm} />
+					<Route path="/backoffice/members/edit" component={MembersEdit} />
 					<Route path="/create-user" component={UserForm} />
 					<Route path="/create-member" component={MembersForm} />
 					<Route path="/create-project" component={ProjectsForm} />
 					<Route path="/school-campaign" component={SchoolCampaign} />
 					<Route path="/toys-campaign" component={ToysCampaign} />
+					<Route path="/actividades"><Title text="Actividades"/></Route>
 				</Switch>
 			</BrowserRouter>
 			<div className="App">
@@ -77,6 +87,7 @@ function App() {
 			</div>
 		</>
 	);
+
 }
 
 export default App;
