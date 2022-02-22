@@ -40,9 +40,20 @@ const FileInput = ({ label, ...props }) => {
 	);
 };
 
-// const DescInput = ({ label, ...props }) => {
-// 	return hola;
-// };
+const DescInput = ({ label, ...props }) => {
+	const [field, meta] = useField(props);
+	return (
+		<CKEditor
+			label="Descripción"
+			editor={ClassicEditor}
+			data=""
+			type="text"
+			placeholder="Descripción"
+			{...field}
+			{...props}
+		/>
+	);
+};
 
 const ProjectsForm = () => {
 	const titulo = useSelector(state => state.project.title);
@@ -84,10 +95,11 @@ const ProjectsForm = () => {
 					title: titulo,
 					image: imagen,
 					due_date: fecha,
+					description: info,
 				}}
 				validationSchema={Yup.object({
 					title: Yup.string().required('Required'),
-					description: Yup.string().required('Required'),
+					// description: Yup.string().required('Required'),
 					due_date: Yup.date().min(new Date(), 'Fecha invalida'),
 					image: Yup.mixed()
 						.required('Required')
@@ -117,15 +129,10 @@ const ProjectsForm = () => {
 						placeholder="Titulo"
 					/>
 
-					<CKEditor
-						label="Descripción"
-						editor={ClassicEditor}
-						data=""
+					<DescInput
 						name="description"
-						type="text"
-						placeholder="Descripción"
-						// onChange={handleEditor}
-						// onReady={handleReady}
+						onChange={handleEditor}
+						onReady={handleReady}
 					/>
 
 					<TextInput label="Fecha " name="due_date" type="date" />
