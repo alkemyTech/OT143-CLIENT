@@ -15,6 +15,8 @@ import MembersForm from './Components/Members/MembersForm';
 import MembersEdit from './Components/Members/MembersEdit';
 import ProjectsForm from './Components/Projects/ProjectsForm';
 import NewsletterForm from './Components/Newsletter/NewsletterForm';
+import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
+import Title from './Components/Title/Title';
 
 
 function App() {
@@ -35,6 +37,7 @@ function App() {
           <Route path="/create-project" component={ProjectsForm} />
           <Route path="/school-campaign" component={SchoolCampaign} />
           <Route path="/toys-campaign" component={ToysCampaign} />
+          <Route path="/actividades"><Title text="Actividades"/></Route>
         </Switch>
       </BrowserRouter>
     <div className="App">
