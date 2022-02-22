@@ -2,12 +2,12 @@ import React from 'react';
 import Title from '../../Title';
 
 const Detail = () => {
-	const content = '';
+	const Content = '';
 
 	return (
 		<>
 			<div>{Title}</div>
-			<div>{content}</div>
+			<div>{Content}</div>
 		</>
 	);
 };
