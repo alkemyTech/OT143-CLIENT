@@ -152,6 +152,7 @@ const NewsForm = (props) => {
           <Form.Control
             name="image"
             type="url"
+            value={formik.values.image || ""}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
