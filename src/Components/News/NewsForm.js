@@ -9,21 +9,12 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const BASE_URL = "http://ongapi.alkemy.org/api";
 
-/* const FORMAT_SUPPORTED = ["image/png", "image/jpg", "image/jpeg"]; */
-
 const schema = Yup.object().shape({
   title: Yup.string()
     .required("El título es requerido")
     .min(4, "El título debe contener una longitud mínima de 4 caracteres"),
   content: Yup.string().required("El contenido es requerido"),
   category: Yup.number().required().positive("Debe seleccionar una categoría"),
-  /* image: Yup.mixed()
-    .required("La imagen es requerida")
-    .test(
-      "fileType",
-      "Formato de imagen inválido",
-      (value) => value && FORMAT_SUPPORTED.includes(value.type)
-    ), */
   image: Yup.string()
     .url("La imagen debe ser una URL válida")
     .required("La imagen es requerida"),
@@ -71,7 +62,7 @@ const NewsForm = (props) => {
               alert("No se pudo crear la novedad");
             })
         : axios
-            .put(`${BASE_URL}/news/${news?.id}`, values)
+            .patch(`${BASE_URL}/news/${news?.id}`, values)
             .then((response) => {
               console.log(response);
               alert("Novedad editada con éxito");
@@ -164,15 +155,6 @@ const NewsForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
           />
-          {/* <Form.Control
-            name="image"
-            type="file"
-            accept="image/png, image/jpg, image/jpeg"
-            onChange={(e) => {
-              formik.setFieldValue("image", e.currentTarget.files[0]);
-            }}
-            onBlur={formik.handleBlur}
-          /> */}
           {formik.touched.image && formik.errors.image ? (
             <div className="mt-1" style={errorsStyles}>
               {formik.errors.image}
