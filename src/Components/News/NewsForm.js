@@ -93,7 +93,9 @@ const NewsForm = (props) => {
 
   return (
     <Container className="mt-3">
-      <h2 className="title-form">{`${!news ? "Crear" : "Editar"} novedad`}</h2>
+      <h2 className="title-form">{`${
+        !props.news ? "Crear" : "Editar"
+      } novedad`}</h2>
       <Form className="form-container" onSubmit={formik.handleSubmit}>
         <Form.Group controlId="title" className="mb-2">
           <Form.Label>Título</Form.Label>
@@ -176,7 +178,7 @@ const NewsForm = (props) => {
           ) : null}
         </Form.Group>
 
-        <Button type="submit">{!news ? "Crear" : "Editar"}</Button>
+        <Button type="submit">{!props.news ? "Crear" : "Editar"}</Button>
       </Form>
     </Container>
   );
