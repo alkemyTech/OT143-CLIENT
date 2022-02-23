@@ -6,6 +6,7 @@ const initialState = {
 	image: '',
 	date: '',
 	edit: false,
+	empty: '',
 };
 
 export const projectSlice = createSlice({
@@ -24,9 +25,13 @@ export const projectSlice = createSlice({
 		getDate: (state, action) => {
 			state.date = action.payload;
 		},
+		emptyField: (state, action) => {
+			state.empty = action.payload;
+		},
 	},
 });
 
-export const { getTitle, getDescription, getImage } = projectSlice.actions;
+export const { getTitle, getDescription, getImage, getDate, emptyField } =
+	projectSlice.actions;
 
 export default projectSlice.reducer;
