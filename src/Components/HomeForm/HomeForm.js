@@ -110,7 +110,7 @@ const HomeForm = ()=>{
                     <p className="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde sequi dignissimos aperiam temporibus libero eveniet enim quos omnis molestias delectus.</p>
                 </div>
                 <div className="card-body text-center">
-                   <Link to="/backoffice/organization/edit" onClick={(e)=>{alert("se redigira a ->  /backoffice/organization/edit")}}><a className="card-link">Edit Organization</a></Link>
+                   <Link to="/backoffice/organization/edit"><a className="card-link">Edit Organization</a></Link>
                 </div>
                 </div>
 
