@@ -31,6 +31,7 @@ const MembersEdit = () => {
         validationSchema :  SchemaValidation ,
 
         onSubmit(values){
+            values.preventDefault();
            console.log(values)
            values ? alert("Validacion aceptada") : alert("error en los datos")
 
