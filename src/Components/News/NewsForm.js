@@ -3,52 +3,97 @@ import "../../Components/FormStyles.css";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const FORMAT_SUPPORTED = ["image/png", "image/jpg", "image/jpeg"];
+const BASE_URL = "http://ongapi.alkemy.org/api";
+
+/* const FORMAT_SUPPORTED = ["image/png", "image/jpg", "image/jpeg"]; */
+
 const schema = Yup.object().shape({
   title: Yup.string()
     .required("El título es requerido")
     .min(4, "El título debe contener una longitud mínima de 4 caracteres"),
   content: Yup.string().required("El contenido es requerido"),
   category: Yup.number().required().positive("Debe seleccionar una categoría"),
-  image: Yup.mixed()
+  /* image: Yup.mixed()
     .required("La imagen es requerida")
     .test(
       "fileType",
       "Formato de imagen inválido",
       (value) => value && FORMAT_SUPPORTED.includes(value.type)
-    ),
+    ), */
+  image: Yup.string().url().required("La imagen es requerida"),
 });
 
 const errorsStyles = { color: "red", fontSize: ".875em" };
 
-const NewsForm = () => {
-  const formik = useFormik({
-    initialValues: {
-      title: "",
-      content: "",
-      category: 0,
-      image: "",
-    },
-    validationSchema: schema,
-    onSubmit(values) {
-      console.log(values);
-    },
-  });
+const NewsForm = (props) => {
+  const news = props.news
+    ? {
+        id: props.news.id,
+        title: props.news.name,
+        content: props.news.content,
+        category: props.news["category_id"],
+        image: props.news.image,
+      }
+    : {
+        title: "",
+        content: "",
+        category: 0,
+        image: "",
+      };
 
   const [categories, setCategories] = useState([]);
 
+  const formik = useFormik({
+    initialValues: news,
+    validationSchema: schema,
+    onSubmit(values) {
+      const body = {
+        name: values.title,
+        content: values.content,
+        category_id: parseInt(values.category),
+        image: values.image,
+      };
+      !news
+        ? axios
+            .post(`${BASE_URL}/news`, body)
+            .then((response) => {
+              console.log(response);
+              alert("Novedad creada con éxito");
+            })
+            .catch((error) => {
+              console.log(error);
+              alert("No se pudo crear la novedad");
+            })
+        : axios
+            .put(`${BASE_URL}/news/${news?.id}`, values)
+            .then((response) => {
+              console.log(response);
+              alert("Novedad editada con éxito");
+            })
+            .catch((error) => {
+              console.log(error);
+              alert("No se pudo editar la novedad");
+            });
+    },
+  });
+
   useEffect(() => {
-    const request = axios.get("http://ongapi.alkemy.org/api/categories");
-    request.then((response) => setCategories(response.data.data));
+    const request = axios.get(`${BASE_URL}/categories`);
+    request
+      .then((response) => setCategories(response.data.data))
+      .catch((error) => {
+        console.log(error);
+        alert("No se pudo cargar las categorías");
+      });
   }, []);
 
   return (
-    <div>
-      <h2 className="title-form">Crear/Editar novedad</h2>
+    <Container className="mt-3">
+      <h2 className="title-form">{`${!news ? "Crear" : "Editar"} novedad`}</h2>
       <Form className="form-container" onSubmit={formik.handleSubmit}>
         <Form.Group controlId="title" className="mb-2">
           <Form.Label>Título</Form.Label>
@@ -71,7 +116,7 @@ const NewsForm = () => {
           <CKEditor
             placeholder="Contenido"
             editor={ClassicEditor}
-            data=""
+            data={formik.values.content || ""}
             name="content"
             type="text"
             onChange={(e, editor) =>
@@ -111,13 +156,19 @@ const NewsForm = () => {
           <Form.Label>Imagen</Form.Label>
           <Form.Control
             name="image"
+            type="url"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {/* <Form.Control
+            name="image"
             type="file"
             accept="image/png, image/jpg, image/jpeg"
             onChange={(e) => {
               formik.setFieldValue("image", e.currentTarget.files[0]);
             }}
             onBlur={formik.handleBlur}
-          />
+          /> */}
           {formik.touched.image && formik.errors.image ? (
             <div className="mt-1" style={errorsStyles}>
               {formik.errors.image}
@@ -125,9 +176,9 @@ const NewsForm = () => {
           ) : null}
         </Form.Group>
 
-        <Button type="submit">Crear</Button>
+        <Button type="submit">{!news ? "Crear" : "Editar"}</Button>
       </Form>
-    </div>
+    </Container>
   );
 };
 
