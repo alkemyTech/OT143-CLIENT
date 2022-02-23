@@ -1,5 +1,8 @@
 import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from 'react-router-dom';
+import imagen  from './../../images/somosMasOrg.png'
 
 const HomeForm = ()=>{
 
@@ -29,6 +32,7 @@ const HomeForm = ()=>{
 
     return(
         <>
+        <div className="container-fluid mb-4">
         <Formik 
             initialValues={{
                 welcomeText: "",
@@ -89,6 +93,31 @@ const HomeForm = ()=>{
                 <button type="submit">Guardar cambios</button>
             </Form>
         </Formik> 
+        </div>
+
+        <>
+        
+        
+        
+        <div className="container  ">
+            <div className="row">
+                <div className="col">
+                <div className="card bg-danger" >
+                <div className="card-body">
+                    <h3 className="card-title bg-success text-center">Nombre Organizacion</h3>
+                    <img className='card-img-top'  src={imagen} alt='ImagenOng'/>
+                    <h5>Descripcion</h5>
+                    <p className="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde sequi dignissimos aperiam temporibus libero eveniet enim quos omnis molestias delectus.</p>
+                </div>
+                <div className="card-body text-center">
+                   <Link to="/backoffice/organization/edit"><a className="card-link">Edit Organization</a></Link>
+                </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+        </>
         </> 
     )
 }

@@ -26,16 +26,14 @@ function App() {
     <>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={Home} />        
+          <Route path="/" exact component={Home} />   
+          <Route path="/backoffice/members/edit" component={MembersEdit} />
+          <Route path="/backoffice/organization" component={HomeForm} />
+          <Route path="/backoffice/create-slide" component={SlidesForm} />  
+          <Route path="/backoffice" component={ScreenDashboard} />   
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
           <Route path="/create-news" component={NewsForm} />
-          <Route path="/backoffice/Organization" component={HomeForm} />
-          <Route path="/backoffice" component={ScreenDashboard} />
-          <Route path="/backoffice/create-slide" component={SlidesForm} />
-          <Route path="/backoffice/members/edit" component={MembersEdit} />
-          <Route path="/backoffice"  component={ScreenDashboard} />
-          <Route path="/backoffice/create-slide" component={SlidesForm} />
           <Route path="/create-testimonials" component={TestimonialForm} />
           <Route path="/create-user" component={UserForm} />
           <Route path="/create-member" component={MembersForm} />
