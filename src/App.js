@@ -17,11 +17,8 @@ import HomeForm from './Components/HomeForm/HomeForm';
 import NewsletterForm from './Components/Newsletter/NewsletterForm';
 import ScreenDashboard from './Components/Dashboard/ScreenDashboard';
 import Title from './Components/Title/Title';
-<<<<<<< HEAD
-import Detail from './Components/Activities/Detail/Detail';
-=======
 import MembersEdit from './Components/Members/MembersEdit';
->>>>>>> 0d666f162f0ba206ca1db2f96f2a8bf03833b9a8
+import Detail from './Components/Activities/Detail/Detail';
 
 function App() {
 	return (
@@ -32,10 +29,7 @@ function App() {
 					<Route path="/create-activity" component={ActivitiesForm} />
 					<Route path="/create-category" component={CategoriesForm} />
 					<Route path="/create-news" component={NewsForm} />
-<<<<<<< HEAD
-=======
 					<Route path="/backoffice/Organization" component={HomeForm} />
->>>>>>> 0d666f162f0ba206ca1db2f96f2a8bf03833b9a8
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
@@ -45,10 +39,7 @@ function App() {
 					<Route path="/create-project" component={ProjectsForm} />
 					<Route path="/school-campaign" component={SchoolCampaign} />
 					<Route path="/toys-campaign" component={ToysCampaign} />
-<<<<<<< HEAD
-					<Route path="/Actividades/:id" component={Detail} />
-=======
->>>>>>> 0d666f162f0ba206ca1db2f96f2a8bf03833b9a8
+          <Route path="/Actividades/:id" component={Detail} />
 					<Route path="/actividades">
 						<Title text="Actividades" />
 					</Route>
