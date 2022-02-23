@@ -18,8 +18,6 @@ import NewsletterForm from "./Components/Newsletter/NewsletterForm";
 import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
 import Home from './Components/Home';
 import HomeForm from './Components/HomeForm/HomeForm';
-import NewsletterForm from './Components/Newsletter/NewsletterForm';
-import ScreenDashboard from "./Components/Dashboard/ScreenDashboard";
 import Title from './Components/Title/Title';
 
 function App() {
