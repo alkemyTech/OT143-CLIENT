@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -15,7 +15,7 @@ const TextInput = ({ label, ...props }) => {
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className="text-input" {...field} {...props} />
 			{meta.touched && meta.error ? (
-				<div className="error">{meta.error}</div>
+				<div className="error alert alert-danger">{meta.error}</div>
 			) : null}
 		</>
 	);
@@ -28,7 +28,7 @@ const FileInput = ({ label, ...props }) => {
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className="file-input" {...field} {...props} />
 			{meta.touched && meta.error ? (
-				<div className="error">{meta.error}</div>
+				<div className="error alert alert-danger">{meta.error}</div>
 			) : null}
 		</>
 	);
@@ -39,8 +39,6 @@ const ActivitiesForm = ({ id }) => {
 	const titulo = useSelector(state => state.activities.title);
 	const info = useSelector(state => state.activities.description);
 	const imagen = useSelector(state => state.activities.image);
-
-	const dispatch = useDispatch();
 
 	let timeout = null;
 	let data = '';
@@ -83,60 +81,80 @@ const ActivitiesForm = ({ id }) => {
 
 	return (
 		<>
-			<Formik
-				initialValues={{
-					title: titulo,
-					image: imagen,
-				}}
-				validationSchema={Yup.object({
-					title: Yup.string().required('Required'),
-					image: Yup.mixed()
-						.required('Required')
-						.test('fileType', 'Unsupported File Format', value => {
-							if (value) {
-								if (value.includes('png')) {
-									return true;
-								} else if (value.includes('jpg')) {
-									return true;
-								} else if (value.includes('jpeg')) {
-									return true;
-								} else {
-									return false;
-								}
-							}
-						}),
-				})}
-				onSubmit={(values, { setSubmitting }) => {
-					createActivity(values);
-				}}>
-				<Form>
-					<TextInput
-						label="Titulo"
-						name="title"
-						type="text"
-						placeholder="Titulo"
-					/>
-					<CKEditor
-						label="Descripción"
-						editor={ClassicEditor}
-						data=""
-						name="description"
-						type="text"
-						placeholder="Descripción"
-						onChange={handleEditor}
-						onReady={handleReady}
-					/>
-					<FileInput
-						label="Imagen"
-						name="image"
-						type="file"
-						placeholder="Imagen"
-						accept=".jpg, .jpeg, .png"
-					/>
-					<img src={info} alt="" />
-					<button type="submit">{edicion === false ? 'Submit' : 'Edit'}</button>
-				</Form>
-			</Formik>
+			<div className="container">
+				<div className="row">
+					<div className="card col-6 offset-3 mt-5 pt-3">
+						<Formik
+							initialValues={{
+								title: titulo,
+								image: imagen,
+							}}
+							validationSchema={Yup.object({
+								title: Yup.string().required('Required'),
+								image: Yup.mixed()
+									.required('Required')
+									.test('fileType', 'Unsupported File Format', value => {
+										if (value) {
+											if (value.includes('png')) {
+												return true;
+											} else if (value.includes('jpg')) {
+												return true;
+											} else if (value.includes('jpeg')) {
+												return true;
+											} else {
+												return false;
+											}
+										}
+									}),
+							})}
+							onSubmit={(values, { setSubmitting }) => {
+								createActivity(values);
+							}}>
+							<Form>
+								<TextInput
+									label="Titulo"
+									name="title"
+									type="text"
+									placeholder="Titulo"
+									className="form-control mt-3 mb-3"
+								/>
+								<div className="mb-3">
+									<div className="mb-3">
+										<span>Descripción</span>
+									</div>
+
+									<CKEditor
+										label="Descripción"
+										editor={ClassicEditor}
+										data=""
+										name="description"
+										type="text"
+										placeholder="Descripción"
+										onChange={handleEditor}
+										onReady={handleReady}
+										className="form-control"
+									/>
+								</div>
+
+								<FileInput
+									label="Imagen"
+									name="image"
+									type="file"
+									placeholder="Imagen"
+									accept=".jpg, .jpeg, .png"
+									className="form-control mt-3 mb-3"
+								/>
+								<img src={info} alt="" />
+								<button
+									type="submit"
+									className="form-control btn btn-primary mt-3 mb-3">
+									{edicion === false ? 'Submit' : 'Edit'}
+								</button>
+							</Form>
+						</Formik>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 };
