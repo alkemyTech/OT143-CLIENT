@@ -4,6 +4,8 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Button } from "react-bootstrap";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const FORMAT_SUPPORTED = ["image/png", "image/jpg", "image/jpeg"];
 const schema = Yup.object().shape({
@@ -63,14 +65,18 @@ const NewsForm = () => {
             </div>
           ) : null}
         </Form.Group>
+
         <Form.Group controlId="content" className="mb-2">
           <Form.Label>Contenido</Form.Label>
-          <Form.Control
-            type="text"
+          <CKEditor
+            placeholder="Contenido"
+            editor={ClassicEditor}
+            data=""
             name="content"
-            value={formik.values.content || ""}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            type="text"
+            onChange={(e, editor) =>
+              formik.setFieldValue("content", editor.getData())
+            }
           />
           {formik.touched.content && formik.errors.content ? (
             <div className="mt-1" style={errorsStyles}>
