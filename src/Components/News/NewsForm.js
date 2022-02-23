@@ -24,7 +24,9 @@ const schema = Yup.object().shape({
       "Formato de imagen inválido",
       (value) => value && FORMAT_SUPPORTED.includes(value.type)
     ), */
-  image: Yup.string().url().required("La imagen es requerida"),
+  image: Yup.string()
+    .url("La imagen debe ser una URL válida")
+    .required("La imagen es requerida"),
 });
 
 const errorsStyles = { color: "red", fontSize: ".875em" };
