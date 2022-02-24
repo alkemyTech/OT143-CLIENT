@@ -62,7 +62,7 @@ const NewsForm = (props) => {
               alert("No se pudo crear la novedad");
             })
         : axios
-            .patch(`${BASE_URL}/news/${news?.id}`, values)
+            .put(`${BASE_URL}/news/${news?.id}`, values)
             .then((response) => {
               console.log(response);
               alert("Novedad editada con éxito");
