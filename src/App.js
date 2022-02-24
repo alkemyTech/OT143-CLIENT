@@ -20,6 +20,7 @@ import HomeForm from './Components/HomeForm/HomeForm';
 import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
+import OrganizationForm from './Components/Organization/OrganizationForm';
 
 function App() {
   return (
@@ -28,6 +29,10 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />   
           <Route path="/backoffice/members/edit" component={MembersEdit} />
+          <Route
+            path="/backoffice/organization/edit"
+            component={OrganizationForm}
+          />
           <Route path="/backoffice/organization" component={HomeForm} />
           <Route path="/backoffice/create-slide" component={SlidesForm} />  
           <Route path="/backoffice" component={ScreenDashboard} />   
