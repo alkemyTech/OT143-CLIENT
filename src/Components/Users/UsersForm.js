@@ -15,8 +15,6 @@ const UserForm = () => {
     }
     const validateFields = values => {
         let errors = {};
-        const jpg = {};
-        const png = {};
 
             if(!values.profilePhoto){
                 errors.profilePhoto = 'Required! '
