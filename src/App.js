@@ -13,6 +13,13 @@ import SchoolCampaign from './Campaigns/School/SchoolCampaign';
 import ToysCampaign from './Campaigns/Toys/ToysCampaign';
 import MembersForm from './Components/Members/MembersForm';
 import ProjectsForm from './Components/Projects/ProjectsForm';
+import NewsletterForm from './Components/Newsletter/NewsletterForm';
+import ScreenDashboard from './Components/Dashboard/ScreenDashboard';
+import Home from './Components/Home';
+import HomeForm from './Components/HomeForm/HomeForm';
+import Title from './Components/Title/Title';
+import MembersEdit from './Components/Members/MembersEdit';
+import Detail from './Components/Activities/Detail/Detail';
 import Contact from './Components/Contact/Contact';
 
 function App() {
@@ -20,62 +27,29 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Switch>
-					{/* <Route path="/" exact component={} />           Esta ruta debe ser para el Home */}
+					<Route path="/" exact component={Home} />
+					<Route path="/backoffice/members/edit" component={MembersEdit} />
+					<Route path="/backoffice/organization" component={HomeForm} />
+					<Route path="/backoffice/create-slide" component={SlidesForm} />
+					<Route path="/backoffice" component={ScreenDashboard} />
+					<Route path="/contacto" component={Contact} />
 					<Route path="/create-activity" component={ActivitiesForm} />
 					<Route path="/create-category" component={CategoriesForm} />
 					<Route path="/create-news" component={NewsForm} />
-					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/create-testimonials" component={TestimonialForm} />
 					<Route path="/create-user" component={UserForm} />
 					<Route path="/create-member" component={MembersForm} />
 					<Route path="/create-project" component={ProjectsForm} />
 					<Route path="/school-campaign" component={SchoolCampaign} />
 					<Route path="/toys-campaign" component={ToysCampaign} />
-					<Route path="/contacto" component={Contact} />
+					<Route path="/Actividades/:id" component={Detail} />
+					<Route path="/actividades">
+						<Title text="Actividades" />
+					</Route>
 				</Switch>
 			</BrowserRouter>
-			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<Counter />
-					<p>
-						Edit <code>src/App.js</code> and save to reload.
-					</p>
-					<span>
-						<span>Learn </span>
-						<a
-							className="App-link"
-							href="https://reactjs.org/"
-							target="_blank"
-							rel="noopener noreferrer">
-							React
-						</a>
-						<span>, </span>
-						<a
-							className="App-link"
-							href="https://redux.js.org/"
-							target="_blank"
-							rel="noopener noreferrer">
-							Redux
-						</a>
-						<span>, </span>
-						<a
-							className="App-link"
-							href="https://redux-toolkit.js.org/"
-							target="_blank"
-							rel="noopener noreferrer">
-							Redux Toolkit
-						</a>
-						,<span> and </span>
-						<a
-							className="App-link"
-							href="https://react-redux.js.org/"
-							target="_blank"
-							rel="noopener noreferrer">
-							React Redux
-						</a>
-					</span>
-				</header>
+			<div className="mb-5">
+				{!localStorage.getItem('Newsletter') && <NewsletterForm />}
 			</div>
 		</>
 	);
