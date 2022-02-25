@@ -19,3 +19,7 @@ export const Get = () => {
 export const Put = (url, data, id) => {
 	axios.put(url, data, config);
 };
+
+export const Delete = (url, id)=>{
+    axios.delete(url, config);
+};
