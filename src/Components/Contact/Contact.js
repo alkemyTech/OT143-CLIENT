@@ -1,7 +1,12 @@
 import React from 'react';
 import Title from '../Title/Title';
 
-const Contact = ({ email, phone, city, address, about }) => {
+const Contact = ({ data }) => {
+	const city = data.city;
+	const address = data.address;
+	const phone = data.phone;
+	const email = data.email;
+
 	return (
 		<>
 			<div className="container mt-5 mb-5">
