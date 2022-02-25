@@ -10,7 +10,7 @@ const ActivitiesList = () => {
 	const getAct = async () => {
 		await axios
 			.get('http://ongapi.alkemy.org/api/activities')
-			.then(res => setActividades(res.data));
+			.then(res => setActividades(res.data.data));
 	};
 
 	useEffect(() => {
