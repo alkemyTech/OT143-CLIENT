@@ -21,17 +21,22 @@ import HomeForm from './Components/HomeForm/HomeForm';
 import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
+import OrganizationForm from './Components/Organization/OrganizationForm';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={Home} />   
+          <Route path="/" exact component={Home} />
           <Route path="/backoffice/members/edit" component={MembersEdit} />
+          <Route
+            path="/backoffice/organization/edit"
+            component={OrganizationForm}
+          />
           <Route path="/backoffice/organization" component={HomeForm} />
-          <Route path="/backoffice/create-slide" component={SlidesForm} />  
-          <Route path="/backoffice" component={ScreenDashboard} />   
+          <Route path="/backoffice/create-slide" component={SlidesForm} />
+          <Route path="/backoffice" component={ScreenDashboard} />
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
           <Route path="/create-news" component={NewsForm} />
@@ -43,11 +48,13 @@ function App() {
           <Route path="/school-campaign" component={SchoolCampaign} />
           <Route path="/toys-campaign" component={ToysCampaign} />
           <Route path="/Actividades/:id" component={Detail} />
-          <Route path="/actividades"><Title text="Actividades"/></Route>
+          <Route path="/actividades">
+            <Title text="Actividades" />
+          </Route>
         </Switch>
       </BrowserRouter>
       <div className="mb-5">
-					{!localStorage.getItem('Newsletter') && <NewsletterForm />}
+        {!localStorage.getItem("Newsletter") && <NewsletterForm />}
       </div>
     </>
   );
