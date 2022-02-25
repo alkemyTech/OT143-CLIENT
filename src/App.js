@@ -33,27 +33,7 @@ function App() {
           <Route path="/backoffice" component={ScreenDashboard} />
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
-
-          {/* para crear una novedad */}
           <Route path="/create-news" component={NewsForm} />
-
-          {/* para editar una novedad */}
-          {/* <Route
-            path="/create-news"
-            children={
-              <NewsForm
-                news={{
-                  id: 1538,
-                  name: "Mas de 5000 juguetes donados!",
-                  content:
-                    "<p>Podemos considerar la ultima campaña de donación juguetes como todo un exito! conseguimos 5234!</p><p>pronto haremos la entrega en escuelas primarias de la zona</p>",
-                  category_id: null,
-                  image: "http://ongapi.alkemy.org/storage/Vvagcv1xtV.jpeg",
-                }}
-              ></NewsForm>
-            }
-          /> */}
-
           <Route path="/backoffice/Organization" component={HomeForm} />
           <Route path="/backoffice" component={ScreenDashboard} />
           <Route path="/backoffice/create-slide" component={SlidesForm} />
