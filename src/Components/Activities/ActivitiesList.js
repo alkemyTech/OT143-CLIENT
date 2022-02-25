@@ -1,21 +1,17 @@
-import React, { useEffect, Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { getActivities } from '../../features/Activities/activitiesSlice';
 import axios from 'axios';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaPencilAlt } from 'react-icons/fa';
 
 const ActivitiesList = () => {
-	const dispatch = useDispatch();
+	const [actividades, setActividades] = useState('');
 
 	const getAct = async () => {
 		await axios
 			.get('http://ongapi.alkemy.org/api/activities')
-			.then(res => dispatch(getActivities(res.data)));
+			.then(res => setActividades(res.data));
 	};
-
-	const actividades = useSelector(state => state.activities.activities);
 
 	useEffect(() => {
 		getAct();

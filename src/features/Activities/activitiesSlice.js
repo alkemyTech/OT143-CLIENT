@@ -6,7 +6,6 @@ const initialState = {
 	image: '',
 	edit: false,
 	date_cr: '',
-	activities: '',
 };
 
 export const activitiesSlice = createSlice({
