@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { putData, postData } from '../../Services/activitiesExtService';
 import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -57,7 +57,7 @@ const ActivitiesForm = ({ id }) => {
 
 	const createActivity = (values, id) => {
 		if (edicion !== true) {
-			axios.post('http://ongapi.alkemy.org/api/activities', {
+			postData({
 				id: uuid(),
 				title: values.title,
 				description: data,
@@ -67,15 +67,18 @@ const ActivitiesForm = ({ id }) => {
 				created_at: Date(),
 			});
 		} else {
-			axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
-				id: id,
-				title: values.title,
-				description: data,
-				image: values.image,
-				user_id: 0,
-				category_id: 1,
-				created_at: Date(),
-			});
+			putData(
+				{
+					id: id,
+					title: values.title,
+					description: data,
+					image: values.image,
+					user_id: 0,
+					category_id: 1,
+					created_at: Date(),
+				},
+				id
+			);
 		}
 	};
 
