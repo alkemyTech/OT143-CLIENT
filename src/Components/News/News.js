@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Title from "../Title/Title";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -6,7 +5,7 @@ import './News.scss'
 
 const News = (data) => {
 
-  const [cards] = useState(data);
+  const cards = data;
 
   return (
     <>
