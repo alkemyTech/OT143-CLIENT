@@ -30,7 +30,7 @@ const MembersBackofficeList = () => {
                 <h2 className='text-center'>Miembros</h2>
                 <div className="col text-end mb-2">
                     <Button className='btn-success'>
-                   <BsPlusCircle  />  <Link to="/backoffice/members/create" /> Crear
+                   <BsPlusCircle  />  <Link to="/backoffice/members/create" > Crear  </Link>
                     </Button>
                 </div>
                 <Table className=' table-bordered table-hover'>
