@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 const token = window.localStorage.getItem('token');
-
+const baseURL = "http://ongapi.alkemy.org/api";
 const config = {
 	headers: {
-		Group: 01, //Aqui va el ID del equipo!!
+		Group: 143, 
 		Auhtorization: `Bearer ${token}`,
 	},
 };
 
-export const Get = () => {
+export const Get = (id) => {
 	axios
-		.get('https://jsonplaceholder.typicode.com/users', config)
+		.get(`${baseURL}/${id}`, config)
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
