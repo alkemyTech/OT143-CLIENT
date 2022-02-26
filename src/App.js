@@ -5,6 +5,7 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ActivitiesForm from './Components/Activities/ActivitiesForm';
 import CategoriesForm from './Components/Categories/CategoriesForm';
+import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
 import NewsForm from './Components/News/NewsForm';
 import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlidesForm from './Components/Slides/SlidesForm';
@@ -38,6 +39,7 @@ function App() {
           <Route path="/backoffice/members" component ={MembersBackofficeList} />
           <Route path="/backoffice/organization" component={HomeForm} />
           <Route path="/backoffice/create-slide" component={SlidesForm} />
+          <Route path="/backoffice/categories" component={CategoriesListBackoffice} />
           <Route path="/backoffice" component={ScreenDashboard} />
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
