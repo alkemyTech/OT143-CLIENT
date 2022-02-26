@@ -9,7 +9,7 @@ const config = {
 	},
 };
 
-export const Get = (id) => {
+export const Get = (url, id) => {
 	axios
 		.get(`${baseURL}/${id}`, config)
 		.then(res => console.log(res))
