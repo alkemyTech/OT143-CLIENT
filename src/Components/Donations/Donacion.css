@@ -1,0 +1,37 @@
+.textDonacion{
+    background: rgb(223, 231, 228);
+    padding: 20px;
+    height: 260px;
+}
+
+.botonDonar{
+    background: rgb(148, 205, 228);
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 360px;
+    position: fixed;
+}
+
+.botonMercado{
+    margin-right: 20px;
+    font-size: 24px;
+
+}
+
+.textAnimation{
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 50px;
+    animation-duration: 4s;
+    
+}
+
+.linkBtn{
+    width: 380px;
+}
+
+.spin{
+    margin-top: 280px;
+}

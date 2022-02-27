@@ -1,0 +1,18 @@
+.gracias{
+    text-align: center;
+    margin: 100px 50px;
+    padding: 40px;
+    background: lightskyblue;
+    border-radius: 10px;
+    animation-duration: 2s;
+    animation-name: aparecer;
+}
+
+@keyframes aparecer{
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
