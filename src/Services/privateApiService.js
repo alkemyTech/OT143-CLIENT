@@ -2,6 +2,12 @@ import axios from 'axios';
 
 const token = window.localStorage.getItem('token');
 
+const getHeaderAuthorization = ()=>{
+	headerAuthorization = "Bearer: " + token;
+
+	return token !== null ? headerAuthorization : null;
+};
+
 const config = {
 	headers: {
 		Group: 01, //Aqui va el ID del equipo!!
