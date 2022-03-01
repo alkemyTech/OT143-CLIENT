@@ -1,142 +1,102 @@
-import React, { Fragment, useState } from 'react';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
-import { BsCamera } from "react-icons/bs";
+import React, { Fragment, useEffect, useState } from 'react';
+import CreateUser from './CreateUser';
+import { Formik } from 'formik';
 import './UserForm.css'
+import UsersFormNewEdit from './UsersFormNewEdit';
+
+
+/* creee un array para simular los usuarios registrados */
+const usuariosRegistrados = [
+    {   
+        id: 1,
+        profilePhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdxcD315N1V4yVc8wJ3R-dka9ocqLaPiAtAg&usqp=CAU',
+        name: 'Homero',
+        email: 'homer@js.com',
+        password: '321654987',
+        roleId: 'admin',
+    },
+
+    {   
+        id: 2,
+        profilePhoto: 'https://imagenpng.com/wp-content/uploads/2015/03/Imagenes-BART-png-0.png',
+        name: 'bart',
+        email: 'bart@jss.com',
+        password: '123456789',
+        roleId: 'user',
+    }
+]
+
+/* una nueva promise para llamar el array */
+const getFetch = new Promise((resolve, reject)=>{
+    const condition = true
+    if(condition){
+        setTimeout(()=>{
+            resolve(usuariosRegistrados)
+        },2000)
+    }else {
+        setTimeout(()=>{
+            reject('404')
+        },2000)
+    }
+})
 
 const UserForm = () => {
-    const [createUsuario, setCreateUsuario] = useState(false);
-    const [usuarioRegister] = useState(false);
+    const [userRegister, setUserRegister] = useState([])
+   
+    useEffect = (() => {
+        getFetch // Esto seria como una llamada a la api de usuarios ya registrados
+        .then (res => {
+            setUserRegister(res)
+        })
+        .catch(err => console.log(err))
+        .finally(() => console.log('task finally'))  
+    })
 
-    const initialValues = {
-        profilePhoto:'',
-        name:'',
-        email:'',
-        password:'',
-        roleId:'',
-    }
-    const validateFields = values => {
-        let errors = {};
-
-            if(!values.profilePhoto){
-                errors.profilePhoto = 'Required! '
-            }else if(!/.(jpg|png)$/i.test(values.profilePhoto)){
-                errors.profilePhoto = 'Comprueba la extensión de tus imagenes, recuerda que los formatos aceptados son .jpg y .png'
-            }
-
-            if(!values.name){
-                errors.name = 'Por favor ingrese un nombre!'
-            }else if(!/^[a-zA-ZÀ-ÿ\s]{4,40}$/.test(values.name)){
-                errors.name = 'El nombre solo puede contener letras y no menos 4 letras.'
-            }
-
-            if (!values.email) {
-                errors.email = 'Required!';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Por favor ingresra con @ !';
-            }
-
-            if (!values.password) {
-                errors.password = 'Required!';
-            }else if (values.password.length <= 8){
-                errors.password = 'El password debe tener al menos 8 digitos.';
-            }
-
-            if (!values.roleId) {
-                errors.roleId = 'Required!';
-            }
-
-            return errors;
-    }
-    
-    const handleSubmit = (valores, {resetForm}) => {
-        resetForm();
-        console.log(valores)
-        console.log('Formumaliro registrado')
-        setCreateUsuario(true);
-        setTimeout(() => setCreateUsuario(false), 5000)
-    }
-
+    /* en el return pase un ternario, donde si userRegister es, me muestre los usuarios registrados,
+       y si es ! q me muestra el formulario para crear  */
     return (
         <Fragment>
-            <h2 className='mt-5 mx-4'>Create user</h2>
-            {usuarioRegister ? <button>Ir a editar usuario</button> : 
-                <Formik
-                    initialValues={initialValues}
-                    validate={validateFields}
-                    onSubmit={handleSubmit}
-                >    
-                    {({errors}) => 
-                        <Form className="row g-8 mt-4 mx-4 form">
-                            <div class="col-10 mt-2 mx-4">
-                                <div className='imageUp' type='file'>
-                                    <spam className='camera'><BsCamera /></spam>
-                                </div>
-                                <div class="mb-1 mt-2">
-                                    <label for="formFileSm" class="form-label">Upload your photo</label>
-                                    <Field 
-                                        class="form-control form-control-sm" 
-                                        id="formFileSm"
-                                        name='profilePhoto' 
-                                        type="file"
-                                    />
-                                    <ErrorMessage name='profilePhoto' component={() => (
-                                        <div className='errors'>{errors.profilePhoto}</div>)}
-                                    />
-                                </div>
-                                    <label className='form-label'>Name</label>
-                                    <Field 
-                                        className='form-control'
-                                        type="text" 
-                                        name="name"
-                                        placeholder="John Doe"
-                                    />
-                                    <ErrorMessage name='name' component={() => (
-                                        <div className='errors'>{errors.name}</div>)}
-                                    />
-                                    <label for='email'>Email</label>
-                                    <Field 
-                                        className="form-control" 
-                                        type="text" 
-                                        name="email" 
-                                        placeholder="example@exam.com"
-                                    />
-                                    <ErrorMessage name='email' component={() => (
-                                        <div className='errors'>{errors.email}</div>)}
-                                    />
-                                    <label for='password'>Password</label>
-                                    <Field 
-                                        className="form-control" 
-                                        type="password" 
-                                        name="password" 
-                                        placeholder="Password"
-                                    />
-                                    <ErrorMessage name='password' component={() => (
-                                        <div className='errors'>{errors.password}</div>)}
-                                    />
-                                    <label for='roleId'>Role</label>
-                                    <Field 
-                                        className="form-select"
-                                        name='roleId'
-                                        as='select' 
-                                    >
-                                        <option value="" disabled >Select the role</option>
-                                        <option value="adm">Admin</option>
-                                        <option value="use">User</option>
-                                    </Field>
-                                    <ErrorMessage name='roleId' component={() => (
-                                        <div className='errors'>{errors.roleId}</div>)}
-                                    />
-                            </div>
-                                    <div class="col-10 mb-3 my-3 mx-4">
-                                        <button 
-                                            type="submit"
-                                            class="btn btn-primary">User Creation</button>
-                                    </div>
-                                    {createUsuario && <p className='success'>Usuario creado exitosamente</p>}
-                        </Form>
-                    }
-                </Formik>
-            }
+            {userRegister ?  <div> 
+                                <h2 className='mt-5 mx-5'>Register user -- Edit</h2>
+                                    {userRegister.map(users => 
+                                        <Formik>    
+                                            <div className="row g-8 mt-4 mx-4 form" key={users.id}>
+                                                <div class="col-10 mt-2 mx-4">
+                                                    <div className='imageUp'>
+                                                        <spam className='camera'><img className='imageUser' src={users.profilePhoto} alt='foto usuario'></img></spam>
+                                                    </div>
+                                                    <div class="mb-1 mt-2">
+                                                        <label>Name</label>
+                                                            <h5 className='card-title'>
+                                                                {users.name}
+                                                            </h5> 
+                                                    </div>
+                                                    <div class="mb-1 mt-2"></div>
+                                                        <label>Email</label>
+                                                            <h5 className="card-title">
+                                                                {users.email}
+                                                            </h5>
+                                                    </div>
+                                                    <div class="mb-1 mt-2 mx-4">
+                                                        <label for='password'>Password</label>
+                                                            <h5 className="card-title">
+                                                                {users.password}    
+                                                            </h5> 
+                                                    </div>
+                                                    <div class="mb-1 mt-2 mx-4">
+                                                        <label for='roleId'>Role</label>
+                                                            <h5 className='card-title'>
+                                                                {users.roleId}
+                                                            </h5>
+                                                    </div> 
+                                                    <div class="col-10 mb-3 my-3 mx-4">
+                                                        <button type="submit"class="btn btn-primary">Editar</button>
+                                                    </div> 
+                                            </div>
+                                        </Formik>
+                                    )}
+                            </div>   :  <UsersFormNewEdit />
+            } 
         </Fragment>
     );
 }
