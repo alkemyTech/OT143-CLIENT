@@ -4,9 +4,12 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 import '../FormStyles.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
+import { GetAllCategories, GetCategoriesId } from '../../Services/serviceCategories';
 
 const CategoriesForm = () => {
+    
     const [dataApi, setDataApi] = useState();
     const FORMAT_SUPPORTED = ['image/jpg', 'image/jpeg', 'image/png'];
     const SchemaValidation = Yup.object().shape({
@@ -20,6 +23,7 @@ const CategoriesForm = () => {
             .required("Campo requerido"),
 
     });
+ 
     const formCategories = useFormik({
         initialValues:{
             name:"",
@@ -32,14 +36,16 @@ const CategoriesForm = () => {
             .then((res)=>{
                 if(res.data.error){
                     const cargoId = async()=>{
-                        //Cargo datos de un ID para que me devuelva un campo y mostrarlo en el input
-                        const dataId =  await axios.get(`http://ongapi.alkemy.org/api/categories/${1603}`)
-                        console.log(dataId.data.data);
+                        
+                        //Harcodeo un ID para probar la funcion GetCategorias y mostrar la info
+
+                        const dataId =  await GetCategoriesId(`${1606}`)
+                        console.log(dataId.data);
                         setDataApi(dataId)
                         formCategories.resetForm({
-                            name : dataId.data.data.name,
-                            image: dataId.data.data.image,
-                            description: dataId.data.data.description
+                            name : dataId.data.name,
+                            image: dataId.data.image,
+                            description: dataId.data.description
                         });
                         formCategories.setSubmitting(false);
                         
@@ -56,19 +62,19 @@ const CategoriesForm = () => {
        <> 
        
         <form className='form-container' onSubmit={formCategories.handleSubmit} >
-            <span className='title-form'>Nombre</span>'
+            <h3 className='title-form'>Categoria </h3>'
                
                 <input 
                     onChange={formCategories.handleChange}
-                    value={dataApi ? dataApi.data.data.name : formCategories.values.name }
+                    value={dataApi ? dataApi.data.name : formCategories.values.name }
                     className="input-field"
                     name="name"
                     type="text"
-                    placeholder="ej: Pablo Ramirez" 
+                    placeholder="Categoria" 
                     autoComplete='Objecto que traemos de la api'
                          />
             <span className='errors-forms'>{formCategories.errors.name}</span>
-            <span className='title-form'>Imagen</span>
+            <h3 className='title-form'>Imagen</h3>
                 <input className="input-field"
                     id="image"
                     name="image"
@@ -78,11 +84,11 @@ const CategoriesForm = () => {
                  />
             <span className='errors-forms'>{formCategories.errors.image}</span>
 
-            <span className='title-form'>Descripcion</span>
+            <h3 className='title-form'>Descripcion</h3>
             <CKEditor 
                 
                 editor={ClassicEditor}
-                data={dataApi ? dataApi.data.data.description : "Escrbiba aqui"}
+                data={dataApi ? dataApi.data.description : "Escrbiba aqui"}
                 name="description"
                 type="text"
                 onReady={editor=> editor}
@@ -94,7 +100,7 @@ const CategoriesForm = () => {
              />
              <span className='errors-forms'>{formCategories.errors.description}</span>
              <span className='erros-forms' >{dataApi ? dataApi.error : ""}</span>
-                    <button type='submit'>{formCategories.isSubmitting ? `Obteniendo datos de API...` : "Enviar"}
+                    <button type='submit' >{formCategories.isSubmitting ? `Obteniendo datos de API...` : "Enviar"}
                     </button>
         </form>      
 

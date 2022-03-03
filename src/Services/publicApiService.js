@@ -1,4 +1,6 @@
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
 
 // const config = {
 //     headers: {
@@ -7,10 +9,14 @@ import axios from 'axios';
 // }
 
 const baseURL = "http://ongapi.alkemy.org/api"
-//Luego de baseURL debe ir news,categories,etc.
-export const Get = (url,id) => {
-    axios.get(`${baseURL}/${id}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+//Guardar en una variable de entorno BaseUrl
+export const Get = async (url,id) => {
+    try {
+        const result  = await  axios.get(`${baseURL}/${url}/${id ? id : ""}`);
+        return result; 
+    } catch (error) {
+        console.log(error)
+    }
+    
 };
 
