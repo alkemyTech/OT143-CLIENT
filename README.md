@@ -111,10 +111,6 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 
 Progress es un componente que renderiza una barra de progreso para mostrar un feedback al usuario mientras se esté cargando un recurso.
 
-## Drescripción
-El componente se encuentra en la carpeta "Components" y el archivo se llama "Progress.js"
-Utilice el componente ProgressBar de la libreria react-bootstrap.
-
 ```javascript
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
