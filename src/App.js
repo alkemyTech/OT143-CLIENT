@@ -22,6 +22,10 @@ import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
 import OrganizationForm from './Components/Organization/OrganizationForm';
 import ContactForm from "./Components/Contact/ContactForm";
+import News from './Components/News/News'
+import SlideList from "./Components/Slides/SlideList";
+import UsersList from "./Components/Users/UsersList";
+import AboutUs from './Components/About/AboutUs';
 
 function App() {
   return (
@@ -29,6 +33,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/backoffice/users" component={UsersList} />
           <Route path="/backoffice/members/edit" component={MembersEdit} />
           <Route
             path="/backoffice/organization/edit"
@@ -36,6 +41,7 @@ function App() {
           />
           <Route path="/backoffice/organization" component={HomeForm} />
           <Route path="/backoffice/create-slide" component={SlidesForm} />
+          <Route path="/backoffice/slides" component={SlideList}></Route>
           <Route path="/backoffice" component={ScreenDashboard} />
           <Route path="/create-activity" component={ActivitiesForm} />
           <Route path="/create-category" component={CategoriesForm} />
@@ -54,6 +60,8 @@ function App() {
           <Route path="/actividades">
             <Title text="Actividades" />
           </Route>
+          <Route path="/novedades" component={News}/>
+          <Route path="/nosotros" component={AboutUs}></Route>
         </Switch>
       </BrowserRouter>
       <div className="mb-5">
