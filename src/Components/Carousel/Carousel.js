@@ -17,7 +17,6 @@ const Carousel = () => {
         axios.get(baseURL).then((response) => {
             setSlides(response.data.data);
         })
-        console.log(slides)
     }, [])
 
     return (
