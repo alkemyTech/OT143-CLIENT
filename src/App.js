@@ -21,6 +21,7 @@ import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
 import OrganizationForm from './Components/Organization/OrganizationForm';
+import AboutUs from './Components/About/AboutUs';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/actividades">
             <Title text="Actividades" />
           </Route>
+          <Route path="/nosotros" component={AboutUs}></Route>
         </Switch>
       </BrowserRouter>
       <div className="mb-5">
