@@ -20,28 +20,26 @@ const Carousel = () => {
     }, [])
 
     return (
-        <>
-            <Swiper 
-                className='swiper'
-                autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                }}
-                loop={true}
-                pagination={{
-                    dynamicBullets: true,
-                    clickable: true
-                }}
-                navigation={true} 
-                modules={[Navigation, Pagination, Autoplay]}>
-                {!slides ? "no hay slides" : slides.map((slide, index) => (
-                    <SwiperSlide className='swiper-slide' key={`slide-${index}`}>
-                        <img src={slide.image} alt="" />
-                        <p>{slide.name}</p>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </>
+        <Swiper 
+            className='swiper'
+            autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+            }}
+            loop={true}
+            pagination={{
+                dynamicBullets: true,
+                clickable: true
+            }}
+            navigation={true} 
+            modules={[Navigation, Pagination, Autoplay]}>
+            {!slides ? "no hay slides" : slides.map((slide, index) => (
+                <SwiperSlide className='swiper-slide' key={`slide-${index}`}>
+                    <img src={slide.image} alt="" />
+                    <p>{slide.name}</p>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     )
 } 
 
