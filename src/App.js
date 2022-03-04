@@ -21,6 +21,7 @@ import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
 import OrganizationForm from './Components/Organization/OrganizationForm';
+import NewsBackofficeList from './Components/News/NewsBackofficeList'
 import ContactForm from "./Components/Contact/ContactForm";
 import News from './Components/News/News'
 import SlideList from "./Components/Slides/SlideList";
@@ -41,6 +42,7 @@ function App() {
           />
           <Route path="/backoffice/organization" component={HomeForm} />
           <Route path="/backoffice/create-slide" component={SlidesForm} />
+          <Route path="/backoffice/news" component={NewsBackofficeList} />
           <Route path="/backoffice/slides" component={SlideList}></Route>
           <Route path="/backoffice" component={ScreenDashboard} />
           <Route path="/create-activity" component={ActivitiesForm} />
