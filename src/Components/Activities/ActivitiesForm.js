@@ -5,34 +5,9 @@ import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik, Form, useField } from 'formik';
+import Alert from '../Alerts/Alert';
 import * as Yup from 'yup';
 import '../FormStyles.css';
-
-const TextInput = ({ label, ...props }) => {
-	const [field, meta] = useField(props);
-	return (
-		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
-			<input className="text-input" {...field} {...props} />
-			{meta.touched && meta.error ? (
-				<div className="error alert alert-danger">{meta.error}</div>
-			) : null}
-		</>
-	);
-};
-
-const FileInput = ({ label, ...props }) => {
-	const [field, meta] = useField(props);
-	return (
-		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
-			<input className="file-input" {...field} {...props} />
-			{meta.touched && meta.error ? (
-				<div className="error alert alert-danger">{meta.error}</div>
-			) : null}
-		</>
-	);
-};
 
 const ActivitiesForm = ({ id }) => {
 	const edicion = useSelector(state => state.activities.edit);
@@ -79,6 +54,36 @@ const ActivitiesForm = ({ id }) => {
 		}
 	};
 
+	const TextInput = ({ label, ...props }) => {
+		const [field, meta] = useField(props);
+
+		return (
+			<>
+				<label htmlFor={props.id || props.name}>{label}</label>
+				<input className="text-input" {...field} {...props} />
+				{meta.touched && meta.error ? (
+					<Alert text={meta.error} alert={meta.touched} />
+				) : null}
+			</>
+		);
+	};
+
+	const FileInput = ({ label, ...props }) => {
+		const [field, meta] = useField(props);
+		console.log(meta.touched);
+		console.log(meta.error);
+
+		return (
+			<>
+				<label htmlFor={props.id || props.name}>{label}</label>
+				<input className="file-input" {...field} {...props} />
+				{meta.touched === true ? (
+					<Alert text={meta.error} alert={meta.touched} />
+				) : null}
+			</>
+		);
+	};
+
 	return (
 		<>
 			<div className="container">
@@ -90,9 +95,12 @@ const ActivitiesForm = ({ id }) => {
 								image: imagen,
 							}}
 							validationSchema={Yup.object({
-								title: Yup.string().required('Required'),
+								title: Yup.string().when('title', {
+									is: value => value < 1,
+									then: Yup.string().required('Required'),
+								}),
 								image: Yup.mixed()
-									.required('Required')
+									.required('Required 2')
 									.test('fileType', 'Unsupported File Format', value => {
 										if (value) {
 											if (value.includes('png')) {
@@ -115,7 +123,6 @@ const ActivitiesForm = ({ id }) => {
 									label="Titulo"
 									name="title"
 									type="text"
-									placeholder="Titulo"
 									className="form-control mt-3 mb-3"
 								/>
 								<div className="mb-3">
