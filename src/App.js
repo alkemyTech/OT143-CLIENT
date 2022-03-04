@@ -21,6 +21,7 @@ import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
 import OrganizationForm from './Components/Organization/OrganizationForm';
+import UsersList from "./Components/Users/UsersList";
 import AboutUs from './Components/About/AboutUs';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/backoffice/users" component={UsersList} />
           <Route path="/backoffice/members/edit" component={MembersEdit} />
           <Route
             path="/backoffice/organization/edit"
