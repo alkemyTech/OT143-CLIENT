@@ -9,11 +9,11 @@ export const getAllData = ()=>{
 };
 
 export const putData = (data, id)=>{
-    Put(`http://ongapi.alkemy.org/api/slides/${id}`, data, id);
+    Put(`http://ongapi.alkemy.org/api/slides/${id}`, data);
 };
 
-export const pathData = (data, id)=>{
-    Patch(`http://ongapi.alkemy.org/api/slides/${id}`, data, id);
+export const patchData = (data, id)=>{
+    Patch(`http://ongapi.alkemy.org/api/slides/${id}`, data);
 };
 
 export const postData = (data)=>{
