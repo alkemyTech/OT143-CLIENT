@@ -21,5 +21,5 @@ export const Put = (url, data, id) => {
 };
 
 export const Delete = (url, id)=>{
-    axios.delete(url, config);
+    axios.delete(url, id, config);
 };
