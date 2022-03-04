@@ -3,8 +3,8 @@ import axios from "axios";
 const BASE_URL = "http://ongapi.alkemy.org/api/news";
 
 const getAll = () => {
- const request = axios.get(BASE_URL);
- return request.then(response => response.data.data);
+  const request = axios.get(BASE_URL);
+  return request.then(response => response.data.data);
 }
 
 const create = (body) => {
@@ -12,4 +12,9 @@ const create = (body) => {
   return request.then(response => response.data);
 }
 
-export default {getAll, create};
+const update = (body, id) => {
+  const request = axios.put(`${BASE_URL}/${id}`, body);
+  return request.then(response => response.data);
+}
+
+export default { getAll, create, update };

@@ -29,7 +29,7 @@ const NewsForm = (props) => {
         id: props.news.id,
         title: props.news.name,
         content: props.news.content,
-        category: props.news["category_id"],
+        category: props.news["category_id"] || 0,
         image: props.news.image,
       }
     : {
@@ -63,8 +63,7 @@ const NewsForm = (props) => {
           alert("No se pudo crear la novedad");
         })
           
-        : axios
-            .put(`${BASE_URL}/news/${news?.id}`, values)
+        : newsService.update(body, news.id)
             .then((response) => {
               console.log(response);
               alert("Novedad editada con éxito");
