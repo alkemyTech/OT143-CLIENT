@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+// font-family: 'Karla', sans-serif;
+// font-family: 'Rubik', sans-serif;
+
+$color-titulo: #9ac9fb;
+
+.member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .member-name {
+    font-family: "Rubik", sans-serif;
+    font-size: 25px;
+    color: $color-titulo;
+    text-align: center;
+  }
+
+  .member-image {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 5px 5px 0px #6a6d72;
+  }
+
+  .member-description {
+    font: {
+      family: "Karla", sans-serif;
+      style: italic;
+      size: 18px;
+      weight: 300;
+    }
+    text-align:justify;
+  }
+
+  .social-link {
+    font-size: 35px;
+    color: #aaa;
+    :hover {
+        color: $color-titulo;
+      }
+  }
+}
