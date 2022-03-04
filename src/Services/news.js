@@ -4,7 +4,12 @@ const BASE_URL = "http://ongapi.alkemy.org/api/news";
 
 const getAll = () => {
  const request = axios.get(BASE_URL);
- return  request.then(response => response.data.data);
+ return request.then(response => response.data.data);
 }
 
-export default {getAll};
+const create = (body) => {
+  const request = axios.post(BASE_URL, body);
+  return request.then(response => response.data);
+}
+
+export default {getAll, create};
