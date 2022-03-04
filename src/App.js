@@ -21,6 +21,7 @@ import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
 import OrganizationForm from './Components/Organization/OrganizationForm';
+import ContactForm from "./Components/Contact/ContactForm";
 import News from './Components/News/News'
 import SlideList from "./Components/Slides/SlideList";
 import UsersList from "./Components/Users/UsersList";
@@ -66,6 +67,7 @@ function App() {
       <div className="mb-5">
         {!localStorage.getItem("Newsletter") && <NewsletterForm />}
       </div>
+      <ContactForm />
     </>
   );
 }
