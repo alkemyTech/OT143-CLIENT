@@ -1,6 +1,6 @@
 import { Placeholder, Col } from "react-bootstrap";
 
-const Skeleton = () => {
+const SkeletonComment = () => {
   return (
     <Placeholder className="d-flex" animation="glow">
       <Placeholder
@@ -8,7 +8,6 @@ const Skeleton = () => {
         className=" ms-3 me-4 rounded-circle"
         style={{ width: "70px", height: "70px" }}
       />
-
       <Col className="d-flex flex-column justify-content-center">
         <Placeholder className="mb-2 rounded" xs={10} md={6} lg={5} />
         <Placeholder className="mb-2 rounded" xs={7} md={5} lg={4} />
@@ -18,4 +17,4 @@ const Skeleton = () => {
   );
 };
 
-export default Skeleton;
+export default SkeletonComment;
