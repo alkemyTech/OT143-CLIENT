@@ -20,6 +20,12 @@ import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
 import OrganizationForm from './Components/Organization/OrganizationForm';
 import Carousel from './Components/Carousel/Carousel';
+import NewsBackofficeList from './Components/News/NewsBackofficeList'
+import ContactForm from "./Components/Contact/ContactForm";
+import News from './Components/News/News'
+import SlideList from "./Components/Slides/SlideList";
+import UsersList from "./Components/Users/UsersList";
+import AboutUs from './Components/About/AboutUs';
 
 function App() {
   return (
