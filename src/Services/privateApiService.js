@@ -18,10 +18,9 @@ export const Get = () => {
     .catch(err => console.log(err))
 }
 
-export const Post = (url, body) => {
-    axios.post(url, body, config)
-    .then(response=>console.log(response))
-    .catch(err=>console.log(err))
+export const Post = async (url, body) => {
+    const res = await axios.post(url, body, config).catch(err=>console.log(err));
+    return res;
 }
 
 export default Get
