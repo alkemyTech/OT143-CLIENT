@@ -134,9 +134,21 @@ import Progress from "../Progress";
 ## Vista
 ![Progress](https://user-images.githubusercontent.com/68795135/156629350-ff0c5b63-8afa-488d-835b-01aab4437846.png)
 
-**Componente Skeleton**
+# Componente Skeleton
 
 Ubicacion: Components/Common/Skeleton
 
+Componente que crea un placeholder con forma de card o de comment, que se utiliza en reemplazo de los mismos mientras esperamos la respuesta del servidor.
+
+## Uso
+
 El componente cuenta con una prop "mode" que recibe dos posibles valores: "card" o "comment", para asi poder renderizar alguno de los dos posibles modelos de skeleton.
+
+![Card](https://ibb.co/tQv5DnN)
+
+![Comment](https://ibb.co/VM7bYMg)
+
+
+
+
 
