@@ -107,4 +107,30 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 	- [Material UI Doc](https://mui.com/)
 	- [PropTypes Doc](https://es.reactjs.org/docs/typechecking-with-proptypes.html)
 
+# Componente Progress
+
+Progress es un componente que renderiza una barra de progreso para mostrar un feedback al usuario mientras se esté cargando un recurso.
+
+```javascript
+import React from "react";
+import { ProgressBar } from "react-bootstrap";
+
+const Progress = ({percentage}) => {
+  return (
+   <ProgressBar max={100} now={percentage} label={`${percentage}%`}/>
+  )
+}
+
+export default Progress;
+````
+
+## Uso
+
+```javascript
+import Progress from "../Progress";
+
+<Progress percentage={50} />
+````
+## Vista
+![Progress](https://user-images.githubusercontent.com/68795135/156629350-ff0c5b63-8afa-488d-835b-01aab4437846.png)
 
