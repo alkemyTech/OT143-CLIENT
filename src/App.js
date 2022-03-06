@@ -20,6 +20,7 @@ import HomeForm from './Components/HomeForm/HomeForm';
 import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
 import Detail from './Components/Activities/Detail/Detail';
+import ActivitiesList from './Components/Activities/ActivitiesList';
 import Contact from './Components/Contact/Contact';
 import OrganizationForm from './Components/Organization/OrganizationForm';
 import NewsBackofficeList from './Components/News/NewsBackofficeList';
@@ -44,10 +45,9 @@ function App() {
 					<Route path="/backoffice/organization" component={HomeForm} />
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
-					<Route path="/backoffice/slides" component={SlideList} />
-					<Route path="/backoffice/create-slide" component={SlidesForm} />
-					<Route path="/backoffice/members/edit" component={MembersEdit} />
+					<Route path="/backoffice/slides" component={SlideList}></Route>
 					<Route path="/backoffice" component={ScreenDashboard} />
+					<Route path="/backoffice/members/edit" component={MembersEdit} />
 					<Route path="/contacto" component={Contact} />
 					<Route path="/create-activity" component={ActivitiesForm} />
 					<Route path="/create-category" component={CategoriesForm} />
