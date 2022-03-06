@@ -9,6 +9,34 @@ import Alert from '../Alerts/Alert';
 import * as Yup from 'yup';
 import '../FormStyles.css';
 
+const TextInput = ({ label, foc, ...props }) => {
+	const [field, meta] = useField(props);
+
+	return (
+		<>
+			<label htmlFor={props.id || props.name}>{label}</label>
+			<input className="text-input" {...field} {...props} />
+			{meta.touched === true ? (
+				<Alert text={meta.error} alert={meta.touched} />
+			) : null}
+		</>
+	);
+};
+
+const FileInput = ({ label, ...props }) => {
+	const [field, meta] = useField(props);
+
+	return (
+		<>
+			<label htmlFor={props.id || props.name}>{label}</label>
+			<input className="file-input" {...field} {...props} />
+			{meta.touched === true ? (
+				<Alert text={meta.error} alert={meta.touched} />
+			) : null}
+		</>
+	);
+};
+
 const ActivitiesForm = ({ id }) => {
 	const edicion = useSelector(state => state.activities.edit);
 	const titulo = useSelector(state => state.activities.title);
@@ -54,36 +82,6 @@ const ActivitiesForm = ({ id }) => {
 		}
 	};
 
-	const TextInput = ({ label, ...props }) => {
-		const [field, meta] = useField(props);
-
-		return (
-			<>
-				<label htmlFor={props.id || props.name}>{label}</label>
-				<input className="text-input" {...field} {...props} />
-				{meta.touched && meta.error ? (
-					<Alert text={meta.error} alert={meta.touched} />
-				) : null}
-			</>
-		);
-	};
-
-	const FileInput = ({ label, ...props }) => {
-		const [field, meta] = useField(props);
-		console.log(meta.touched);
-		console.log(meta.error);
-
-		return (
-			<>
-				<label htmlFor={props.id || props.name}>{label}</label>
-				<input className="file-input" {...field} {...props} />
-				{meta.touched === true ? (
-					<Alert text={meta.error} alert={meta.touched} />
-				) : null}
-			</>
-		);
-	};
-
 	return (
 		<>
 			<div className="container">
@@ -95,12 +93,9 @@ const ActivitiesForm = ({ id }) => {
 								image: imagen,
 							}}
 							validationSchema={Yup.object({
-								title: Yup.string().when('title', {
-									is: value => value < 1,
-									then: Yup.string().required('Required'),
-								}),
+								title: Yup.string().required('Ingresar titulo'),
 								image: Yup.mixed()
-									.required('Required 2')
+									.required('Ingresar imagen')
 									.test('fileType', 'Unsupported File Format', value => {
 										if (value) {
 											if (value.includes('png')) {

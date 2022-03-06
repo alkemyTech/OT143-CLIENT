@@ -1,24 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 const Alert = ({ alert, text }) => {
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top',
-		showConfirmButton: false,
-		timer: 2000,
-		// willOpen: toast => {
-		// 	toast;
-		// },
-	});
-	{
-		alert &&
-			text &&
-			Toast.fire({
-				icon: 'warning',
-				title: `${text}`,
-			});
-	}
+	useEffect(() => {
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top',
+			showConfirmButton: false,
+			timer: 2000,
+		});
+
+		if (alert === true && text !== undefined) {
+			setTimeout(() => {
+				Toast.fire({
+					icon: 'warning',
+					title: `${text}`,
+				});
+			}, 250);
+		} else {
+			return null;
+		}
+	}, [text, alert]);
 
 	return <></>;
 };
