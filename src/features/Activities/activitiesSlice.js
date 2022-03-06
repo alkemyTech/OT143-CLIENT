@@ -5,6 +5,7 @@ const initialState = {
 	description: '',
 	image: '',
 	edit: false,
+	date_cr: '',
 };
 
 export const activitiesSlice = createSlice({
@@ -20,9 +21,13 @@ export const activitiesSlice = createSlice({
 		getImage: (state, action) => {
 			state.image = action.payload;
 		},
+		getActivities: (state, action) => {
+			state.activities = action.payload;
+		},
 	},
 });
 
-export const { getTitle, getDescription, getImage } = activitiesSlice.actions;
+export const { getTitle, getDescription, getImage, getActivities } =
+	activitiesSlice.actions;
 
 export default activitiesSlice.reducer;
