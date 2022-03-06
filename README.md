@@ -108,3 +108,9 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 	- [PropTypes Doc](https://es.reactjs.org/docs/typechecking-with-proptypes.html)
 
 
+**Componente Skeleton**
+
+Ubicacion: Components/Common/Skeleton
+
+El componente cuenta con una prop "mode" que recibe dos posibles valores: "card" o "comment", para asi poder renderizar alguno de los dos posibles modelos de skeleton.
+
