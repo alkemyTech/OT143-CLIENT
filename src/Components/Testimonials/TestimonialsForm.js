@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -51,11 +51,12 @@ const TestimonialForm = (props) => {
         validationSchema: schema,
         onSubmit: (values) => {
             const body = {
+                id: testimonials.id,
                 name: values.name,
                 description: values.description,
                 image: values.image
             }
-            !testimonials ? axios
+            !props.testimonials ? axios
                 .post(`${baseURL}/testimonials`, body)
                 .then((response) => {
                     console.log(response);
