@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik, Form, useField } from 'formik';
-import Alert from '../Alerts/Alert';
+import { successMsg, warningMsg } from '../Alerts/Alert';
 import * as Yup from 'yup';
 import '../FormStyles.css';
 
@@ -16,8 +16,8 @@ const TextInput = ({ label, foc, ...props }) => {
 		<>
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className="text-input" {...field} {...props} />
-			{meta.touched === true ? (
-				<Alert text={meta.error} alert={meta.touched} />
+			{meta.touched && meta.error ? (
+				<div className="error alert alert-danger">{meta.error}</div>
 			) : null}
 		</>
 	);
@@ -30,8 +30,8 @@ const FileInput = ({ label, ...props }) => {
 		<>
 			<label htmlFor={props.id || props.name}>{label}</label>
 			<input className="file-input" {...field} {...props} />
-			{meta.touched === true ? (
-				<Alert text={meta.error} alert={meta.touched} />
+			{meta.touched && meta.error ? (
+				<div className="error alert alert-danger">{meta.error}</div>
 			) : null}
 		</>
 	);
@@ -58,27 +58,41 @@ const ActivitiesForm = ({ id }) => {
 		editor.setData(info);
 	};
 
-	const createActivity = (values, id) => {
+	const handeSubmit = editor => {
+		editor.setData('');
+	};
+
+	const createActivity = async (values, id) => {
 		if (edicion !== true) {
-			axios.post('http://ongapi.alkemy.org/api/activities', {
-				id: uuid(),
-				title: values.title,
-				description: data,
-				image: values.image,
-				user_id: 0,
-				category_id: 1,
-				created_at: Date(),
-			});
+			try {
+				await axios.post('http://ongapi.alkemy.org/api/activities', {
+					id: uuid(),
+					name: values.title,
+					description: data,
+					image: values.image,
+					user_id: 0,
+					category_id: 1,
+					created_at: Date(),
+				});
+				successMsg('Creacion exitosa');
+			} catch (err) {
+				warningMsg('Creacion fallida');
+			}
 		} else {
-			axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
-				id: id,
-				title: values.title,
-				description: data,
-				image: values.image,
-				user_id: 0,
-				category_id: 1,
-				created_at: Date(),
-			});
+			try {
+				await axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
+					id: id,
+					name: values.title,
+					description: data,
+					image: values.image,
+					user_id: 0,
+					category_id: 1,
+					created_at: Date(),
+				});
+				successMsg('Edicion exitosa');
+			} catch (err) {
+				warningMsg('Edicion fallida');
+			}
 		}
 	};
 
@@ -110,8 +124,10 @@ const ActivitiesForm = ({ id }) => {
 										}
 									}),
 							})}
-							onSubmit={(values, { setSubmitting }) => {
+							onSubmit={(values, { setFieldValue }) => {
 								createActivity(values);
+								setFieldValue('title', '');
+								setFieldValue('image', '');
 							}}>
 							<Form>
 								<TextInput
@@ -134,6 +150,7 @@ const ActivitiesForm = ({ id }) => {
 										placeholder="Descripción"
 										onChange={handleEditor}
 										onReady={handleReady}
+										onSubmit={handeSubmit}
 										className="form-control"
 									/>
 								</div>
