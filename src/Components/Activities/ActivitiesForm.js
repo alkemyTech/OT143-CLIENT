@@ -58,10 +58,6 @@ const ActivitiesForm = ({ id }) => {
 		editor.setData(info);
 	};
 
-	const handeSubmit = editor => {
-		editor.setData('');
-	};
-
 	const createActivity = async (values, id) => {
 		if (edicion !== true) {
 			try {
@@ -126,8 +122,8 @@ const ActivitiesForm = ({ id }) => {
 							})}
 							onSubmit={(values, { setFieldValue }) => {
 								createActivity(values);
-								setFieldValue('title', '');
-								setFieldValue('image', '');
+								// setFieldValue('title', '');
+								// setFieldValue('image', '');
 							}}>
 							<Form>
 								<TextInput
@@ -150,7 +146,6 @@ const ActivitiesForm = ({ id }) => {
 										placeholder="Descripción"
 										onChange={handleEditor}
 										onReady={handleReady}
-										onSubmit={handeSubmit}
 										className="form-control"
 									/>
 								</div>
