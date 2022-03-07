@@ -40,6 +40,8 @@ const ActivitiesForm = ({ id }) => {
 	const info = useSelector(state => state.activities.description);
 	const imagen = useSelector(state => state.activities.image);
 
+	console.log(process.env);
+
 	let timeout = null;
 	let data = '';
 
@@ -57,9 +59,9 @@ const ActivitiesForm = ({ id }) => {
 
 	const createActivity = (values, id) => {
 		if (edicion !== true) {
-			axios.post('http://ongapi.alkemy.org/api/activities', {
+			axios.post(process.env.REACT_APP_ACTIVITIES, {
 				id: uuid(),
-				title: values.title,
+				name: values.title,
 				description: data,
 				image: values.image,
 				user_id: 0,
@@ -67,9 +69,9 @@ const ActivitiesForm = ({ id }) => {
 				created_at: Date(),
 			});
 		} else {
-			axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
+			axios.put(`${process.env.REACT_APP_ACTIVITIES}/${id}`, {
 				id: id,
-				title: values.title,
+				name: values.title,
 				description: data,
 				image: values.image,
 				user_id: 0,
