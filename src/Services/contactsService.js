@@ -1,21 +1,26 @@
 import { Get, GetAll, Put, Post, Delete} from './privateApiService';
 
 export const getContactId = (id)=>{
-    Get(`http://ongapi.alkemy.org/api/contacts`, id);
+    const httpRequest = Get(`http://ongapi.alkemy.org/api/contacts`, id);
+    return httpRequest.then(response => response.data);
 };
 
 export const getContact = ()=>{
-    GetAll(`http://ongapi.alkemy.org/api/contacts`);
+    const httpRequest = GetAll(`http://ongapi.alkemy.org/api/contacts`);
+    return httpRequest.then(response => response.data.data);
 };
 
 export const putContact = (data, id)=>{
-    Put(`http://ongapi.alkemy.org/api/contacts`, data, id);
+    const httpRequest = Put(`http://ongapi.alkemy.org/api/contacts/${id}`, data); 
+    return httpRequest.then(response => response.data); 
 };
 
 export const postContact = (data)=>{
-    Post(`http://ongapi.alkemy.org/api/contacts`, data);
+    const httpRequest = Post(`http://ongapi.alkemy.org/api/contacts`, data);
+    return httpRequest.then(response => response.data);
 };
 
-export const deleteContact = (id)=>{
-    Delete(`http://ongapi.alkemy.org/api/contacts`, id);
+export const deleteContact = id=>{
+    const httpRequest = Delete(`http://ongapi.alkemy.org/api/contacts/${id}`);
+    return httpRequest.then(response => response);
 };

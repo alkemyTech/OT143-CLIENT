@@ -41,9 +41,15 @@ const ContactForm = () => {
                 phone: values.phone,
                 message: values.message
             };
-            postContact(body);
-            alert("Mensaje enviado");
-            resetForm();
+            postContact(body)
+            .then(() => {
+                alert('Mensaje enviado');
+                resetForm();
+            })
+            .catch((error) => {
+                console.log(error);
+                alert('No se puedo enviar el mensaje');
+            });
         }
     })
 
