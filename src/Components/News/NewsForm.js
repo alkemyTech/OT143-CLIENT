@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import newsService from "../../Services/news";
 
 const BASE_URL = "http://ongapi.alkemy.org/api";
 
@@ -28,7 +29,7 @@ const NewsForm = (props) => {
         id: props.news.id,
         title: props.news.name,
         content: props.news.content,
-        category: props.news["category_id"],
+        category: props.news["category_id"] || 0,
         image: props.news.image,
       }
     : {
@@ -50,19 +51,19 @@ const NewsForm = (props) => {
         category_id: parseInt(values.category),
         image: values.image,
       };
-      !news
-        ? axios
-            .post(`${BASE_URL}/news`, body)
-            .then((response) => {
-              console.log(response);
-              alert("Novedad creada con éxito");
-            })
-            .catch((error) => {
-              console.log(error);
-              alert("No se pudo crear la novedad");
-            })
-        : axios
-            .put(`${BASE_URL}/news/${news?.id}`, values)
+      !props.news
+        ? 
+        newsService.create(body)
+        .then((response) => {
+          console.log(response);
+          alert("Novedad creada con éxito");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("No se pudo crear la novedad");
+        })
+          
+        : newsService.update(body, news.id)
             .then((response) => {
               console.log(response);
               alert("Novedad editada con éxito");

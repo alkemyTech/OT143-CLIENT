@@ -12,6 +12,7 @@ const CategoriesForm = () => {
     
     const [dataApi, setDataApi] = useState();
     const FORMAT_SUPPORTED = ['image/jpg', 'image/jpeg', 'image/png'];
+    
     const SchemaValidation = Yup.object().shape({
         name : Yup.string()
             .required("Campo requerido")
@@ -36,7 +37,7 @@ const CategoriesForm = () => {
             .then((res)=>{
                 if(res.data.error){
                     const cargoId = async()=>{
-                        
+
                         //Harcodeo un ID para probar la funcion GetCategorias y mostrar la info
 
                         const dataId =  await GetCategoriesId(`${1606}`)
