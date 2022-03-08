@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from "react-icons/bs";
+import { putUser, deleteUser } from "../../Services/usersService";
 
 const UsersTable = (props) => {
   const { users } = props;
@@ -21,15 +22,17 @@ const UsersTable = (props) => {
             <td>
               <Row className="justify-content-center row-cols-1 row-cols-sm-2">
                 <Col className="mb-2 mb-sm-0">
-                  <Button onClick={() => console.log("Editar")}>
+                  <Button
+                    onClick={putUser(user.id, {
+                      name: user.name,
+                      email: user.email,
+                    })}
+                  >
                     <BsPencilSquare />
                   </Button>
                 </Col>
                 <Col>
-                  <Button
-                    variant="danger"
-                    onClick={() => console.log("Eliminar")}
-                  >
+                  <Button variant="danger" onClick={deleteUser(user.id)}>
                     <BsTrash />
                   </Button>
                 </Col>
