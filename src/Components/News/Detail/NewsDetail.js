@@ -21,6 +21,7 @@ const NewsDetail = () => {
                 console.log("NoId")     
             })
             .catch((err)=>{
+                setIsFetching(false);
                 alert("Error 404 no hay noticias");    
                 console.log(err)
             });
@@ -38,7 +39,6 @@ const NewsDetail = () => {
     <div className="container">
         <div className="row">
             <div className="col">
-                {console.log(news)}
                 <div className="text-center">
 
                 <img  className="img-fluid" src={news.data.image} alt="imagenNews"/>
