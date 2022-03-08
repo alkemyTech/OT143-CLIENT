@@ -11,7 +11,7 @@ const config = {
 
 export const Get = (url, id) => {
 	axios
-		.get(`${baseURL}/${id}`, config)
+		.get(`${baseURL}/${url}/${id ? id : ""}`, config)
 		.then(res => console.log(res))
 		.catch(err => console.log(err));
 };
