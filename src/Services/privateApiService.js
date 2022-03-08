@@ -35,5 +35,5 @@ export const Post = (url, data) => {
 }
 
 export const Delete = (url)=>{
-    axios.delete(url, config)
+    axios.delete(url, config);
 };
