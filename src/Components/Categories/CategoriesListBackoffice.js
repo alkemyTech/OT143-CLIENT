@@ -11,6 +11,7 @@ const CategoriesListBackoffice = () => {
         {id:"2", name:"Categoria2", createdAt:moment()},
         {id:"3", name:"Categoria3", createdAt:moment()},
     ]
+    
     return (<>
     <div className="container mt-2">
         <div className="row">
