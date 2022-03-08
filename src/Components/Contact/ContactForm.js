@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
 import { isSchema } from "yup";
+import { postContact } from "../../Services/contactsService";
 
 const ContactForm = () => {
 
@@ -40,8 +41,15 @@ const ContactForm = () => {
                 phone: values.phone,
                 message: values.message
             };
-            alert("Mensaje enviado");
-            resetForm();
+            postContact(body)
+            .then(() => {
+                alert('Mensaje enviado');
+                resetForm();
+            })
+            .catch((error) => {
+                console.log(error);
+                alert('No se puedo enviar el mensaje');
+            });
         }
     })
 
