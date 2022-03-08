@@ -7,6 +7,7 @@ import { Form, Button, Container } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import newsService from "../../Services/news";
+import { warningMsg } from "../Alerts/Alert.js";
 
 const BASE_URL = "http://ongapi.alkemy.org/api";
 
@@ -26,18 +27,18 @@ const errorsStyles = { color: "red", fontSize: ".875em" };
 const NewsForm = (props) => {
   const news = props.news
     ? {
-        id: props.news.id,
-        title: props.news.name,
-        content: props.news.content,
-        category: props.news["category_id"] || 0,
-        image: props.news.image,
-      }
+      id: props.news.id,
+      title: props.news.name,
+      content: props.news.content,
+      category: props.news["category_id"] || 0,
+      image: props.news.image,
+    }
     : {
-        title: "",
-        content: "",
-        category: 0,
-        image: "",
-      };
+      title: "",
+      content: "",
+      category: 0,
+      image: "",
+    };
 
   const [categories, setCategories] = useState([]);
 
@@ -52,26 +53,26 @@ const NewsForm = (props) => {
         image: values.image,
       };
       !props.news
-        ? 
+        ?
         newsService.create(body)
-        .then((response) => {
-          console.log(response);
-          alert("Novedad creada con éxito");
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("No se pudo crear la novedad");
-        })
-          
+          .then((response) => {
+            console.log(response);
+            alert("Novedad creada con éxito");
+          })
+          .catch((error) => {
+            console.log(error);
+            warningMsg("Error. No se pudo crear la novedad");
+          })
+
         : newsService.update(body, news.id)
-            .then((response) => {
-              console.log(response);
-              alert("Novedad editada con éxito");
-            })
-            .catch((error) => {
-              console.log(error);
-              alert("No se pudo editar la novedad");
-            });
+          .then((response) => {
+            console.log(response);
+            alert("Novedad editada con éxito");
+          })
+          .catch((error) => {
+            console.log(error);
+            warningMsg("Error. No se pudo editar la novedad");
+          });
     },
   });
 
@@ -81,15 +82,14 @@ const NewsForm = (props) => {
       .then((response) => setCategories(response.data.data))
       .catch((error) => {
         console.log(error);
-        alert("No se pudo cargar las categorías");
+        warningMsg("Error. No se pudo cargar las categorías");
       });
   }, []);
 
   return (
     <Container className="mt-3">
-      <h2 className="title-form">{`${
-        !props.news ? "Crear" : "Editar"
-      } novedad`}</h2>
+      <h2 className="title-form">{`${!props.news ? "Crear" : "Editar"
+        } novedad`}</h2>
       <Form className="form-container" onSubmit={formik.handleSubmit}>
         <Form.Group controlId="title" className="mb-2">
           <Form.Label>Título</Form.Label>
