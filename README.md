@@ -134,7 +134,6 @@ import Progress from '../Progress';
 
 ![Progress](https://user-images.githubusercontent.com/68795135/156629350-ff0c5b63-8afa-488d-835b-01aab4437846.png)
 
-<<<<<<< HEAD
 # Alertas
 
 Para las alertas se creo un script el cual se encuentra en /src/components/Alerts/Alert.js
@@ -152,7 +151,7 @@ successMsg('Creacion de usuario confirmada');
 
 warningMsg('La actividad no existe')
 ```
-=======
+
 # Componente Skeleton
 
 Ubicacion: Components/Common/Skeleton
@@ -162,16 +161,9 @@ Componente que crea un placeholder con forma de comment, que se utiliza en reemp
 ## Uso y vista
 
 ```javascript
-import Skeleton from "./Components/Common/Skeleton";
+import Skeleton from './Components/Common/Skeleton';
 
-<Skeleton />
-````
-
+<Skeleton />;
+```
 
 ![Comment](https://ibb.co/VM7bYMg)
-
-
-
-
-
->>>>>>> 9a44d7766b2528ab383af6be7ce6dd85d4a90765
