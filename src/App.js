@@ -29,7 +29,7 @@ import News from './Components/News/News';
 import SlideList from './Components/Slides/SlideList';
 import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
-
+import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
 function App() {
 	return (
 		<>
@@ -46,6 +46,7 @@ function App() {
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
 					<Route path="/backoffice/slides" component={SlideList}></Route>
+					<Route path="/backoffice/categories" component={CategoriesListBackoffice} />
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
 					<Route path="/contacto" component={Contact} />
