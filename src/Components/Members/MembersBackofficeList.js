@@ -20,9 +20,6 @@ const MembersBackofficeList = () => {
     const eliminarClick = ()=>{
         alert("Click Eliminar")
     }
-    const crearClick = (e)=>{
-        alert("Redirige a /backoffice/members/create")
-    };
     return ( <>
     <div className="container mt-2">
         <div className="row">
