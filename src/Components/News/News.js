@@ -9,7 +9,7 @@ const News = (data) => {
 
   return (
     <>
-      <Title text="Novedades" />
+      {/* <Title text="Novedades" />
       <Container className="news-card-container my-5 py-4 px-5" fluid>
         {!cards ? null : cards.map((card) => (
               <Card className="news-card" bg="light">
@@ -20,7 +20,7 @@ const News = (data) => {
                 </Card.Body>
               </Card>
             ))}
-      </Container>
+      </Container> */}
     </>
   );
 };
