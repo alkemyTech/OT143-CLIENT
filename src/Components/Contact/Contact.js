@@ -15,7 +15,11 @@ const Contact = ({ data }) => {
 						<Title text={'Contacto'} />
 						<div className="mt-5">
 							<h4 className="d-flex justify-content-center">
+<<<<<<< HEAD
 						
+=======
+								{/* <b>{about}</b> */}
+>>>>>>> 9a44d7766b2528ab383af6be7ce6dd85d4a90765
 							</h4>
 							<h4 className="mt-5">
 								<b>Ciudad:</b> {city}
