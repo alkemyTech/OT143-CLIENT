@@ -1,6 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { putData, postData } from '../../Services/activitiesExtService';
+import {
+	putData,
+	postData,
+	getAllData,
+} from '../../Services/activitiesExtService';
 import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -55,31 +59,9 @@ const ActivitiesForm = ({ id }) => {
 		editor.setData(info);
 	};
 
-	const createActivity = (values, id) => {
-		if (edicion !== true) {
-			postData({
-				id: uuid(),
-				title: values.title,
-				description: data,
-				image: values.image,
-				user_id: 0,
-				category_id: 1,
-				created_at: Date(),
-			});
-		} else {
-			putData(
-				{
-					id: id,
-					title: values.title,
-					description: data,
-					image: values.image,
-					user_id: 0,
-					category_id: 1,
-					created_at: Date(),
-				},
-				id
-			);
-		}
+	const createActivity = async (values, id) => {
+		const res = await getAllData();
+		console.log(res.data);
 	};
 
 	return (
