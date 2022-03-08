@@ -138,13 +138,16 @@ import Progress from "../Progress";
 
 Ubicacion: Components/Common/Skeleton
 
-Componente que crea un placeholder con forma de card o de comment, que se utiliza en reemplazo de los mismos mientras esperamos la respuesta del servidor.
+Componente que crea un placeholder con forma de comment, que se utiliza en reemplazo de los mismos mientras esperamos la respuesta del servidor.
 
-## Uso
+## Uso y vista
 
-El componente cuenta con una prop "mode" que recibe dos posibles valores: "card" o "comment", para asi poder renderizar alguno de los dos posibles modelos de skeleton.
+```javascript
+import Skeleton from "./Components/Common/Skeleton";
 
-![Card](https://ibb.co/tQv5DnN)
+<Skeleton />
+````
+
 
 ![Comment](https://ibb.co/VM7bYMg)
 
