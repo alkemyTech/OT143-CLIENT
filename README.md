@@ -134,3 +134,24 @@ import Progress from "../Progress";
 ## Vista
 ![Progress](https://user-images.githubusercontent.com/68795135/156629350-ff0c5b63-8afa-488d-835b-01aab4437846.png)
 
+# Componente Skeleton
+
+Ubicacion: Components/Common/Skeleton
+
+Componente que crea un placeholder con forma de comment, que se utiliza en reemplazo de los mismos mientras esperamos la respuesta del servidor.
+
+## Uso y vista
+
+```javascript
+import Skeleton from "./Components/Common/Skeleton";
+
+<Skeleton />
+````
+
+
+![Comment](https://ibb.co/VM7bYMg)
+
+
+
+
+
