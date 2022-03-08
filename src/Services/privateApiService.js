@@ -8,7 +8,7 @@ const config = {
 		Auhtorization: `Bearer ${token}`,
 	},
 };
-
+//Servicio privado GET
 export const GetPrivateService = (url, id) => {
 	axios
 		.get(`${baseURL}/${url}/${id ? id : ""}`, config)
