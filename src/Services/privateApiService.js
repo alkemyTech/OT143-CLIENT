@@ -7,19 +7,21 @@ const getHeaderAuthorization = () => {
 	return token !== null ? headerAuthorization : null;
 };
 
+getHeaderAuthorization();
+
 const config = {
 	headers: {
-		// Group: "143", //Aqui va el ID del equipo!!
-		Authorization: getHeaderAuthorization(),
+		// Group: '143', //Aqui va el ID del equipo!!
+		Auhtorization: headerAuthorization,
 	},
 };
 
-export const GetAll = url => {
-	axios.get(url, config);
+export const GetAll = async url => {
+	await axios.get(url, config);
 };
 
 export const Get = async url => {
-	axios.get(url, config);
+	await axios.get(url, config);
 };
 
 export const Put = (url, data) => {
