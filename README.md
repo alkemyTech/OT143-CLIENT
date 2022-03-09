@@ -151,7 +151,6 @@ successMsg('Creacion de usuario confirmada');
 
 warningMsg('La actividad no existe')
 ```
-
 # Componente Skeleton
 
 Ubicacion: Components/Common/Skeleton
