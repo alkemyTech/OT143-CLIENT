@@ -59,10 +59,8 @@ function App() {
 					<Route path="/create-project" component={ProjectsForm} />
 					<Route path="/school-campaign" component={SchoolCampaign} />
 					<Route path="/toys-campaign" component={ToysCampaign} />
-					<Route path="/Actividades/:id" component={Detail} />
-					<Route path="/actividades">
-						<Title text="Actividades" />
-					</Route>
+					<Route path="/actividades/:id" component={Detail} />
+					<Route path="/actividades" component={ActivitiesList} />
 					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
 					<Route path="/nosotros" component={AboutUs}></Route>
