@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Title from '../Title/Title';
+import {warningMsg} from './../Alerts/Alert';
 
 const Contact = ({ data }) => {
-	const city = data.city;
-	const address = data.address;
-	const phone = data.phone;
-	const email = data.email;
+	console.log(data)
+	// const city = data.city;
+	// const address = data.address;
+	// const phone = data.phone;
+	// const email = data.email;
 
+	//COMENTO DATA PORQUE NO RECIBE DATOS.
+
+	useEffect(()=>{
+		try {
+			console.log(data)
+			//setear la logica y los datos aqui.
+		} catch (error) {
+			error ? warningMsg("Error al cargar la pagina") :
+			console.error(error)
+		}
+	},[])
 	return (
 		<>
 			<div className="container mt-5 mb-5">
@@ -18,16 +31,16 @@ const Contact = ({ data }) => {
 								{/* <b>{about}</b> */}
 							</h4>
 							<h4 className="mt-5">
-								<b>Ciudad:</b> {city}
+								<b>Ciudad:</b> 
 							</h4>
 							<h4 className="mt-3">
-								<b>Direccion:</b> {address}
+								<b>Direccion:</b> 
 							</h4>
 							<h4 className="mt-3">
-								<b>Telefono:</b> {phone}
+								<b>Telefono:</b> 
 							</h4>
 							<h4 className="mt-3 pb-3">
-								<b>Email:</b> {email}
+								<b>Email:</b> 
 							</h4>
 						</div>
 					</div>
