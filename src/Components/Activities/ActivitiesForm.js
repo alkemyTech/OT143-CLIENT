@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import { putData, postData } from '../../Services/activitiesService';
 import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -43,6 +43,8 @@ const ActivitiesForm = ({ id }) => {
 	const info = useSelector(state => state.activities.description);
 	const imagen = useSelector(state => state.activities.image);
 
+	console.log(process.env);
+
 	let timeout = null;
 	let data = '';
 
@@ -58,10 +60,10 @@ const ActivitiesForm = ({ id }) => {
 		editor.setData(info);
 	};
 
-	const createActivity = async (values, id) => {
+	const createActivity = (values, id) => {
 		if (edicion !== true) {
 			try {
-				await axios.post('http://ongapi.alkemy.org/api/activities', {
+				postData({
 					id: uuid(),
 					name: values.title,
 					description: data,
@@ -76,15 +78,18 @@ const ActivitiesForm = ({ id }) => {
 			}
 		} else {
 			try {
-				await axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
-					id: id,
-					name: values.title,
-					description: data,
-					image: values.image,
-					user_id: 0,
-					category_id: 1,
-					created_at: Date(),
-				});
+				putData(
+					{
+						id: id,
+						name: values.title,
+						description: data,
+						image: values.image,
+						user_id: 0,
+						category_id: 1,
+						created_at: Date(),
+					},
+					id
+				);
 				successMsg('Edicion exitosa');
 			} catch (err) {
 				warningMsg('Edicion fallida');
