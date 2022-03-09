@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getHeaderAuthorization = () => {
+const getHeaderAuthorization = ()=>{
 	const token = localStorage.getItem('token');
 	const headerAuthorization = `Bearer ${token}`;
 
@@ -14,8 +14,8 @@ const config = {
 	},
 };
 
-export const GetAll = url => {
-	axios.get(url, config);
+export const GetAll =  url => {
+    axios.get(url, config);
 };
 
 export const Get = async url => {
