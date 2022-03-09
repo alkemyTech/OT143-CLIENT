@@ -16,10 +16,10 @@ export const Get = () => {
 		.catch(err => console.log(err));
 };
 
-export const Put = (url, data, id) => {
+export const Put = (url, data) => {
 	axios.put(url, data, config);
 };
 
-export const Patch = (url, data, id) => {
+export const Patch = (url, data) => {
 	axios.patch(url, data, config);
 };
