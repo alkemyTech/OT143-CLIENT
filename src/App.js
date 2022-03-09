@@ -30,6 +30,8 @@ import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlideList from './Components/Slides/SlideList';
 import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
+import Donacion from './Components/Donations/Donacion';
+import Gracias from './Components/Donations/Gracias';
 
 function App() {
 	return (
@@ -49,6 +51,8 @@ function App() {
 					<Route path="/backoffice/slides" component={SlideList}></Route>
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
+					<Route path="/donations" component={Donacion} />
+					<Route path="/gracias" component={Gracias} />
 					<Route path="/contacto" component={Contact} />
 					<Route path="/create-activity" component={ActivitiesForm} />
 					<Route path="/create-category" component={CategoriesForm} />
