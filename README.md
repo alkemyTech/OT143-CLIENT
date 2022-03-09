@@ -134,6 +134,24 @@ import Progress from '../Progress';
 
 ![Progress](https://user-images.githubusercontent.com/68795135/156629350-ff0c5b63-8afa-488d-835b-01aab4437846.png)
 
+# Alertas
+
+Para las alertas se creo un script el cual se encuentra en /src/components/Alerts/Alert.js
+
+De este archivo se pueden importar los metodos successMsg y warningMsg, que sirven para mostrar al usario mensajes como respuesta a las acciones
+que esta ejectuando ya sea satisfactorio o no respectivamente. Ambos metodos reciben un texto en forma de string para mostrar al momento de ser renderizado.
+
+_Ejemplos_
+
+```javascript
+
+import {successMsg, warningMsg} from UBICACION_DE_ARCHIVO
+
+successMsg('Creacion de usuario confirmada');
+
+warningMsg('La actividad no existe')
+```
+
 # Componente Skeleton
 
 Ubicacion: Components/Common/Skeleton
