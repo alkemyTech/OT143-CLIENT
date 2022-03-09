@@ -33,16 +33,16 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 **1. Regular Branches**
 
- - Development : Dedicado al uso para desarrollo donde van a converger los diferentes features mediante *Pull Requests*.
- - Main
+- Development : Dedicado al uso para desarrollo donde van a converger los diferentes features mediante _Pull Requests_.
+- Main
 
-**2.  Temporary Branches**
+**2. Temporary Branches**
 
 - Feature Branches : Utilizado para un branch relacionado a una tarea la cual requiere agregar un feature a nuestra aplicación
-- WIP Branches	: (Work In Progress) Se utiliza para casos particulares en los que se tenga que subir algun feature que aun se encuentra en progreso.
+- WIP Branches : (Work In Progress) Se utiliza para casos particulares en los que se tenga que subir algun feature que aun se encuentra en progreso.
 - Bug Fix : Utilizado para correccón de errores.
 
-**3.  Naming Convention (Branches)**
+**3. Naming Convention (Branches)**
 
 La convención de nombre de los branches a utilizar es la siguiente:
 
@@ -50,15 +50,15 @@ La convención de nombre de los branches a utilizar es la siguiente:
 
 1. Definicion de requerimiento (feature/bugfix/WIP), fijarse si la tarea a tomar corresponde a una nueva funcionalidad o agregado a la aplicacion o si es para arreglar algun error, etc.
 2. Nombre de proyecto (OT143)
-3. Numero de tarea/ticket/peticion de *Jira*.
-4. Nombre de tarea/ticket/peticion de *Jira*..
+3. Numero de tarea/ticket/peticion de _Jira_.
+4. Nombre de tarea/ticket/peticion de _Jira_..
 
-Ejemplo: 
+Ejemplo:
 
 Ticket de Jira --> https://alkemy-labs.atlassian.net/browse/OT143-35
 Nombre del branch a crear --> `feature-OT143-33-Formulario-Edicion-Creacion-Usuarios`
 
-**4.  Naming Convention (Commits)**
+**4. Naming Convention (Commits)**
 
 La convención de nombre de los commits a utilizar es la siguiente:
 
@@ -76,63 +76,81 @@ Al finalizar una tarea se debe realizar un Pull Request (PR) para poder mergear 
 3. Agregar en el titulo del PR el titulo de la tarea de Jira.
 4. En el campo descripción agregar el link a la tarea en Jira junto con una descripción de lo que se hizo y una evidencia (Puede ser una imagen o un gif mostrando la nueva funcionalidad)
 
-	*Ejemplo Markdown de campo descripción: *
+   _Ejemplo Markdown de campo descripción: _
 
-| **Jira** | 
-| :-----------: | 
-| [35 - Formulario Edición / Creación de Miembros](https://alkemy-labs.atlassian.net/browse/OT143-35)      | 
+|                                              **Jira**                                               |
+| :-------------------------------------------------------------------------------------------------: |
+| [35 - Formulario Edición / Creación de Miembros](https://alkemy-labs.atlassian.net/browse/OT143-35) |
 
-| Descripcion     | 
-| :-----------: | 
-| * Creacion de formulario reutilizable para editar o crear miembros   | 
+|                             Descripcion                             |
+| :-----------------------------------------------------------------: |
+| \* Creacion de formulario reutilizable para editar o crear miembros |
 
-| **Desarrollo** | 
-| :-----------: | 
+|                        **Desarrollo**                         |
+| :-----------------------------------------------------------: |
 | ![image](/uploads/e6a46eff01e09be564e98f553388c856/image.png) |
 | ![image](/uploads/594368214ff44e7f6605ec2799ee9d7d/image.png) |
-	
+
 5. Una vez que el PR fue creado se debe cambiar el estado de la tarea a la columna de "Code Review" y adjuntar en un comentario de la tarea el link hacia el PR para que se valide que el codigo este correcto y que se cumpla el resultado esperado de la tarea, para luego aprobar el PR y actualizar development.
 6. En caso de que el PR tenga cosas para corregir se agregara un comentario en el mismo indicando las falencias.
 
 **Links Utilies**
 
 1. Diseño:
-	- [Figma Caso ONG](https://www.figma.com/file/sjpq9FnkPbPNO3cnqkiXGM/Caso-ONG-Alkemy?node-id=0%3A1) 
+   - [Figma Caso ONG](https://www.figma.com/file/sjpq9FnkPbPNO3cnqkiXGM/Caso-ONG-Alkemy?node-id=0%3A1)
 2. Repositorios:
-	- [OT143 ONG](https://github.com/alkemyTech/OT143-CLIENT)
+   - [OT143 ONG](https://github.com/alkemyTech/OT143-CLIENT)
 3. Tickets:
-	- [Jira](http://redmine.yvera.gob.ar/)
-	- [Jira](https://alkemy-labs.atlassian.net/jira/software/c/projects/OT143/boards/216/)
+   - [Jira](http://redmine.yvera.gob.ar/)
+   - [Jira](https://alkemy-labs.atlassian.net/jira/software/c/projects/OT143/boards/216/)
 4. Otros:
-	- [Material UI Doc](https://mui.com/)
-	- [PropTypes Doc](https://es.reactjs.org/docs/typechecking-with-proptypes.html)
+   - [Material UI Doc](https://mui.com/)
+   - [PropTypes Doc](https://es.reactjs.org/docs/typechecking-with-proptypes.html)
 
 # Componente Progress
 
 Progress es un componente que renderiza una barra de progreso para mostrar un feedback al usuario mientras se esté cargando un recurso.
 
 ```javascript
-import React from "react";
-import { ProgressBar } from "react-bootstrap";
+import React from 'react';
+import { ProgressBar } from 'react-bootstrap';
 
-const Progress = ({percentage}) => {
-  return (
-   <ProgressBar max={100} now={percentage} label={`${percentage}%`}/>
-  )
-}
+const Progress = ({ percentage }) => {
+	return <ProgressBar max={100} now={percentage} label={`${percentage}%`} />;
+};
 
 export default Progress;
-````
+```
 
 ## Uso
 
 ```javascript
-import Progress from "../Progress";
+import Progress from '../Progress';
 
-<Progress percentage={50} />
-````
+<Progress percentage={50} />;
+```
+
 ## Vista
+
 ![Progress](https://user-images.githubusercontent.com/68795135/156629350-ff0c5b63-8afa-488d-835b-01aab4437846.png)
+
+# Alertas
+
+Para las alertas se creo un script el cual se encuentra en /src/components/Alerts/Alert.js
+
+De este archivo se pueden importar los metodos successMsg y warningMsg, que sirven para mostrar al usario mensajes como respuesta a las acciones
+que esta ejectuando ya sea satisfactorio o no respectivamente. Ambos metodos reciben un texto en forma de string para mostrar al momento de ser renderizado.
+
+_Ejemplos_
+
+```javascript
+
+import {successMsg, warningMsg} from UBICACION_DE_ARCHIVO
+
+successMsg('Creacion de usuario confirmada');
+
+warningMsg('La actividad no existe')
+```
 
 # Componente Skeleton
 
@@ -143,15 +161,9 @@ Componente que crea un placeholder con forma de comment, que se utiliza en reemp
 ## Uso y vista
 
 ```javascript
-import Skeleton from "./Components/Common/Skeleton";
+import Skeleton from './Components/Common/Skeleton';
 
-<Skeleton />
-````
-
+<Skeleton />;
+```
 
 ![Comment](https://ibb.co/VM7bYMg)
-
-
-
-
-
