@@ -1,6 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { emptyField } from '../../features/Slides/slidesSlice';
 import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -128,11 +129,30 @@ const SlidesForm = ({ id }) => {
 							initialValues={{
 								name: titulo,
 								image: imagen,
+								order: '',
 							}}
 							validationSchema={Yup.object({
 								name: Yup.string().required('Ingresar titulo'),
 								description: Yup.string(),
-								order: Yup.string(),
+								order: Yup.string()
+									.oneOf(
+										[
+											'1',
+											'2',
+											'3',
+											'4',
+											'5',
+											'6',
+											'7',
+											'8',
+											'9',
+											'10',
+											'11',
+											'12',
+										],
+										'Seleccionar orden'
+									)
+									.required('Seleccionar orden'),
 								image: Yup.mixed()
 									.required('Ingresar imagen')
 									.test('fileType', 'Unsupported File Format', value => {
@@ -175,11 +195,21 @@ const SlidesForm = ({ id }) => {
 										placeholder="Descripción"
 										onChange={handleEditor}
 										onReady={handleReady}
-										className="form-control"
+										onBlur={handleBlur}
+										className="form-control "
 									/>
+									{vacio === true ? (
+										<div className="error alert alert-danger mt-3">
+											Completar descripcion
+										</div>
+									) : null}
 								</div>
 
-								<OrderSelect>
+								<OrderSelect
+									label="Orden"
+									name="order"
+									className="form-control mt-3 mb-3">
+									<option value="">Seleccionar orden</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
