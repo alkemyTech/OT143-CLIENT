@@ -30,6 +30,7 @@ import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlideList from './Components/Slides/SlideList';
 import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
+import MembersBackofficeList from './Components/Members/MembersBackofficeList';
 
 function App() {
 	return (
@@ -47,6 +48,7 @@ function App() {
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
 					<Route path="/backoffice/slides" component={SlideList}></Route>
+					<Route path="/backoffice/members" component={MembersBackofficeList} />
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
 					<Route path="/contacto" component={Contact} />
