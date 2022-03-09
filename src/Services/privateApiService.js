@@ -4,7 +4,7 @@ const token = window.localStorage.getItem('token');
 
 const config = {
 	headers: {
-		Group: '143', //Aqui va el ID del equipo!!
+		// Group: '143', //Aqui va el ID del equipo!!
 		Auhtorization: `Bearer ${token}`,
 	},
 };
@@ -13,15 +13,15 @@ export const GetAll = async url => {
 	await axios.get(url, config);
 };
 
-export const Get = async (url, id) => {
+export const Get = async url => {
 	await axios.get(url, config);
 };
 
-export const Put = (url, data, id) => {
+export const Put = (url, data) => {
 	axios.put(url, data, config);
 };
 
-export const Patch = (url, data, id) => {
+export const Patch = (url, data) => {
 	axios.patch(url, data, config);
 };
 
