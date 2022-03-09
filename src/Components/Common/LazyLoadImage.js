@@ -1,7 +1,9 @@
 import { useRef, useEffect, useState } from "react";
+import { Spinner } from 'react-bootstrap';
 
 const LazyLoadImage = ({ src }) => {
   const [isInViewport, setIsInViewport] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const root = useRef();
 
@@ -11,7 +13,7 @@ const LazyLoadImage = ({ src }) => {
     obs.observe(root.current);
 
     function onIntersection(entries) {
-      const { isIntersecting }  = entries[0];
+      const { isIntersecting } = entries[0];
 
       if (isIntersecting) {
         obs.disconnect();
@@ -21,9 +23,20 @@ const LazyLoadImage = ({ src }) => {
     }
   }, []);
 
+  const onLoad = () => {
+    setIsLoading((prev) => !prev);
+  };
+
+  const stylePlaceholder = {
+    display: isLoading ? "block" : "none",
+  };
+
   return (
-    <div style={{ minHeight: "150px" }} ref={root}>
-        <img src={isInViewport ? src : null}  />
+    <div className="img-container" style={{ minHeight: "200px" }} ref={root}>
+      <Spinner style={stylePlaceholder} animation="grow" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+      <img src={isInViewport ? src : null} onLoad={onLoad} />
     </div>
   );
 };
