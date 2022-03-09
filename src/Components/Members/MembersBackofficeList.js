@@ -62,8 +62,6 @@ const MembersBackofficeList = () => {
                     ))}                       
                     </tbody>
                 </Table>
-
-
             </div>
         </div>
     </div>
