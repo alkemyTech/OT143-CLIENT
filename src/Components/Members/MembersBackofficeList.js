@@ -20,9 +20,6 @@ const MembersBackofficeList = () => {
     const eliminarClick = ()=>{
         alert("Click Eliminar")
     }
-    const crearClick = (e)=>{
-        alert("Redirige a /backoffice/members/create")
-    };
     return ( <>
     <div className="container mt-2">
         <div className="row">
@@ -30,7 +27,7 @@ const MembersBackofficeList = () => {
                 <h2 className='text-center'>Miembros</h2>
                 <div className="col text-end mb-2">
                     <Button className='btn-success'>
-                   <BsPlusCircle  />  <Link to="/backoffice/members/create" /> Crear
+                   <BsPlusCircle  />  <Link to="/backoffice/members/create" onClick={()=>alert("redirige")} > Crear  </Link>
                     </Button>
                 </div>
                 <Table className=' table-bordered table-hover'>
@@ -65,8 +62,6 @@ const MembersBackofficeList = () => {
                     ))}                       
                     </tbody>
                 </Table>
-
-
             </div>
         </div>
     </div>
