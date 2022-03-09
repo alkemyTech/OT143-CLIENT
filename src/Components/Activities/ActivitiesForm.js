@@ -1,10 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import {
-	putData,
-	postData,
-	getAllData,
-} from '../../Services/activitiesExtService';
+import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
