@@ -9,7 +9,7 @@ export const getAllData = () => {
 };
 
 export const putData = (data, id) => {
-	Put(`http://ongapi.alkemy.org/api/activities/${id}`, data, id);
+	Put(`http://ongapi.alkemy.org/api/activities/${id}`, data);
 };
 
 export const postData = data => {
@@ -17,7 +17,7 @@ export const postData = data => {
 };
 
 export const patchData = (data, id) => {
-	Patch(`http://ongapi.alkemy.org/api/activities/${id}`, data, id);
+	Patch(`http://ongapi.alkemy.org/api/activities/${id}`, data);
 };
 
 export const deleteData = id => {
