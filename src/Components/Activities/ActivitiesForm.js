@@ -1,32 +1,181 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { putData, postData } from '../../Services/activitiesService';
+import { v4 as uuid } from 'uuid';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Formik, Form, useField } from 'formik';
+import { successMsg, warningMsg } from '../Alerts/Alert';
+import * as Yup from 'yup';
 import '../FormStyles.css';
 
-const ActivitiesForm = () => {
-    const [initialValues, setInitialValues] = useState({
-        name: '',
-        description: ''
-    });
+const TextInput = ({ label, foc, ...props }) => {
+	const [field, meta] = useField(props);
 
-    const handleChange = (e) => {
-        if(e.target.name === 'name'){
-            setInitialValues({...initialValues, name: e.target.value})
-        } if(e.target.name === 'description'){
-            setInitialValues({...initialValues, description: e.target.value})
-        }
-    }
+	return (
+		<>
+			<label htmlFor={props.id || props.name}>{label}</label>
+			<input className="text-input" {...field} {...props} />
+			{meta.touched && meta.error ? (
+				<div className="error alert alert-danger">{meta.error}</div>
+			) : null}
+		</>
+	);
+};
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(initialValues);
-    }
-    
-    return (
-        <form className="form-container" onSubmit={handleSubmit}>
-            <input className="input-field" type="text" name="name" value={initialValues.name} onChange={handleChange} placeholder="Activity Title"></input>
-            <input className="input-field" type="text" name="description" value={initialValues.description} onChange={handleChange} placeholder="Write some activity description"></input>
-            <button className="submit-btn" type="submit">Send</button>
-        </form>
-    );
-}
- 
+const FileInput = ({ label, ...props }) => {
+	const [field, meta] = useField(props);
+
+	return (
+		<>
+			<label htmlFor={props.id || props.name}>{label}</label>
+			<input className="file-input" {...field} {...props} />
+			{meta.touched && meta.error ? (
+				<div className="error alert alert-danger">{meta.error}</div>
+			) : null}
+		</>
+	);
+};
+
+const ActivitiesForm = ({ id }) => {
+	const edicion = useSelector(state => state.activities.edit);
+	const titulo = useSelector(state => state.activities.title);
+	const info = useSelector(state => state.activities.description);
+	const imagen = useSelector(state => state.activities.image);
+
+	console.log(process.env);
+
+	let timeout = null;
+	let data = '';
+
+	const handleEditor = (e, editor) => {
+		const desc = editor.getData();
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			data = desc;
+		}, 1000);
+	};
+
+	const handleReady = editor => {
+		editor.setData(info);
+	};
+
+	const createActivity = (values, id) => {
+		if (edicion !== true) {
+			try {
+				postData({
+					id: uuid(),
+					name: values.title,
+					description: data,
+					image: values.image,
+					user_id: 0,
+					category_id: 1,
+					created_at: Date(),
+				});
+				successMsg('Creacion exitosa');
+			} catch (err) {
+				warningMsg('Creacion fallida');
+			}
+		} else {
+			try {
+				putData(
+					{
+						id: id,
+						name: values.title,
+						description: data,
+						image: values.image,
+						user_id: 0,
+						category_id: 1,
+						created_at: Date(),
+					},
+					id
+				);
+				successMsg('Edicion exitosa');
+			} catch (err) {
+				warningMsg('Edicion fallida');
+			}
+		}
+	};
+
+	return (
+		<>
+			<div className="container">
+				<div className="row">
+					<div className="card col-6 offset-3 mt-5 pt-3">
+						<Formik
+							initialValues={{
+								title: titulo,
+								image: imagen,
+							}}
+							validationSchema={Yup.object({
+								title: Yup.string().required('Ingresar titulo'),
+								image: Yup.mixed()
+									.required('Ingresar imagen')
+									.test('fileType', 'Unsupported File Format', value => {
+										if (value) {
+											if (value.includes('png')) {
+												return true;
+											} else if (value.includes('jpg')) {
+												return true;
+											} else if (value.includes('jpeg')) {
+												return true;
+											} else {
+												return false;
+											}
+										}
+									}),
+							})}
+							onSubmit={(values, { setFieldValue }) => {
+								createActivity(values);
+								// setFieldValue('title', '');
+								// setFieldValue('image', '');
+							}}>
+							<Form>
+								<TextInput
+									label="Titulo"
+									name="title"
+									type="text"
+									className="form-control mt-3 mb-3"
+								/>
+								<div className="mb-3">
+									<div className="mb-3">
+										<span>Descripción</span>
+									</div>
+
+									<CKEditor
+										label="Descripción"
+										editor={ClassicEditor}
+										data=""
+										name="description"
+										type="text"
+										placeholder="Descripción"
+										onChange={handleEditor}
+										onReady={handleReady}
+										className="form-control"
+									/>
+								</div>
+
+								<FileInput
+									label="Imagen"
+									name="image"
+									type="file"
+									placeholder="Imagen"
+									accept=".jpg, .jpeg, .png"
+									className="form-control mt-3 mb-3"
+								/>
+								<img src={info} alt="" />
+								<button
+									type="submit"
+									className="form-control btn btn-primary mt-3 mb-3">
+									{edicion === false ? 'Submit' : 'Edit'}
+								</button>
+							</Form>
+						</Formik>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
+
 export default ActivitiesForm;
