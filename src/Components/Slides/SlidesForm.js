@@ -51,10 +51,11 @@ const OrderSelect = ({ label, ...props }) => {
 };
 
 const SlidesForm = ({ id }) => {
-	const edicion = useSelector(state => state.slides.edit);
 	const titulo = useSelector(state => state.slides.title);
 	const info = useSelector(state => state.slides.description);
 	const imagen = useSelector(state => state.slides.image);
+	const edicion = useSelector(state => state.slides.edit);
+	const vacio = useSelector(state => state.slides.empty);
 
 	let timeout = null;
 	let data = '';
@@ -63,12 +64,25 @@ const SlidesForm = ({ id }) => {
 		const desc = editor.getData();
 		clearTimeout(timeout);
 		timeout = setTimeout(() => {
+			if (desc !== '') {
+				dispatch(emptyField(false));
+			}
 			data = desc;
 		}, 1000);
 	};
 
 	const handleReady = editor => {
 		editor.setData(info);
+	};
+
+	const dispatch = useDispatch();
+
+	const handleBlur = (e, editor) => {
+		if (editor.getData() !== '') {
+			dispatch(emptyField(false));
+		} else {
+			dispatch(emptyField(true));
+		}
 	};
 
 	const createSlide = async (values, id) => {
