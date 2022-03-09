@@ -9,11 +9,13 @@ import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik, Form, useField } from 'formik';
+import { successMsg, warningMsg } from '../Alerts/Alert';
 import * as Yup from 'yup';
 import '../FormStyles.css';
 
-const TextInput = ({ label, ...props }) => {
+const TextInput = ({ label, foc, ...props }) => {
 	const [field, meta] = useField(props);
+
 	return (
 		<>
 			<label htmlFor={props.id || props.name}>{label}</label>
@@ -27,6 +29,7 @@ const TextInput = ({ label, ...props }) => {
 
 const FileInput = ({ label, ...props }) => {
 	const [field, meta] = useField(props);
+
 	return (
 		<>
 			<label htmlFor={props.id || props.name}>{label}</label>
@@ -60,8 +63,37 @@ const ActivitiesForm = ({ id }) => {
 	};
 
 	const createActivity = async (values, id) => {
-		const res = await getAllData();
-		console.log(res.data);
+		if (edicion !== true) {
+			try {
+				await axios.post('http://ongapi.alkemy.org/api/activities', {
+					id: uuid(),
+					name: values.title,
+					description: data,
+					image: values.image,
+					user_id: 0,
+					category_id: 1,
+					created_at: Date(),
+				});
+				successMsg('Creacion exitosa');
+			} catch (err) {
+				warningMsg('Creacion fallida');
+			}
+		} else {
+			try {
+				await axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
+					id: id,
+					name: values.title,
+					description: data,
+					image: values.image,
+					user_id: 0,
+					category_id: 1,
+					created_at: Date(),
+				});
+				successMsg('Edicion exitosa');
+			} catch (err) {
+				warningMsg('Edicion fallida');
+			}
+		}
 	};
 
 	return (
@@ -75,9 +107,9 @@ const ActivitiesForm = ({ id }) => {
 								image: imagen,
 							}}
 							validationSchema={Yup.object({
-								title: Yup.string().required('Required'),
+								title: Yup.string().required('Ingresar titulo'),
 								image: Yup.mixed()
-									.required('Required')
+									.required('Ingresar imagen')
 									.test('fileType', 'Unsupported File Format', value => {
 										if (value) {
 											if (value.includes('png')) {
@@ -92,15 +124,16 @@ const ActivitiesForm = ({ id }) => {
 										}
 									}),
 							})}
-							onSubmit={(values, { setSubmitting }) => {
+							onSubmit={(values, { setFieldValue }) => {
 								createActivity(values);
+								// setFieldValue('title', '');
+								// setFieldValue('image', '');
 							}}>
 							<Form>
 								<TextInput
 									label="Titulo"
 									name="title"
 									type="text"
-									placeholder="Titulo"
 									className="form-control mt-3 mb-3"
 								/>
 								<div className="mb-3">
