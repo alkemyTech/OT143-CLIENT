@@ -1,6 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import {
+	putData,
+	postData,
+	getAllData,
+} from '../../Services/activitiesExtService';
 import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -42,6 +46,8 @@ const ActivitiesForm = ({ id }) => {
 	const titulo = useSelector(state => state.activities.title);
 	const info = useSelector(state => state.activities.description);
 	const imagen = useSelector(state => state.activities.image);
+
+	console.log(process.env);
 
 	let timeout = null;
 	let data = '';
