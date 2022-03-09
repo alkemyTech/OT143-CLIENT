@@ -4,6 +4,7 @@ import * as Yup from 'yup';// Poner dentro de la carpeta Service o hacerlo local
 import '../FormStyles.css';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor  from '@ckeditor/ckeditor5-build-classic';
+import { create } from '../../Services/membersService';
 
 const MembersEdit = () => {
     const FORMAT_SUPPORTED = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
@@ -31,14 +32,25 @@ const MembersEdit = () => {
         validationSchema :  SchemaValidation ,
 
         onSubmit(values){
-            values.preventDefault();
-           console.log(values)
-           values ? alert("Validacion aceptada") : alert("error en los datos")
-
+            const body = {
+                name: values.name,
+                description: values.description,
+                link: values.link,
+                image: values.image,
+            };
+            create(body)
+            .then((response) => {
+                console.log(response);
+                alert("Se ha realizado con éxito");
+              })
+            .catch((error) => {
+                console.log(error);
+                alert("Ha ocurrido un problema, no se pudo realizar esta acción")
+            });
         }
     });
     return ( <>
-        <form className="form-container"  onSubmit={editFormik.handleSubmit} noValidate >
+        <form className="form-container"  onSubmit={editFormik.handleSubmit}>
             <span className='title-form'>Nombre</span>
             <input className="input-field"
              value={editFormik.values.name}
