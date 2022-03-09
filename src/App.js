@@ -26,6 +26,7 @@ import OrganizationForm from './Components/Organization/OrganizationForm';
 import NewsBackofficeList from './Components/News/NewsBackofficeList';
 import ContactForm from './Components/Contact/ContactForm';
 import News from './Components/News/News';
+import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlideList from './Components/Slides/SlideList';
 import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
@@ -62,6 +63,7 @@ function App() {
 					<Route path="/actividades">
 						<Title text="Actividades" />
 					</Route>
+					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
 					<Route path="/nosotros" component={AboutUs}></Route>
 				</Switch>
