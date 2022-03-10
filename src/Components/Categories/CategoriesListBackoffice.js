@@ -3,7 +3,7 @@ import {Button,Table} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from 'react-router-dom';
 import {BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
-import moment from 'moment'
+import moment from 'moment';
 
 const CategoriesListBackoffice = () => {
     const listCategorias =[
@@ -11,6 +11,7 @@ const CategoriesListBackoffice = () => {
         {id:"2", name:"Categoria2", createdAt:moment()},
         {id:"3", name:"Categoria3", createdAt:moment()},
     ]
+    
     return (<>
     <div className="container mt-2">
         <div className="row">

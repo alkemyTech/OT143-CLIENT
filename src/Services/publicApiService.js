@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+<<<<<<< HEAD
 
 // const config = {
 //     headers: {
@@ -7,6 +8,8 @@ import axios from 'axios';
 //     }
 // }
 
+=======
+>>>>>>> 73bacd4b91a7a2353977158f54b324ec764ae05f
 const baseURL = "http://ongapi.alkemy.org/api"
 //Guardar en una variable de entorno BaseUrl
 export const Get = async (url,id) => {
@@ -19,3 +22,14 @@ export const Get = async (url,id) => {
     
 };
 
+<<<<<<< HEAD
+=======
+
+export const Post = (url, body) => {
+    axios.post(url, body)
+    .catch(err=>console.log(err))
+}
+
+export default Get
+
+>>>>>>> 73bacd4b91a7a2353977158f54b324ec764ae05f

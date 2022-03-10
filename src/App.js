@@ -26,9 +26,12 @@ import OrganizationForm from './Components/Organization/OrganizationForm';
 import NewsBackofficeList from './Components/News/NewsBackofficeList';
 import ContactForm from './Components/Contact/ContactForm';
 import News from './Components/News/News';
+import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlideList from './Components/Slides/SlideList';
 import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
+import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
+import MembersBackofficeList from './Components/Members/MembersBackofficeList';
 
 function App() {
 	return (
@@ -46,6 +49,8 @@ function App() {
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
 					<Route path="/backoffice/slides" component={SlideList}></Route>
+					<Route path="/backoffice/categories" component={CategoriesListBackoffice} />
+					<Route path="/backoffice/members" component={MembersBackofficeList} />
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
 					<Route path="/contacto" component={Contact} />
@@ -58,10 +63,9 @@ function App() {
 					<Route path="/create-project" component={ProjectsForm} />
 					<Route path="/school-campaign" component={SchoolCampaign} />
 					<Route path="/toys-campaign" component={ToysCampaign} />
-					<Route path="/Actividades/:id" component={Detail} />
-					<Route path="/actividades">
-						<Title text="Actividades" />
-					</Route>
+					<Route path="/actividades/:id" component={Detail} />
+					<Route path="/actividades" component={ActivitiesList} />
+					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
 					<Route path="/nosotros" component={AboutUs}></Route>
 				</Switch>
