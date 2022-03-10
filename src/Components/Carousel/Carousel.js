@@ -8,13 +8,12 @@ import "swiper/modules/pagination/pagination.scss";
 
 import './styles.css';
 import axios from 'axios';
-const baseURL = "http://ongapi.alkemy.org/api/slides";
 
 const Carousel = () => {
     const [slides, setSlides] = useState();
 
     useEffect(() => {
-        axios.get(baseURL).then((response) => {
+        axios.get(process.env.REACT_APP_SLIDES_ENDPOINT).then((response) => {
             setSlides(response.data.data);
         })
     }, [])
