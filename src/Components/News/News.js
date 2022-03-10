@@ -1,8 +1,9 @@
 import Title from "../Title/Title";
 import Container from "react-bootstrap/Container";
-import Cards from '../Common/Card';
+import Cards from '../Common/Cards';
 import { useEffect, useState } from 'react';
 import newsService from "../../Services/news";
+
 
 const News = () => {
 
@@ -18,7 +19,7 @@ const News = () => {
       <Title text="Novedades" />
       <Container className="news-card-container my-5 py-4 px-5" fluid>
         {data && data.map((data) => (
-          <Cards image={data.image} name={data.name} content={data.content} />
+          <Cards image={data.image} title={data.name} content={data.content} />
         ))}
       </Container>
     </>
