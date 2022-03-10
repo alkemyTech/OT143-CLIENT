@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition';
 import ActivitiesForm from './Components/Activities/ActivitiesForm';
 import CategoriesForm from './Components/Categories/CategoriesForm';
 import NewsForm from './Components/News/NewsForm';
@@ -37,7 +38,11 @@ function App() {
 	return (
 		<>
 			<BrowserRouter>
-				<Switch>
+				<AnimatedSwitch
+					atEnter={{ opacity: 0 }}
+					atLeave={{ opacity: 0 }}
+					atActive={{ opacity: 1 }}
+					className="switch-wrapper">
 					<Route path="/" exact component={Home} />
 					<Route path="/backoffice/users" component={UsersList} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
@@ -49,7 +54,10 @@ function App() {
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
 					<Route path="/backoffice/slides" component={SlideList}></Route>
-					<Route path="/backoffice/categories" component={CategoriesListBackoffice} />
+					<Route
+						path="/backoffice/categories"
+						component={CategoriesListBackoffice}
+					/>
 					<Route path="/backoffice/members" component={MembersBackofficeList} />
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
@@ -68,7 +76,7 @@ function App() {
 					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
 					<Route path="/nosotros" component={AboutUs}></Route>
-				</Switch>
+				</AnimatedSwitch>
 			</BrowserRouter>
 			<div className="mb-5">
 				{!localStorage.getItem('Newsletter') && <NewsletterForm />}
