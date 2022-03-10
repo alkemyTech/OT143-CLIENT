@@ -43,8 +43,6 @@ const ActivitiesForm = ({ id }) => {
 	const info = useSelector(state => state.activities.description);
 	const imagen = useSelector(state => state.activities.image);
 
-	console.log(process.env);
-
 	let timeout = null;
 	let data = '';
 

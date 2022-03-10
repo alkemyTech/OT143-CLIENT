@@ -32,6 +32,8 @@ import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
 import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
 import MembersBackofficeList from './Components/Members/MembersBackofficeList';
+import RegisterForm from './Components/Auth/RegisterForm';
+import LoginForm from './Components/Auth/LoginForm';
 
 function App() {
 	return (
@@ -49,7 +51,10 @@ function App() {
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
 					<Route path="/backoffice/slides" component={SlideList}></Route>
-					<Route path="/backoffice/categories" component={CategoriesListBackoffice} />
+					<Route
+						path="/backoffice/categories"
+						component={CategoriesListBackoffice}
+					/>
 					<Route path="/backoffice/members" component={MembersBackofficeList} />
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
@@ -66,6 +71,8 @@ function App() {
 					<Route path="/actividades/:id" component={Detail} />
 					<Route path="/actividades" component={ActivitiesList} />
 					<Route path="/novedades/:id" component={NewsDetail} />
+					<Route path="/register" component={RegisterForm} />
+					<Route path="/login" component={LoginForm} />
 					<Route path="/novedades" component={News} />
 					<Route path="/nosotros" component={AboutUs}></Route>
 				</Switch>
