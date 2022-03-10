@@ -1,25 +1,5 @@
 import axios from 'axios';
 
-<<<<<<< HEAD
-const token = window.localStorage.getItem('token');
-const baseURL = "http://ongapi.alkemy.org/api";
-const config = {
-	headers: {
-		Group: 143, 
-		Auhtorization: `Bearer ${token}`,
-	},
-};
-//Servicio privado GET
-export const GetPrivateService = (url, id) => {
-	axios
-		.get(`${baseURL}/${url}/${id ? id : ""}`, config)
-		.then(res => console.log(res))
-		.catch(err => console.log(err));
-};
-
-export const Put = (url, data, id) => {
-	axios.put(url, data, config);
-=======
 const getHeaderAuthorization = ()=>{
 	const token = localStorage.getItem('token');
 	const headerAuthorization = `Bearer ${token}`;
@@ -27,11 +7,20 @@ const getHeaderAuthorization = ()=>{
 	return token !== null ? headerAuthorization : null;
 };
 
+//Cuando sea solicitado cambiar la baseURL, por las variables de entorno.
+
+const baseURL = "http://ongapi.alkemy.org/api";
 const config = {
 	headers: {
-		// Group: "143", //Aqui va el ID del equipo!!
+		
 		Authorization: getHeaderAuthorization(),
 	},
+};
+
+//Servicio privado GET
+export const GetPrivateService = (url, id) => {
+	axios
+		.get(`${baseURL}/${url}/${id ? id : null}`, config)
 };
 
 export const GetAll =  url => {
@@ -56,5 +45,4 @@ export const Post = (url, data) => {
 
 export const Delete = url => {
 	axios.delete(url, config);
->>>>>>> 73bacd4b91a7a2353977158f54b324ec764ae05f
 };
