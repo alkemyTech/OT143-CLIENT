@@ -1,0 +1,52 @@
+@media (max-width: 576px) {
+	.logo1 {
+		max-width: 70%;
+	}
+
+	.logo2 {
+		max-width: 60%;
+	}
+}
+
+@media (min-width: 577px) and (max-width: 1365px) {
+	.logo1 {
+		max-width: 23%;
+	}
+
+	.logo2 {
+		max-width: 23%;
+	}
+}
+
+@media (min-width: 1366px) {
+	.logo1 {
+		max-width: 20%;
+	}
+
+	.logo2 {
+		max-width: 20%;
+	}
+
+	.slogan {
+		max-width: 10%;
+		font-family: 'Rubik', sans-serif;
+		margin-left: -1rem;
+	}
+}
+
+@media tv and (min-width: 1366px) {
+	.logo1 {
+		max-width: 20%;
+	}
+
+	.logo2 {
+		max-width: 20%;
+	}
+
+	.slogan {
+		max-width: 10%;
+		font-family: 'Rubik', sans-serif;
+		margin-left: -1rem;
+		color: rgba(255, 215, 240, 0.548);
+	}
+}
