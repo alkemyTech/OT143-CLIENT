@@ -13,7 +13,7 @@ const News = () => {
   useEffect(async ()=>{
     const data = await newsService.getAll();
     setData(data);
-  })
+  }, [])
 
   return (
     <>
