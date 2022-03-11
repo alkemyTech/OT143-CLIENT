@@ -41,7 +41,7 @@ const NewsDetail = () => {
                     }).catch(()=>{
                         setScrollDirection(true);
                         setNewsApi({error:"Intenal Server Error(500)"});
-                        setTimeout(()=>{setScrollDirection(false)},5000)
+                        setTimeout(()=>{setScrollDirection(false)},4000)
                     });
                 } catch (error) {
                     setScrollDirection(false)                   
