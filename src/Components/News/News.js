@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Cards from '../Common/Cards';
 import { useEffect, useState } from 'react';
 import newsService from "../../Services/news";
+import './News.scss';
 
 
 const News = () => {
