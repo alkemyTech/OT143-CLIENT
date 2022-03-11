@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form, Button, Container } from "react-bootstrap";
 import { isSchema } from "yup";
+import { postContact } from "../../Services/contactsService";
+import {warningMsg} from './../Alerts/Alert';
 
 const ContactForm = () => {
 
@@ -32,16 +34,22 @@ const ContactForm = () => {
             message: ""
         },
         validationSchema: schema,
-        onSubmit(values, { resetForm }) {
-            console.log(values);
+        async onSubmit (values, { resetForm }) {
+            console.log(values , "VALUES");
             const body = {
                 name: values.name,
                 email: values.email,
                 phone: values.phone,
                 message: values.message
             };
-            alert("Mensaje enviado");
-            resetForm();
+            try {
+                values ? postContact(body) : warningMsg("Vuelva a completar el formulario");
+               
+            } catch (error) {
+                error ? warningMsg("Internal Server Error") :
+                console.log(error);
+            }
+            
         }
     })
 

@@ -2,7 +2,9 @@ import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from 'react-router-dom';
-import imagen  from './../../images/somosMasOrg.png'
+import imagen  from './../../images/somosMasOrg.png';
+import axios from 'axios';
+import { warningMsg } from '../Alerts/Alert';
 
 const HomeForm = ()=>{
 
@@ -44,7 +46,17 @@ const HomeForm = ()=>{
                 textSlideThree: "",
             }}
             validationSchema={validationSchemaYup}
-            onSubmit={handleChange}>
+            onSubmit = {(values) =>{
+                axios.post(`https://ongapi.alkemy.org/api/organization`, values)
+                .then((response) => {
+                    console.log(response.data)
+                    alert('Se ha realizado con éxito');
+                })
+                .catch((error) => {
+                    console.log(error);
+                    warningMsg('Hubo un error, no se pudo realizar esta acción');
+                });
+            }}>
             <Form >
                 <p>Texto de bienvenida</p>
                 <InputField
