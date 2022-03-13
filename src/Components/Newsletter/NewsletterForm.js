@@ -48,23 +48,35 @@ const NewsletterForm = ()=>{
       }}
       validate={validate}
       onSubmit={handleSubmit}>
-      <Form >
-        <TextInput
-          name="name"
-          type="text"
-          placeholder="Nombre"
-        />
-        <TextInput
-          name="lastname"
-          type="text"
-          placeholder="Apellido"
-        />
-        <TextInput
-          name="email"
-          type="email"
-          placeholder="Email"
-        />
-        <button type="submit">Enviar</button>
+      <Form>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-6 card">
+              <TextInput
+                name="name"
+                type="text"
+                placeholder="Nombre"
+                className="form-control my-3"
+              />
+              <TextInput
+                name="lastname"
+                type="text"
+                placeholder="Apellido"
+                className="form-control my-3"
+              />
+              <TextInput
+                name="email"
+                type="email"
+                placeholder="Email"
+                className="form-control my-3"
+              />
+              <div className="text-center">
+                <button type="submit" className='btn btn-primary my-3'>Enviar</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
       </Form>
     </Formik> 
     </>
