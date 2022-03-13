@@ -29,7 +29,7 @@ const HeaderBackoffice = () => {
         )}
         <img className="header-logo ms-2 me-auto" src={logo} />
       </Container>
-      <Sidebar show={showSidebar} />
+      <Sidebar show={showSidebar} close={toggleSidebar} />
     </>
   );
 };

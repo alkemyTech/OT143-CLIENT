@@ -2,7 +2,7 @@ import { Container} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Sidebar.scss'
 
-const SidebarBackoffice = ({ show }) => {
+const SidebarBackoffice = ({ show , close }) => {
     
 
     const backofficeLinks = [
@@ -36,13 +36,12 @@ const SidebarBackoffice = ({ show }) => {
     
     return ( 
         <Container className={show ? "sidebar d-flex flex-column active" : "sidebar d-flex flex-column" }>
+            <span className="menu-title mb-4">Menú</span>
                 {
                     backofficeLinks.map(link=>{
-                        return <Link className="backoffice-link p-2 ps-4" to={link.url} >{link.name}</Link>
+                        return <Link onClose={close}  className="backoffice-link p-2 ps-4" to={link.url} >{link.name}</Link>
                     })
                 }
-
-
         </Container>
      );
 }
