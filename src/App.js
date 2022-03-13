@@ -29,6 +29,7 @@ import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
 import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
 import MembersBackofficeList from './Components/Members/MembersBackofficeList';
+import Miembros from './Components/Members/Members';
 
 function App() {
 	return (

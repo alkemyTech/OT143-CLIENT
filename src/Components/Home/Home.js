@@ -2,6 +2,7 @@ import React from 'react';
 import Carousel from '../Carousel/Carousel';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Miembros from '../Members/Members'; 
 
 const Home = () => {
     return ( <>
@@ -28,7 +29,7 @@ const Home = () => {
                     Some quick example text to build on the card title and make up the bulk of
                     the card's content.
                     </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Link to={`/novedades/${1538}`}><Button variant="primary">Go somewhere</Button></Link>
                 </Card.Body>
             </Card>
             <Card style={{ width: '18rem' }} className="m-3">
@@ -58,6 +59,9 @@ const Home = () => {
             <div className="col-4">
                 <Link to="/novedades"><Button variant="outline-primary d-inline-block">Ver todas</Button></Link>
             </div>
+        </div>
+        <div className="row">
+            <Miembros />
         </div>
     </div>
 
