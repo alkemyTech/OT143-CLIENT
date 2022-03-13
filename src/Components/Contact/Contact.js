@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Title from '../Title/Title';
+import ContactForm from './ContactForm';
 import {warningMsg} from './../Alerts/Alert';
 
 const Contact = ({ data }) => {
@@ -45,6 +46,7 @@ const Contact = ({ data }) => {
 						</div>
 					</div>
 				</div>
+				<ContactForm />
 			</div>
 		</>
 	);

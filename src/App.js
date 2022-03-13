@@ -73,7 +73,6 @@ function App() {
 			<div className="mb-5">
 				{!localStorage.getItem('Newsletter') && <NewsletterForm />}
 			</div>
-			<ContactForm />
 		</>
 	);
 }
