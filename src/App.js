@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ActivitiesForm from './Components/Activities/ActivitiesForm';
@@ -24,7 +22,6 @@ import ActivitiesList from './Components/Activities/ActivitiesList';
 import Contact from './Components/Contact/Contact';
 import OrganizationForm from './Components/Organization/OrganizationForm';
 import NewsBackofficeList from './Components/News/NewsBackofficeList';
-import ContactForm from './Components/Contact/ContactForm';
 import News from './Components/News/News';
 import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlideList from './Components/Slides/SlideList';
@@ -34,6 +31,7 @@ import CategoriesListBackoffice from './Components/Categories/CategoriesListBack
 import MembersBackofficeList from './Components/Members/MembersBackofficeList';
 import Donacion from './Components/Donations/Donacion';
 import Gracias from './Components/Donations/Gracias';
+import PageNotFound from './Components/PageNotFound';
 
 function App() {
 	return (
@@ -50,11 +48,13 @@ function App() {
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/users" component={UsersList} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
-					<Route path="/backoffice/slides" component={SlideList}></Route>
+					<Route path="/backoffice/slides" component={SlideList} />
 					<Route
 						path="/backoffice/categories"
 						component={CategoriesListBackoffice}
 					/>
+					<Route path="/backoffice/members" component={MembersBackofficeList} />
+					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
 					<Route path="/backoffice/members" component={MembersBackofficeList} />
 					<Route path="/backoffice" component={ScreenDashboard} />
@@ -72,17 +72,15 @@ function App() {
 					<Route path="/actividades" component={ActivitiesList} />
 					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
-					<Route path="/nosotros" component={AboutUs}></Route>
-					<Route path="/novedades/:id" component={NewsDetail} />
-					<Route path="/novedades" component={News} />
 					<Route path="/donacion" component={Donacion} />
 					<Route path="/gracias" component={Gracias} />
+					<Route path="/nosotros" component={AboutUs} />
+					<Route path="*" component={PageNotFound} />
 				</Switch>
 			</BrowserRouter>
 			<div className="mb-5">
 				{!localStorage.getItem('Newsletter') && <NewsletterForm />}
 			</div>
-			<ContactForm />
 		</>
 	);
 }
