@@ -29,6 +29,7 @@ import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
 import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
 import MembersBackofficeList from './Components/Members/MembersBackofficeList';
+import PageNotFound from './Components/PageNotFound';
 
 function App() {
 	return (
@@ -65,6 +66,7 @@ function App() {
 					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
 					<Route path="/nosotros" component={AboutUs} />
+					<Route path="*" component={PageNotFound} />
 				</Switch>
 			</BrowserRouter>
 			<div className="mb-5">
