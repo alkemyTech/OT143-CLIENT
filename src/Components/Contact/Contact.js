@@ -28,6 +28,7 @@ const Contact = ({ data }) => {
 						<Title text={'Contacto'} />
 						<div className="mt-5">
 							<h4 className="d-flex justify-content-center">
+						
 								{/* <b>{about}</b> */}
 							</h4>
 							<h4 className="mt-5">

@@ -1,6 +1,15 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+<<<<<<< HEAD
+
+// const config = {
+//     headers: {
+//         Group: 01 ID del equipo
+//     }
+// }
+
+=======
+>>>>>>> 73bacd4b91a7a2353977158f54b324ec764ae05f
 const baseURL = "http://ongapi.alkemy.org/api"
 //Guardar en una variable de entorno BaseUrl
 export const Get = async (url,id) => {
@@ -13,6 +22,8 @@ export const Get = async (url,id) => {
     
 };
 
+<<<<<<< HEAD
+=======
 
 export const Post = (url, body) => {
     axios.post(url, body)
@@ -21,3 +32,4 @@ export const Post = (url, body) => {
 
 export default Get
 
+>>>>>>> 73bacd4b91a7a2353977158f54b324ec764ae05f
