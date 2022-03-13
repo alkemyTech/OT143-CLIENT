@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ActivitiesForm from './Components/Activities/ActivitiesForm';
@@ -24,7 +22,6 @@ import ActivitiesList from './Components/Activities/ActivitiesList';
 import Contact from './Components/Contact/Contact';
 import OrganizationForm from './Components/Organization/OrganizationForm';
 import NewsBackofficeList from './Components/News/NewsBackofficeList';
-import ContactForm from './Components/Contact/ContactForm';
 import News from './Components/News/News';
 import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlideList from './Components/Slides/SlideList';
@@ -48,7 +45,7 @@ function App() {
 					<Route path="/backoffice/organization" component={HomeForm} />
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
-					<Route path="/backoffice/slides" component={SlideList}></Route>
+					<Route path="/backoffice/slides" component={SlideList} />
 					<Route path="/backoffice/categories" component={CategoriesListBackoffice} />
 					<Route path="/backoffice/members" component={MembersBackofficeList} />
 					<Route path="/backoffice" component={ScreenDashboard} />
@@ -67,7 +64,7 @@ function App() {
 					<Route path="/actividades" component={ActivitiesList} />
 					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
-					<Route path="/nosotros" component={AboutUs}></Route>
+					<Route path="/nosotros" component={AboutUs} />
 				</Switch>
 			</BrowserRouter>
 			<div className="mb-5">

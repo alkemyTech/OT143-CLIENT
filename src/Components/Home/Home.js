@@ -1,5 +1,5 @@
 import React from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
+import Carousel from '../Carousel/Carousel';
 
 const Home = () => {
     return ( <>
@@ -12,12 +12,8 @@ const Home = () => {
             </div>
         </nav>
       
-    <div className="container">
-        <div className="row justify-content-center">
-            <div className="col text-center ">
-                <h1><a href="#" tabindex="-1" class="btn btn-success disabled placeholder col-4" aria-hidden="true">TITULO DE BIENVENIDA</a></h1>
-            </div>
-        </div>
+    <div className="container-fluid">
+        <Carousel />
 
         
         <div className="row ">
