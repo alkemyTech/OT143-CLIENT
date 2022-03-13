@@ -104,10 +104,8 @@ const Members = () => {
                 alt={`Miembro de la organización ${member.name}`}
               />
             </div>
-            <div>
-              <span className="member-name mt-4">{member.name}</span>
-              <p className="member-description pt-2 px-5">{member.description}</p>
-            </div>
+            <span className="member-name mt-4">{member.name}</span>
+            <p className="member-description pt-2 px-5">{member.description}</p>
             <div>
               <a className="social-link mx-3" href={member.facebookUrl}>
                 <SiFacebook />
