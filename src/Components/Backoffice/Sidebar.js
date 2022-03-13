@@ -39,7 +39,7 @@ const SidebarBackoffice = ({ show , close }) => {
             <span className="menu-title mb-4">Menú</span>
                 {
                     backofficeLinks.map(link=>{
-                        return <Link onClose={close}  className="backoffice-link p-2 ps-4" to={link.url} >{link.name}</Link>
+                        return <Link onClick={close} className="backoffice-link p-2 ps-4" to={link.url} >{link.name}</Link>
                     })
                 }
         </Container>
