@@ -27,18 +27,11 @@ import NewsDetail from './Components/News/Detail/NewsDetail';
 import SlideList from './Components/Slides/SlideList';
 import UsersList from './Components/Users/UsersList';
 import AboutUs from './Components/About/AboutUs';
-<<<<<<< HEAD
 import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
 import MembersBackofficeList from './Components/Members/MembersBackofficeList';
 import Donacion from './Components/Donations/Donacion';
 import Gracias from './Components/Donations/Gracias';
 import PageNotFound from './Components/PageNotFound';
-=======
-import Donacion from './Components/Donations/Donacion';
-import Gracias from './Components/Donations/Gracias';
-import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
-import MembersBackofficeList from './Components/Members/MembersBackofficeList';
->>>>>>> cc26c455694107f986703447a6ad68fc7992e52f
 
 function App() {
 	return (
