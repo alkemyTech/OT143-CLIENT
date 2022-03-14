@@ -56,7 +56,7 @@ const ContactForm = () => {
 
     return (
         <Container>
-            <h2 className="title-form">Formulario de contacto</h2>
+
             <Form className="form-container" onSubmit={formik.handleSubmit}>
                 <Form.Group>
                     <Form.Label>Nombre</Form.Label>
