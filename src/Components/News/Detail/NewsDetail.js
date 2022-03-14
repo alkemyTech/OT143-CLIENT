@@ -14,7 +14,7 @@ import {Get} from './../../../Services/publicApiService';
    // .catch((err)=>{
    // });
 const NewsDetail = () => {
-    //  para cuando reciba params por url. const params = useParams();
+    const params = useParams();
     const [news,setNews] = useState();
     const [newsApi,setNewsApi] = useState();
     const [y,setY]=useState(document.scrollingElement.scrollHeight);
@@ -22,27 +22,30 @@ const NewsDetail = () => {
     const [isFetching, setIsFetching] = useState(false);
 
 
-    const handleScroll = ((e)=>{
-        const scrollHeight = window.height * 0.8
-        if (scrollHeight < window.scrollY ){
+    const handleScroll = useCallback ((e)=>{
+        const scrollHeight = window.height*0.8
+        setY(window.scrollY);
+        console.log("",y)
+        console.log(scrollHeight);
+        if (y  > scrollHeight ){
             console.log("DOWN");
                 setScrollDirection(true) 
                 try {
                     Get(`novedades`,`${1538}`).then((res)=>{
                         setNewsApi(res.data);
-                        setY(window.scrollY);
-                        setY(null)
                         setScrollDirection(false);
+                        return true; 
                     }).catch(()=>{
                         setScrollDirection(true);
                         setNewsApi({error:"Intenal Server Error(500)"});
+                        return false;
                     });
                 } catch (error) {
                     setScrollDirection(false)                   
                 }            
         }
-        
-    });
+        ;
+    },[y]);
 
 
     useEffect(()=>{
@@ -68,8 +71,8 @@ const NewsDetail = () => {
            
         }
         cargaDetail();
-        document.addEventListener('scroll',handleScroll);
-        return ()=>{document.removeEventListener('scroll',handleScroll)};
+            document.addEventListener('scroll',handleScroll);
+            return ()=>{document.removeEventListener('scroll',handleScroll)};
         
     },[]);
 
@@ -102,14 +105,16 @@ const NewsDetail = () => {
                     </div>
                         {newsApi && scrollDirection ? newsApi.error : <h4> "Seccion Comentarios 👇"</h4>}
                     </div>
-                    <div  onScroll={handleScroll()}>
-                        {/* {scrollDirection ?     <Skeleton />   :  <p>{newsApi?.data}</p>} */}
+                    <div  onScroll={handleScroll}>
+                    {scrollDirection ?     <Skeleton />   :  <p>{newsApi?.data}</p>}
                     </div>
+                    
             </div>
         </div>
     </div>
     
     : ""}
+  
     
     </> );
 }
