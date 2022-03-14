@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaPencilAlt } from 'react-icons/fa';
+import Loading from '../Common/Loading';
+import { successMsg, warningMsg } from '../Alerts/Alert';
 
 const ActivitiesList = () => {
 	const [actividades, setActividades] = useState('');
 
 	const getAct = async () => {
-		await axios
-			.get('http://ongapi.alkemy.org/api/activities')
-			.then(res => setActividades(res.data.data));
+		try {
+			const res = await axios.get('http://ongapi.alkemy.org/api/activities');
+			setActividades(res.data);
+			successMsg('Lista cargada exitosamente');
+		} catch (err) {
+			warningMsg('Error al cargar la lista');
+		}
 	};
 
 	useEffect(() => {
@@ -73,10 +79,8 @@ const ActivitiesList = () => {
 							</table>
 						) : (
 							<div className="d-flex justify-content-center mt-5 mb-5">
-								<div
-									className="spinner-border d-flex justify-content-center "
-									role="status">
-									<span className="visually-hidden">Loading...</span>
+								<div className="d-flex justify-content-center " role="status">
+									<Loading />
 								</div>
 							</div>
 						)}

@@ -1,17 +1,32 @@
+import { useEffect, useState } from 'react';
 import Title from "../Title/Title";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import './News.scss'
+import newsService from '../../Services/news';
+import { warningMsg } from '../Alerts/Alert';
 
-const News = (data) => {
+const News = () => {
 
-  const cards = data;
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    const cargaDatos = async() => {
+      try {
+        const result = await newsService.getAll();
+        setNews(result.slice(0, 20));
+      } catch (error) {
+        warningMsg("Error al cargar los datos (error 500)");
+      }
+    }
+    cargaDatos();
+  }, [])
 
   return (
     <>
       <Title text="Novedades" />
       <Container className="news-card-container my-5 py-4 px-5" fluid>
-        {!cards ? null : cards.map((card) => (
+        {news.length === 0 ? null : news.map((card) => (
               <Card className="news-card" bg="light">
                 <Card.Img variant="top" src={card.image} />
                 <Card.Body>
