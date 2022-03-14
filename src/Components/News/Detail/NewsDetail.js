@@ -21,33 +21,30 @@ const NewsDetail = () => {
     const [scrollDirection,setScrollDirection]  = useState(false)
     const [isFetching, setIsFetching] = useState(false);
 
+    
+    
+    const handleScroll = (e)=>{     
+       //corregir
+        document.addEventListener('scroll',(e)=>{
+            if ( y < window.scrollY ){
+                    try {
+                        Get(`news`,`${1539}`).then((res)=>{
+                            setNewsApi(res.data);
+                            setScrollDirection(false);
+                            document.removeEventListener('scroll',handleScroll)
+                        }).catch(()=>{
+                            setScrollDirection(true);
+                            setNewsApi({error:"Intenal Server Error(500)"});
+                            
+                        });
+                    } catch (error) {
+                        setScrollDirection(false)                   
+                    }
+                }  
+           setY(window.scrollY); 
 
-    const handleScroll = useCallback ((e)=>{
-        const scrollHeight = window.height*0.8
-        setY(window.scrollY);
-        console.log("",y)
-        console.log(scrollHeight);
-        if (y  > scrollHeight ){
-            console.log("DOWN");
-                setScrollDirection(true) 
-                try {
-                    Get(`novedades`,`${1538}`).then((res)=>{
-                        setNewsApi(res.data);
-                        setScrollDirection(false);
-                        return true; 
-                    }).catch(()=>{
-                        setScrollDirection(true);
-                        setNewsApi({error:"Intenal Server Error(500)"});
-                        return false;
-                    });
-                } catch (error) {
-                    setScrollDirection(false)                   
-                }            
-        }
-        ;
-    },[y]);
-
-
+        })
+    };
     useEffect(()=>{
         setIsFetching(true);
         const cargaDetail = async () =>{
@@ -71,8 +68,6 @@ const NewsDetail = () => {
            
         }
         cargaDetail();
-            document.addEventListener('scroll',handleScroll);
-            return ()=>{document.removeEventListener('scroll',handleScroll)};
         
     },[]);
 
@@ -93,28 +88,27 @@ const NewsDetail = () => {
                 <img  className="img-fluid" src={news.image} alt="ImagenDetalleNovedades"/>
 
                 </div>
-                <div className="text-center">
+                <div className="text-center" onScroll={handleScroll()}>
                     <h1>DetalleNovedades</h1>
                     <p >{news.content}</p>
                     <p >Fecha: {Date(news.updated_at)}</p>
-                    <div className="row">
-                    <div className="col text-center">
-                        
                     </div>
-                
-                    </div>
-                        {newsApi && scrollDirection ? newsApi.error : <h4> "Seccion Comentarios 👇"</h4>}
-                    </div>
-                    <div  onScroll={handleScroll}>
-                    {scrollDirection ?     <Skeleton />   :  <p>{newsApi?.data}</p>}
-                    </div>
+                    <h4 className='text-center'> "Seccion Comentarios 👇"</h4>
+                    <div className="row text-center" >
+                      {scrollDirection ? <Skeleton /> : <p>{newsApi?.data.name}</p>}
+                      
+
+          
                     
+                    </div>
+
+
+
             </div>
         </div>
     </div>
     
     : ""}
-  
     
     </> );
 }
