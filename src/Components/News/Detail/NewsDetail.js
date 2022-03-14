@@ -29,9 +29,9 @@ const NewsDetail = () => {
                             updated_at: Date()
                         }
                     }
-                    setIsFetching(false);
                     res.data ? setNews(res.data) :
                     console.log("RES", res,"STATE" ,news) 
+                    setIsFetching(false);
                 } catch (error) {
                     setIsFetching(false);
                     warningMsg("Error 404 no hay noticias");
