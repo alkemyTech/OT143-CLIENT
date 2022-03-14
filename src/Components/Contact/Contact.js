@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Title from '../Title/Title';
+import ContactForm from './ContactForm';
 import {warningMsg} from './../Alerts/Alert';
 
 const Contact = ({ data }) => {
@@ -28,6 +29,7 @@ const Contact = ({ data }) => {
 						<Title text={'Contacto'} />
 						<div className="mt-5">
 							<h4 className="d-flex justify-content-center">
+						
 								{/* <b>{about}</b> */}
 							</h4>
 							<h4 className="mt-5">
@@ -45,6 +47,7 @@ const Contact = ({ data }) => {
 						</div>
 					</div>
 				</div>
+				<ContactForm />
 			</div>
 		</>
 	);
