@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = "http://ongapi.alkemy.org/api"
+const baseURL = "https://ongapi.alkemy.org/api"
 //Guardar en una variable de entorno BaseUrl
 export const Get = async (url,id) => {
     try {

@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Title from '../../Title/Title';
 import { useParams } from 'react-router-dom';
 import Loading from '../../Common/Loading';
-import {Events, scrollSpy} from 'react-scroll';
 import Skeleton from '../../Common/Skeleton';
 import {Get} from './../../../Services/publicApiService';
 // import axios from 'axios';
@@ -15,7 +14,7 @@ import {Get} from './../../../Services/publicApiService';
    // .catch((err)=>{
    // });
 const NewsDetail = () => {
-    const params = useParams();
+    //  para cuando reciba params por url. const params = useParams();
     const [news,setNews] = useState();
     const [newsApi,setNewsApi] = useState();
     const [y,setY]=useState(document.scrollingElement.scrollHeight);
@@ -23,33 +22,27 @@ const NewsDetail = () => {
     const [isFetching, setIsFetching] = useState(false);
 
 
-    const handleScroll = useCallback ((e)=>{
-        console.log(window.scrollY)
-        if (y > window.scrollY){
-            console.log("UP")
-            setScrollDirection(false)
-            window.scrollY > 150 ? setScrollDirection(true) : setScrollDirection(false)
-        }
-        else if (y < window.scrollY){
+    const handleScroll = ((e)=>{
+        const scrollHeight = window.height * 0.8
+        if (scrollHeight < window.scrollY ){
             console.log("DOWN");
-            if (window.scrollY > 100){
-                setScrollDirection(true)     
+                setScrollDirection(true) 
                 try {
                     Get(`novedades`,`${1538}`).then((res)=>{
                         setNewsApi(res.data);
+                        setY(window.scrollY);
+                        setY(null)
                         setScrollDirection(false);
                     }).catch(()=>{
                         setScrollDirection(true);
                         setNewsApi({error:"Intenal Server Error(500)"});
-                        setTimeout(()=>{setScrollDirection(false)},4000)
                     });
                 } catch (error) {
                     setScrollDirection(false)                   
-                }
-            }  
+                }            
         }
-        setY(window.scrollY);
-    },[y]);
+        
+    });
 
 
     useEffect(()=>{
@@ -77,7 +70,8 @@ const NewsDetail = () => {
         cargaDetail();
         document.addEventListener('scroll',handleScroll);
         return ()=>{document.removeEventListener('scroll',handleScroll)};
-    },[handleScroll]);
+        
+    },[]);
 
   
     return ( <>
@@ -100,19 +94,17 @@ const NewsDetail = () => {
                     <h1>DetalleNovedades</h1>
                     <p >{news.content}</p>
                     <p >Fecha: {Date(news.updated_at)}</p>
-                <div className="row">
+                    <div className="row">
                     <div className="col text-center">
                         
-                {scrollDirection  ?     <Skeleton />   :  <p>{newsApi?.data}</p>}
-                        </div>
-                    
                     </div>
-                {newsApi && scrollDirection ? newsApi.error : <h4> "Seccion Comentarios 👇"</h4>}
                 
-                
-                </div>
-
-
+                    </div>
+                        {newsApi && scrollDirection ? newsApi.error : <h4> "Seccion Comentarios 👇"</h4>}
+                    </div>
+                    <div  onScroll={handleScroll()}>
+                        {/* {scrollDirection ?     <Skeleton />   :  <p>{newsApi?.data}</p>} */}
+                    </div>
             </div>
         </div>
     </div>
