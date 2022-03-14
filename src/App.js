@@ -106,9 +106,9 @@ function App() {
           <Route path={HOME} component={PublicWeb} />
         </Switch>
       </Router>
-      {/*  <div className="mb-5">
+      <div className="mb-5">
         {!localStorage.getItem('Newsletter') && <NewsletterForm />}
-      </div> */}
+      </div>
     </>
   );
 }
