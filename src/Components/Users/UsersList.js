@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { USER_CREATE } from "../../config/router/routes";
 import UsersTable from "./UsersTable";
 
 const UsersList = () => {
@@ -18,7 +19,7 @@ const UsersList = () => {
           <h2>Usuarios</h2>
         </Col>
         <Col className="text-end">
-          <Link to="/backoffice/users/create">
+          <Link to={USER_CREATE}>
             <Button>Crear</Button>
           </Link>
         </Col>

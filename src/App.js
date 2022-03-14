@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ActivitiesForm from './Components/Activities/ActivitiesForm';
 import CategoriesForm from './Components/Categories/CategoriesForm';
 import NewsForm from './Components/News/NewsForm';
@@ -17,7 +17,7 @@ import Home from './Components/Home';
 import HomeForm from './Components/HomeForm/HomeForm';
 import Title from './Components/Title/Title';
 import MembersEdit from './Components/Members/MembersEdit';
-import Detail from './Components/Activities/Detail/Detail';
+import ActivityDetail from './Components/Activities/Detail/Detail';
 import ActivitiesList from './Components/Activities/ActivitiesList';
 import Contact from './Components/Contact/Contact';
 import OrganizationForm from './Components/Organization/OrganizationForm';
@@ -30,50 +30,87 @@ import AboutUs from './Components/About/AboutUs';
 import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
 import MembersBackofficeList from './Components/Members/MembersBackofficeList';
 import PageNotFound from './Components/PageNotFound';
+import { ABOUT, ACTIVITIES, /* ACTIVITIES_WEB, */ ACTIVITIES_WEB_DETAILS, ACTIVITY_CREATE, ACTIVITY_EDIT, BACKOFFICE, CATEGORIES, CATEGORY_CREATE, CATEGORY_EDIT, CONTACT, HOME, /* CONTRIBUTE, */ MEMBERS, MEMBER_CREATE, MEMBER_EDIT, NEWS, NEWS_CREATE, NEWS_EDIT, NEWS_WEB, NEWS_WEB_DETAILS, ORGANIZATION, ORGANIZATION_CREATE, ORGANIZATION_EDIT, /* PROJECTS, */ PROJECT_CREATE, PROJECT_EDIT, SCHOOL_CAMPAIGN, SLIDES, SLIDE_CREATE, SLIDE_EDIT, /* TESTIMONIALS_WEB, */ /* TESTIMONIALS, */ TESTIMONY_CREATE, TESTIMONY_EDIT, TOYS_CAMPAIGN, /* THANKS, */ USERS, USER_CREATE, USER_EDIT } from './config/router/routes';
+
+
+const Backoffice = () => {
+  return (
+    <Switch>
+      <Route exact path={BACKOFFICE} component={ScreenDashboard} />
+      <Route exact path={PROJECT_EDIT} component={ProjectsForm} />
+      <Route exact path={PROJECT_CREATE} component={ProjectsForm} />
+      {/* <Route path={PROJECTS} component={ProjectsList} /> //No existe el componente todavía */}
+
+      <Route exact path={TESTIMONY_EDIT} component={TestimonialForm} />
+      <Route exact path={TESTIMONY_CREATE} component={TestimonialForm} />
+      {/* <Route exact path={TESTIMONIALS} component={TestimonialsList} /> //No existe el componente todavía*/}
+
+      <Route exact path={ACTIVITY_EDIT} component={ActivitiesForm} />
+      <Route exact path={ACTIVITY_CREATE} component={ActivitiesForm} />
+      <Route exact path={ACTIVITIES} component={ActivitiesList} />
+
+      <Route exact path={NEWS_EDIT} component={NewsForm} />
+      <Route exact path={NEWS_CREATE} component={NewsForm} />
+      <Route exact path={NEWS} component={NewsBackofficeList} />
+
+      <Route exact path={SLIDE_EDIT} component={SlidesForm} />
+      <Route exact path={SLIDE_CREATE} component={SlidesForm} />
+      <Route exact path={SLIDES} component={SlideList} />
+
+      <Route exact path={CATEGORY_EDIT} component={CategoriesForm} />
+      <Route exact path={CATEGORY_CREATE} component={CategoriesForm} />
+      <Route exact path={CATEGORIES} component={CategoriesListBackoffice} />
+
+      <Route exact path={USER_EDIT} component={UserForm} />
+      <Route exact path={USER_CREATE} component={UserForm} />
+      <Route exact path={USERS} component={UsersList} />
+
+      <Route exact path={MEMBER_EDIT} component={MembersEdit} />
+      <Route exact path={MEMBER_CREATE} component={MembersEdit} />
+      <Route exact path={MEMBERS} component={MembersBackofficeList} />
+
+      <Route exact path={ORGANIZATION_EDIT} component={OrganizationForm} />
+      <Route exact path={ORGANIZATION_CREATE} component={OrganizationForm} />
+      <Route exact path={ORGANIZATION} component={HomeForm} />
+    </Switch>
+  )
+};
+
+const PublicWeb = () => {
+  return (
+    <Switch>
+      <Route exact path={SCHOOL_CAMPAIGN} component={SchoolCampaign} />
+      <Route exact path={TOYS_CAMPAIGN} component={ToysCampaign} />
+      {/* <Route exact path={TESTIMONIALS_WEB} component={<Testimonials />} /> //No existe el componente todavía */}
+      <Route exact path={ACTIVITIES_WEB_DETAILS} component={ActivityDetail} />
+      {/* <Route exact path={ACTIVITIES_WEB} component={Activities} /> //No existe el componente todavía */}
+      <Route exact path={NEWS_WEB_DETAILS} component={NewsDetail} />
+      <Route exact path={NEWS_WEB} component={News} />
+      {/* <Route exact path={THANKS} component={<Thanks />} /> //No existe el componente todavía */}
+      {/* <Route exact path={CONTRIBUTE} component={<Contribute />} /> //No existe el componente todavía */}
+      <Route exact path={CONTACT} component={Contact} />
+      <Route exact path={ABOUT} component={AboutUs} />
+      <Route exact path={HOME} component={Home} />
+      <Route path="*" component={PageNotFound} />
+    </Switch>
+  )
+};
 
 function App() {
-	return (
-		<>
-			<BrowserRouter>
-				<Switch>
-					<Route path="/" exact component={Home} />
-					<Route path="/backoffice/users" component={UsersList} />
-					<Route path="/backoffice/members/edit" component={MembersEdit} />
-					<Route
-						path="/backoffice/organization/edit"
-						component={OrganizationForm}
-					/>
-					<Route path="/backoffice/organization" component={HomeForm} />
-					<Route path="/backoffice/create-slide" component={SlidesForm} />
-					<Route path="/backoffice/news" component={NewsBackofficeList} />
-					<Route path="/backoffice/slides" component={SlideList} />
-					<Route path="/backoffice/categories" component={CategoriesListBackoffice} />
-					<Route path="/backoffice/members" component={MembersBackofficeList} />
-					<Route path="/backoffice" component={ScreenDashboard} />
-					<Route path="/backoffice/members/edit" component={MembersEdit} />
-					<Route path="/contacto" component={Contact} />
-					<Route path="/create-activity" component={ActivitiesForm} />
-					<Route path="/create-category" component={CategoriesForm} />
-					<Route path="/create-news" component={NewsForm} />
-					<Route path="/create-testimonials" component={TestimonialForm} />
-					<Route path="/create-user" component={UserForm} />
-					<Route path="/create-member" component={MembersForm} />
-					<Route path="/create-project" component={ProjectsForm} />
-					<Route path="/school-campaign" component={SchoolCampaign} />
-					<Route path="/toys-campaign" component={ToysCampaign} />
-					<Route path="/actividades/:id" component={Detail} />
-					<Route path="/actividades" component={ActivitiesList} />
-					<Route path="/novedades/:id" component={NewsDetail} />
-					<Route path="/novedades" component={News} />
-					<Route path="/nosotros" component={AboutUs} />
-					<Route path="*" component={PageNotFound} />
-				</Switch>
-			</BrowserRouter>
-			<div className="mb-5">
-				{!localStorage.getItem('Newsletter') && <NewsletterForm />}
-			</div>
-		</>
-	);
+  return (
+    <>
+      <Router>
+        <Switch>
+          <Route path={BACKOFFICE} component={Backoffice} />
+
+          <Route path={HOME} component={PublicWeb} />
+        </Switch>
+      </Router>
+      {/*  <div className="mb-5">
+        {!localStorage.getItem('Newsletter') && <NewsletterForm />}
+      </div> */}
+    </>
+  );
 }
 
 export default App;
