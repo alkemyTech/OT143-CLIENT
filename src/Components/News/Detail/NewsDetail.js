@@ -24,7 +24,7 @@ const NewsDetail = () => {
     const handleScroll = (e)=>{     
        //corregir
         document.addEventListener('scroll',(e)=>{
-            if ( y < window.scrollY ){
+            if ( y < window.scrollY && window.scrollY > 150 ){
                     try {
                         setScrollDirection(true);
                         Get(`news`,`${1539}`).then((res)=>{
