@@ -1,37 +1,13 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import ActivitiesForm from './Components/Activities/ActivitiesForm';
-import CategoriesForm from './Components/Categories/CategoriesForm';
-import NewsForm from './Components/News/NewsForm';
-import SlidesForm from './Components/Slides/SlidesForm';
-import TestimonialForm from './Components/Testimonials/TestimonialsForm';
-import UserForm from './Components/Users/UsersForm';
-import SchoolCampaign from './Campaigns/School/SchoolCampaign';
-import ToysCampaign from './Campaigns/Toys/ToysCampaign';
-import MembersForm from './Components/Members/MembersForm';
-import ProjectsForm from './Components/Projects/ProjectsForm';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BACKOFFICE, HOME } from './config/router/routes';
 import NewsletterForm from './Components/Newsletter/NewsletterForm';
-import ScreenDashboard from './Components/Dashboard/ScreenDashboard';
-import Home from './Components/Home';
-import HomeForm from './Components/HomeForm/HomeForm';
-import Title from './Components/Title/Title';
-import MembersEdit from './Components/Members/MembersEdit';
-import Detail from './Components/Activities/Detail/Detail';
-import ActivitiesList from './Components/Activities/ActivitiesList';
-import Contact from './Components/Contact/Contact';
-import OrganizationForm from './Components/Organization/OrganizationForm';
-import NewsBackofficeList from './Components/News/NewsBackofficeList';
-import News from './Components/News/News';
-import NewsDetail from './Components/News/Detail/NewsDetail';
-import SlideList from './Components/Slides/SlideList';
-import UsersList from './Components/Users/UsersList';
-import AboutUs from './Components/About/AboutUs';
-import CategoriesListBackoffice from './Components/Categories/CategoriesListBackoffice';
-import MembersBackofficeList from './Components/Members/MembersBackofficeList';
-import PageNotFound from './Components/PageNotFound';
+import BackofficeRoutes from './config/router/BackofficeRoutes';
+import PublicWebRoutes from './config/router/PublicWebRoutes';
 
 function App() {
+<<<<<<< HEAD
 	return (
 		<>
 			<BrowserRouter>
@@ -78,6 +54,21 @@ function App() {
 			</div>
 		</>
 	);
+=======
+  return (
+    <>
+      <Router>
+        <Switch>
+          <Route path={BACKOFFICE} component={BackofficeRoutes} />
+          <Route path={HOME} component={PublicWebRoutes} />
+        </Switch>
+      </Router>
+      <div className="mb-5">
+        {!localStorage.getItem('Newsletter') && <NewsletterForm />}
+      </div>
+    </>
+  );
+>>>>>>> e41dc787464c16ae6aacd689372302fd0c4f0c89
 }
 
 export default App;
