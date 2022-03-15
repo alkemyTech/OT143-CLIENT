@@ -3,6 +3,7 @@ import counterReducer from '../features/counter/counterSlice';
 import activitiesReducer from '../features/Activities/activitiesSlice';
 import projectReducer from '../features/projects/projectSlice';
 import membersReducer from '../features/members/membersSlice';
+import slidesReducer from '../features/Slides/slidesSlice';
 
 export default configureStore({
 	reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
 		project: projectReducer,
 		activities: activitiesReducer,
 		members: membersReducer,
+		slides: slidesReducer,
 	},
 });

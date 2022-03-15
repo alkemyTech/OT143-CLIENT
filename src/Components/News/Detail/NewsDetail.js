@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Title from '../../Title/Title';
 import { useParams } from 'react-router-dom';
 import Loading from '../../Common/Loading';
+import { warningMsg } from '../../Alerts/Alert';
 // import axios from 'axios';
 
 //CARGA DE DATOS DE LA API.
@@ -28,19 +29,17 @@ const NewsDetail = () => {
                             updated_at: Date()
                         }
                     }
-                    setIsFetching(false);
                     res.data ? setNews(res.data) :
                     console.log("RES", res,"STATE" ,news) 
+                    setIsFetching(false);
                 } catch (error) {
                     setIsFetching(false);
-                    alert("Error 404 no hay noticias");    
-                    console.log(error)
+                    warningMsg("Error 404 no hay noticias");
                 }
-           
         }
         
         cargaDetail();
-       
+
     },[])
     return ( <>
     
@@ -73,5 +72,5 @@ const NewsDetail = () => {
     
     </> );
 }
- 
+
 export default NewsDetail;

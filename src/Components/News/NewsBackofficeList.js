@@ -1,6 +1,7 @@
 import { Container, Button, Table, Row, Col } from "react-bootstrap";
 import { BsPlusCircle, BsPencilSquare, BsTrash } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { NEWS_CREATE } from "../../config/router/routes";
 import image from "../../images/members/Cecilia Mendez.jpeg";
 
 const NewsBackofficeList = () => {
@@ -31,15 +32,7 @@ const NewsBackofficeList = () => {
         <Col>
           <h2 className="text-center">Novedades</h2>
           <div className="col text-end mb-2">
-            <Button className="btn-success">
-              <BsPlusCircle />{" "}
-              <Link
-                className="text-decoration-none text-white px-2"
-                to="/backoffice/news/create"
-              >
-                Crear
-              </Link>
-            </Button>
+            <Link to={NEWS_CREATE}><Button className="btn-success"><BsPlusCircle /> Crear</Button></Link>
           </div>
           <Table bordered hover>
             <thead>
