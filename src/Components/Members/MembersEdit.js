@@ -1,103 +1,159 @@
-import React from 'react';
-import {useFormik} from 'formik';
-import * as Yup from 'yup';// Poner dentro de la carpeta Service o hacerlo local a cada componente?.
-import '../FormStyles.css';
-import {CKEditor} from '@ckeditor/ckeditor5-react';
-import ClassicEditor  from '@ckeditor/ckeditor5-build-classic';
-import { create } from '../../Services/membersService';
+import React from "react";
+import "../FormStyles.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";// Poner dentro de la carpeta Service o hacerlo local a cada componente?.
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import membersService from "../../Services/members";
 
-const MembersEdit = () => {
-    const FORMAT_SUPPORTED = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
-    const SchemaValidation  = Yup.object().shape({
-        name : Yup.string()
-            .required("Campo requerido")
-            .min(4,"Obligatorio mas de 4 letras"),
-        image : Yup.mixed()
-            .required("se requiere imagen")
-            .test("fileType","Formato de imagen invalido",(value)=> value && FORMAT_SUPPORTED.includes(value.type) ),
-        description: Yup.string()
-            .required("Campo requerido"),
-        link: Yup.string()
-            .required("Campo requerido")
-            // .url("URL INVALIDA") no funciona bien la validacion de YUP
-            .matches(/((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/, "URL INVALIDA")
-    })
-    const editFormik = useFormik({
-        initialValues : {
-            name : '',
-            image : '',
-            description : '',
-            link : ''},
+const FORMAT_SUPPORTED = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
-        validationSchema :  SchemaValidation ,
+const SchemaValidation = Yup.object().shape({
+  name: Yup.string()
+    .required("El nombre es requerido")
+    .min(4, "El nombre debe tener más de 4 letras"),
+  image: Yup.mixed()
+    .required("La imagen es requerida")
+    .test("fileType", "Formato de imagen inválido", (value) => value && FORMAT_SUPPORTED.includes(value.type)),
+  description: Yup.string()
+    .required("La descripción es requerida"),
+  facebookUrl: Yup.string()
+    .url("Debe ser una URL válida")
+    .required("El link es requerido"),
+  linkedinUrl: Yup.string()
+    .url("Debe ser una URL válida")
+    .required("El link es requerido"),
+})
 
-        onSubmit(values){
-            const body = {
-                name: values.name,
-                description: values.description,
-                link: values.link,
-                image: values.image,
-            };
-            create(body)
-            .then((response) => {
-                console.log(response);
-                alert("Se ha realizado con éxito");
-              })
-            .catch((error) => {
-                console.log(error);
-                alert("Ha ocurrido un problema, no se pudo realizar esta acción")
-            });
-        }
-    });
-    return ( <>
-        <form className="form-container"  onSubmit={editFormik.handleSubmit}>
-            <span className='title-form'>Nombre</span>
-            <input className="input-field"
-             value={editFormik.values.name}
-             name="name"
-             type="text"
-             onChange={editFormik.handleChange}
-             placeholder="ej: Pablo Ramirez" />
-            <span className='errors-forms'>{editFormik.errors.name}</span>
+const errorsStyles = { color: "red", fontSize: ".875em" };
 
-            <span className='title-form'>Imagen</span>
-            <input className="input-field"
-             id="image"
-             name="image"
-             type="file"
-             placeholder="Imagen aqui"
-             onChange={(e) => {editFormik.setFieldValue("image", e.currentTarget.files[0])}} />
-            <span className='errors-forms'>{editFormik.errors.image}</span>
+const MembersEdit = (props) => {
+  const member = props.member
+    ? {
+      id: props.member.id,
+      name: props.member.name,
+      image: props.member.image,
+      description: props.member.description,
+      facebookUrl: props.member.facebookUrl,
+      linkedinUrl: props.member.linkedinUrl,
+    }
+    : {
+      name: "",
+      image: "",
+      description: "",
+      facebookUrl: "",
+      linkedinUrl: "",
+    };
 
-            <span className='title-form'>Descripcion</span>
-            <CKEditor 
-                placeholder="Descripicion"
-                editor={ClassicEditor}
-                data=""
-                name="description"
+  const editFormik = useFormik({
+    initialValues: member,
+    validationSchema: SchemaValidation,
+    onSubmit(values) {
+      !props.member
+        ?
+        membersService.create(values)
+          .then((response) => {
+            console.log(response);
+            alert("Miembro creado con éxito");
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Error. No se pudo crear el nuevo miembro");
+          })
+
+        : membersService.update(values, values.id)
+          .then((response) => {
+            console.log(response);
+            alert("Miembro editado con éxito");
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Error. No se pudo editar el miembro");
+          });
+
+    }
+  });
+  return (
+    <Container className="mt-3">
+      <h2 className="title-form">{`${!props.member ? "Crear" : "Editar"
+        } miembro`}</h2>
+      <Form className="form-container" onSubmit={editFormik.handleSubmit}>
+        <Form.Group controlId="name" className="mb-2">
+          <Form.Label>Nombre</Form.Label>
+          <Form.Control type="text" name="name" value={editFormik.values.name} placeholder="ej: Pablo Ramirez" onChange={editFormik.handleChange} onBlur={editFormik.handleBlur} />
+          {editFormik.touched.name && editFormik.errors.name ? (
+            <span className="mt-1" style={errorsStyles}>{editFormik.errors.name}</span>
+          ) : null}
+        </Form.Group>
+
+        <Form.Group controlId="image" className="mb-2">
+          <Form.Label>Imagen</Form.Label>
+          <Form.Control type="file" name="image" accept="image/jpg, image/jpeg, image/gif, image/png"
+            onChange={(e) => { editFormik.setFieldValue("image", e.currentTarget.files[0]) }} onBlur={editFormik.handleBlur} />
+          {editFormik.touched.image && editFormik.errors.image ? (
+            <span className="mt-1" style={errorsStyles}>{editFormik.errors.image}</span>
+          ) : null}
+        </Form.Group>
+
+        <Form.Group controlId="description" className="mb-2">
+          <Form.Label>Descripción</Form.Label>
+          <CKEditor
+            type="text"
+            name="description"
+            placeholder="Descripción"
+            editor={ClassicEditor}
+            data={editFormik.values.description}
+            onChange={(e, editor) =>
+              editFormik.setFieldValue("description", editor.getData())
+            }
+          />
+          {editFormik.touched.description && editFormik.errors.description ? (
+            <span className="mt-1" style={errorsStyles}>{editFormik.errors.description}</span>
+          ) : null}
+        </Form.Group>
+
+        <Row className="row-cols-1 row-cols-md-2">
+          <Col className="mb-2 mb-md-0">
+            <Form.Group controlId="facebookUrl" className="mb-2">
+              <Form.Label>Facebook (url)</Form.Label>
+              <Form.Control
                 type="text"
-                onReady={editor=>console.log(editor)}
-                onChange={(e,editor)=>{
-                    const data = editor.getData();
-                    editFormik.setFieldValue("description", data)
-                    console.log(data)
-                }}
-             />
-            <span className='errors-forms'>{editFormik.errors.description}</span>
+                name="facebookUrl"
+                value={editFormik.values.facebookUrl}
+                onChange={editFormik.handleChange}
+                onBlur={editFormik.handleBlur}
+              />
+              {editFormik.touched.facebookUrl && editFormik.errors.facebookUrl ? (
+                <span className="mt-1" style={errorsStyles}>
+                  {editFormik.errors.facebookUrl}
+                </span>
+              ) : null}
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="linkedinUrl" className="mb-2">
+              <Form.Label>LinkedIn (url)</Form.Label>
+              <Form.Control
+                type="text"
+                name="linkedinUrl"
+                value={editFormik.values.linkedinUrl}
+                onChange={editFormik.handleChange}
+                onBlur={editFormik.handleBlur}
+              />
+              {editFormik.touched.linkedinUrl && editFormik.errors.linkedinUrl ? (
+                <span className="mt-1" style={errorsStyles}>
+                  {editFormik.errors.linkedinUrl}
+                </span>
+              ) : null}
+            </Form.Group>
+          </Col>
+        </Row>
 
-            <span className='title-form'>Link redes sociales</span>
-            <input className="input-field"
-             value={editFormik.values.link}
-             name="link"
-             type="text"
-             placeholder='Linkedin - Facebook - Git'
-             onChange={editFormik.handleChange} />
-            <span className='errors-forms'>{editFormik.errors.link}</span>
-            
-            <button className='submit-btn' type='submit' >Editar</button>
-
-        </form>
-    </>);
+        <Button type="submit">{!props.member ? "Crear" : "Editar"}</Button>
+      </Form>
+    </Container>
+  );
 }
- 
+
 export default MembersEdit;
