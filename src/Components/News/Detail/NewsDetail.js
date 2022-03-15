@@ -21,13 +21,12 @@ const NewsDetail = () => {
     const [scrollDirection,setScrollDirection]  = useState(false)
     const [isFetching, setIsFetching] = useState(false);
 
-    
-    
     const handleScroll = (e)=>{     
        //corregir
         document.addEventListener('scroll',(e)=>{
             if ( y < window.scrollY ){
                     try {
+                        setScrollDirection(true);
                         Get(`news`,`${1539}`).then((res)=>{
                             setNewsApi(res.data);
                             setScrollDirection(false);
@@ -43,7 +42,7 @@ const NewsDetail = () => {
                 }  
            setY(window.scrollY); 
 
-        })
+        },[])
     };
     useEffect(()=>{
         setIsFetching(true);
@@ -96,10 +95,6 @@ const NewsDetail = () => {
                     <h4 className='text-center'> "Seccion Comentarios 👇"</h4>
                     <div className="row text-center" >
                       {scrollDirection ? <Skeleton /> : <p>{newsApi?.data.name}</p>}
-                      
-
-          
-                    
                     </div>
 
 
