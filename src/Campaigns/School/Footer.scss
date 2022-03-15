@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500;1,600&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+$font-color:  rgba(59,59,59);
+$hover-color: #9AC9FB;
+
+.footer-container {
+    border-top: 2px solid $font-color;
+    overflow: hidden;
+    font-family: 'Rubik', sans-serif;
+}
+.logo{
+    width:150px;
+}
+
+.social-link{
+    color: $font-color;
+    transition: .1s ease-in-out;
+
+    &:hover{
+        cursor:pointer;
+        color: $hover-color;
+        
+        & ~ .social-icon {
+            color: $hover-color;
+        }
+    }
+
+}
+
+
+
+.social-icon{
+    font-size:2rem;
+    margin: 0 10px;
+    color: $font-color;
+    transition: .1s ease-in-out;
+
+    &:hover{
+        cursor:pointer;
+        color: $hover-color;
+
+        & + .social-span {
+            color: $hover-color;
+        }
+    }
+}
+
+.social-span{
+    color: $font-color;
+    transition: .1s ease-in-out;
+    font-weight: 400;
+}
