@@ -20,11 +20,11 @@ const CardDashboard = (props) => {
             <Col>{children}</Col>
           </Row>
         </Card.Body>
-        <Card.Link className="mb-2">
+        <Row className="mb-2 pb-2">
           <Link to={to}><Button variant="success" size="sm">
             Ir
           </Button></Link>
-        </Card.Link>
+        </Row>
       </Card>
     </Col>
   );
