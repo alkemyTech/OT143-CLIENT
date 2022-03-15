@@ -47,7 +47,10 @@ function App() {
 					<Route path="/backoffice/create-slide" component={SlidesForm} />
 					<Route path="/backoffice/news" component={NewsBackofficeList} />
 					<Route path="/backoffice/slides" component={SlideList} />
-					<Route path="/backoffice/categories" component={CategoriesListBackoffice} />
+					<Route
+						path="/backoffice/categories"
+						component={CategoriesListBackoffice}
+					/>
 					<Route path="/backoffice/members" component={MembersBackofficeList} />
 					<Route path="/backoffice" component={ScreenDashboard} />
 					<Route path="/backoffice/members/edit" component={MembersEdit} />
@@ -66,6 +69,7 @@ function App() {
 					<Route path="/novedades/:id" component={NewsDetail} />
 					<Route path="/novedades" component={News} />
 					<Route path="/nosotros" component={AboutUs} />
+
 					<Route path="*" component={PageNotFound} />
 				</Switch>
 			</BrowserRouter>
