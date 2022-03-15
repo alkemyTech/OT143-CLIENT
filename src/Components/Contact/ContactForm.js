@@ -11,10 +11,18 @@ import { Form, Button, Container } from 'react-bootstrap';
 import { isSchema } from 'yup';
 import { postContact } from '../../Services/contactsService';
 import { warningMsg } from './../Alerts/Alert';
+import Loading from '../Common/Loading';
 
 const ContactForm = () => {
 	const [latA, setLat] = useState(-34.603683);
 	const [lngA, setLng] = useState(-58.381557);
+	const [click, setClick] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setClick(false);
+		}, 1000);
+	}, [click]);
 
 	const emailRegex =
 		/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -30,7 +38,9 @@ const ContactForm = () => {
 			.required('El telefono es requerido')
 			.matches(phoneRegex, 'El numero ingresado no es válido'),
 		message: Yup.string().required('El mensaje es requerido'),
-		address: Yup.string().required('Direccion requerida'),
+		calle: Yup.string().required('Calle requerida'),
+		altura: Yup.string().required('Altura requerida'),
+		provincia: Yup.string().required('Provincia requerida'),
 	});
 
 	const formik = useFormik({
@@ -39,7 +49,9 @@ const ContactForm = () => {
 			email: '',
 			phone: '',
 			message: '',
-			address: '',
+			calle: '',
+			altura: '',
+			provincia: '',
 		},
 		validationSchema: schema,
 		async onSubmit(values, { resetForm }) {
@@ -49,7 +61,9 @@ const ContactForm = () => {
 				email: values.email,
 				phone: values.phone,
 				message: values.message,
-				address: values.address,
+				calle: values.calle,
+				altura: values.altura,
+				provincia: values.provincia,
 			};
 			try {
 				values
@@ -61,33 +75,26 @@ const ContactForm = () => {
 		},
 	});
 
-	useEffect(() => {
-		console.log(latA);
-		console.log(lngA);
-	}, [latA, lngA]);
-
-	let address = '';
-	address = formik.values.address;
-
 	Geocode.setApiKey('AIzaSyAgCWh2UcjCm6s4PvSrlLdqDaInVbsj1hg');
 	Geocode.setLanguage('en');
 	Geocode.setRegion('ar');
 	Geocode.setLocationType('ROOFTOP');
 	const handleAddress = e => {
 		e.preventDefault();
-		Geocode.fromAddress(address).then(
+
+		Geocode.fromAddress(
+			`${formik.values.altura}+${formik.values.calle}+${formik.values.provincia}`
+		).then(
 			response => {
 				const { lat, lng } = response.results[0].geometry.location;
 				setLat(lat);
 				setLng(lng);
+				setClick(true);
 			},
 			error => {
 				console.error(error);
 			}
 		);
-
-		console.log(latA);
-		console.log(lngA);
 	};
 
 	return (
@@ -146,31 +153,71 @@ const ContactForm = () => {
 						<div className="mt-1">{formik.errors.message}</div>
 					) : null}
 				</Form.Group>
-				<Form.Group>
-					<Form.Label>Direccion</Form.Label>
-					<Form.Control
-						type="text"
-						name="address"
-						value={formik.values.address || ''}
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-					/>
-					<button className="btn btn-primary mt-3" onClick={handleAddress}>
+				<label htmlFor="gmap">Dirección</label>
+				<div className="card px-4 py-3" name="gmap">
+					<Form.Group>
+						<Form.Label>Calle</Form.Label>
+						<Form.Control
+							type="text"
+							name="calle"
+							value={formik.values.calle || ''}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							className="mb-2"
+						/>
+
+						{formik.touched.calle && formik.errors.calle ? (
+							<div className="mt-1">{formik.errors.calle}</div>
+						) : null}
+					</Form.Group>
+					<Form.Group>
+						<Form.Label>Altura</Form.Label>
+						<Form.Control
+							type="text"
+							name="altura"
+							value={formik.values.altura || ''}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							className="mb-2"
+						/>
+
+						{formik.touched.altura && formik.errors.altura ? (
+							<div className="mt-1">{formik.errors.altura}</div>
+						) : null}
+					</Form.Group>
+					<Form.Group>
+						<Form.Label>Provincia</Form.Label>
+						<Form.Control
+							type="text"
+							name="provincia"
+							value={formik.values.provincia || ''}
+							onChange={formik.handleChange}
+							onBlur={formik.handleBlur}
+							className="mb-2"
+						/>
+
+						{formik.touched.provincia && formik.errors.provincia ? (
+							<div className="mt-1">{formik.errors.provincia}</div>
+						) : null}
+					</Form.Group>
+					<button className="btn btn-primary mt-3 mb-3" onClick={handleAddress}>
 						{' '}
 						Confirmar direccion
 					</button>
-					{formik.touched.address && formik.errors.address ? (
-						<div className="mt-1">{formik.errors.address}</div>
-					) : null}
-				</Form.Group>
 
-				<GoogleMaps
-					apiKey={'AIzaSyAgCWh2UcjCm6s4PvSrlLdqDaInVbsj1hg'}
-					style={{ height: '400px', width: '100%' }}
-					zoom={12}
-					center={{ lat: -34.603683, lng: -58.381557 }}
-					markers={{ lat: latA, lng: lngA }}
-				/>
+					{click === false ? (
+						<GoogleMaps
+							apiKey={'AIzaSyAgCWh2UcjCm6s4PvSrlLdqDaInVbsj1hg'}
+							style={{ height: '400px', width: '100%' }}
+							zoom={15}
+							center={{ lat: latA, lng: lngA }}
+							markers={{ lat: latA, lng: lngA }}
+						/>
+					) : (
+						<Loading />
+					)}
+				</div>
+
 				<Button type="submit">Enviar</Button>
 			</Form>
 		</Container>
