@@ -74,7 +74,12 @@ const CategoriesForm = () => {
                     placeholder="Categoria" 
                     autoComplete='Objecto que traemos de la api'
                          />
-            <span className='errors-forms'>{formCategories.errors.name}</span>
+
+                {formCategories.touched.name && formCategories.errors.name ? 
+                 <span className='errors-forms'>
+                {formCategories.errors.name}
+                </span>: null}
+
             <h3 className='title-form'>Imagen</h3>
                 <input className="input-field"
                     id="image"
@@ -83,7 +88,11 @@ const CategoriesForm = () => {
                     placeholder="Imagen aqui"
                     onChange={(e) => {formCategories.setFieldValue("image", e.currentTarget.files[0])}}
                  />
-            <span className='errors-forms'>{formCategories.errors.image}</span>
+            {formCategories.touched.image && formCategories.errors.image ? 
+            <span className='errors-forms'>
+                {formCategories.errors.image}
+            </span>: null}
+            
 
             <h3 className='title-form'>Descripcion</h3>
             <CKEditor 
@@ -99,7 +108,13 @@ const CategoriesForm = () => {
                 }}
                 
              />
-             <span className='errors-forms'>{formCategories.errors.description}</span>
+
+             
+                {formCategories.touched.description && formCategories.errors.description ? 
+                <span className='errors-forms'>
+                    {formCategories.errors.description}
+                </span> : null  }
+             
              <span className='erros-forms' >{dataApi ? dataApi.error : ""}</span>
                     <button type='submit' >{formCategories.isSubmitting ? `Obteniendo datos de API...` : "Enviar"}
                     </button>
