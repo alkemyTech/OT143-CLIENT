@@ -7,7 +7,7 @@ import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import '../FormStyles.css';
 import { Form, Button, Container } from "react-bootstrap";
-import { warningMsg, susuccessMsg, successMsg } from '../Alerts/Alert';
+import { warningMsg, successMsg } from '../Alerts/Alert';
 
 const baseURL = "https://ongapi.alkemy.org/api";
 
