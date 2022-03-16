@@ -7,8 +7,8 @@ import Retrato from '../../images/members/Cecilia Mendez.jpeg'
 import { NEWS_WEB } from '../../config/router/routes';
 
 const Home = () => {
-  return (<>
-
+  return (
+  <>
     <div className="container-fluid p-0">
       <Carousel />
       <div className="row text-center my-3">
@@ -90,8 +90,6 @@ const Home = () => {
         </Card>
       </div>
     </div>
-
-
   </>);
 }
 

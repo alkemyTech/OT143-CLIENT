@@ -4,13 +4,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { BACKOFFICE, HOME } from './config/router/routes';
 import BackofficeRoutes from './config/router/BackofficeRoutes';
 import PublicWebRoutes from './config/router/PublicWebRoutes';
-import HeaderPublic from './Components/Common/HeaderPublic';
 
 function App() {
   return (
     <>
       <Router>
-        <HeaderPublic />
         <Switch>
           <Route path={BACKOFFICE} component={BackofficeRoutes} />
           <Route path={HOME} component={PublicWebRoutes} />
