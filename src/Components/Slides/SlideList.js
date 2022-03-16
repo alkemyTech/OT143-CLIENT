@@ -1,13 +1,18 @@
+import { useEffect } from "react";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { Link } from "react-router-dom";
+import { fetchAllSlides } from '../../store/slices/slides';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SlideList = ()=>{
-    const listOfMockSlides = [
-        {id: 1, image: "imagen1", title: "Diapositiva 1", order: "Slide n°1"},
-        {id: 2, image: "imagen2", title: "Diapositivs 2", order: "Slide n°2"},
-        {id: 3, image: "imagen3", title: "Diapositiva 3", order: "Slide n°3"}
-    ];
+    const { list: slides } = useSelector(state => state.slides)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchAllSlides());
+    }, [dispatch])
 
     return(
         <Container className="pt-5">
@@ -25,14 +30,16 @@ const SlideList = ()=>{
                                 <th>Orden</th>
                                 <th>Imagen</th>
                                 <th>Titulo</th>
+                                <th>Descripción</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {listOfMockSlides?.map((slide) =>( 
+                            {slides?.map((slide) =>( 
                                 <tr key={slide.id}>
                                     <td>{slide.order}</td>
-                                    <td><img src={slide.image} alt="slide"/></td>
-                                    <td>{slide.title}</td>
+                                    <td><img style={{width: "200px"}} src={slide.image} alt="slide"/></td>
+                                    <td>{slide.name}</td>
+                                    <td>{slide.description}</td>
                                     <td>
                                         <Button variant="primary" className="m-1"
                                         onClick={() => console.log("Editar")}>
