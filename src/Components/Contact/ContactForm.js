@@ -44,77 +44,6 @@ const ContactForm = () => {
 		provincia: Yup.string().required('Provincia requerida'),
 	});
 
-<<<<<<< HEAD
-    return (
-        <Container>
-
-            <Form className="form-container" onSubmit={formik.handleSubmit}>
-                <Form.Group>
-                    <Form.Label>Nombre</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="name"
-                        value={formik.values.name || ""}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.name && formik.errors.name ? (
-                        <div className="mt-1">
-                            {formik.errors.name}
-                        </div>
-                    ) : null}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="email"
-                        value={formik.values.email || ""}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.email && formik.errors.email ? (
-                        <div className="mt-1">
-                            {formik.errors.email}
-                        </div>
-                    ) : null}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Teléfono</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="phone"
-                        value={formik.values.phone || ""}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.phone && formik.errors.phone ? (
-                        <div className="mt-1">
-                            {formik.errors.phone}
-                        </div>
-                    ) : null}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Mensaje</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="message"
-                        value={formik.values.message || ""}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.message && formik.errors.message ? (
-                        <div className="mt-1">
-                            {formik.errors.message}
-                        </div>
-                    ) : null}
-                </Form.Group>
-                <Button type="submit">Enviar</Button>
-            </Form>
-        </Container>
-    )
-}
-=======
 	const formik = useFormik({
 		initialValues: {
 			name: '',
@@ -146,7 +75,6 @@ const ContactForm = () => {
 			}
 		},
 	});
->>>>>>> 23c003602a8ae777b25d2f5fe0af77d9a4906f90
 
 	Geocode.setApiKey('AIzaSyAgCWh2UcjCm6s4PvSrlLdqDaInVbsj1hg');
 	Geocode.setLanguage('en');
