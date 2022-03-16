@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SLIDE_CREATE } from "../../config/router/routes";
 
 const SlideList = ()=>{
-    const { list: slides } = useSelector(state => state.slides)
+    const { list: slides } = useSelector(state => state.slides);
     const dispatch = useDispatch();
 
     useEffect(() => {
