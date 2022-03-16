@@ -8,14 +8,6 @@ import { NEWS_WEB } from '../../config/router/routes';
 
 const Home = () => {
   return (<>
-    {/* Navbar 
-    Crear un componnete aparte para nav y footer*/}
-    <nav className="navbar navbar-light bg-light static-top">
-      <div className="container">
-        <a className="navbar-brand" href="#!">SomosMas</a>
-        <a className="btn btn-primary" href="#signup">Sign Up</a>
-      </div>
-    </nav>
 
     <div className="container-fluid p-0">
       <Carousel />
