@@ -1,0 +1,1 @@
+export const TermsAndConditions = "../assets/documents/test.pdf";
