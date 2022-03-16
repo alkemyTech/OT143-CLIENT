@@ -38,8 +38,8 @@ const ContactForm = () => {
 			.required('El telefono es requerido')
 			.matches(phoneRegex, 'El numero ingresado no es válido'),
 		message: Yup.string().required('El mensaje es requerido'),
-		calle: Yup.string().required('Numero requerido'),
-		numero: Yup.string().required('Altura requerida'),
+		calle: Yup.string().required('Calle requerida'),
+		numero: Yup.string().required('Numero requerido'),
 		provincia: Yup.string().required('Provincia requerida'),
 	});
 
