@@ -50,7 +50,7 @@ const ContactForm = () => {
 			phone: '',
 			message: '',
 			calle: '',
-			altura: '',
+			numero: '',
 			provincia: '',
 		},
 		validationSchema: schema,
@@ -62,7 +62,7 @@ const ContactForm = () => {
 				phone: values.phone,
 				message: values.message,
 				calle: values.calle,
-				altura: values.altura,
+				numero: values.numero,
 				provincia: values.provincia,
 			};
 			try {
@@ -83,7 +83,7 @@ const ContactForm = () => {
 		e.preventDefault();
 
 		Geocode.fromAddress(
-			`${formik.values.altura}+${formik.values.calle}+${formik.values.provincia}`
+			`${formik.values.numero}+${formik.values.calle}+${formik.values.provincia}`
 		).then(
 			response => {
 				const { lat, lng } = response.results[0].geometry.location;
@@ -171,18 +171,18 @@ const ContactForm = () => {
 						) : null}
 					</Form.Group>
 					<Form.Group>
-						<Form.Label>Altura</Form.Label>
+						<Form.Label>Numero</Form.Label>
 						<Form.Control
 							type="text"
-							name="altura"
-							value={formik.values.altura || ''}
+							name="numero"
+							value={formik.values.numero || ''}
 							onChange={formik.handleChange}
 							onBlur={formik.handleBlur}
 							className="mb-2"
 						/>
 
-						{formik.touched.altura && formik.errors.altura ? (
-							<div className="mt-1">{formik.errors.altura}</div>
+						{formik.touched.numero && formik.errors.numero ? (
+							<div className="mt-1">{formik.errors.numero}</div>
 						) : null}
 					</Form.Group>
 					<Form.Group>
