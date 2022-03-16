@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "../FormStyles.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import TermsAndConditionsModal from "../Modal/TermsAndConditionsModal";
+import TermsAndConditionsONG from "../TermsAndConditions/TermsAndConditionsONG";
 
 const RegisterForm = () => {
+  const [checked, setChecked] = useState(false);
   const [initialValues, setInitialValues] = useState({
     name: "",
     lastName: "",
@@ -71,6 +74,10 @@ const RegisterForm = () => {
     localStorage.setItem("token", "tokenValueExample");
   };
 
+  const handleCheckbox = (e) => {
+    setChecked(e.target.checked);
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -129,8 +136,17 @@ const RegisterForm = () => {
             onChange={handleChange}
           />
           <ErrorMessage name="confirmPassword" />
-
-          <button type="submit">Submit</button>
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={handleCheckbox}
+            className="m-1"
+            onClick={() => {
+              setChecked(true);
+            }}
+          />
+          <TermsAndConditionsModal setChecked={setChecked}/>
+          <button disabled={checked === !true} type="submit" className="btn btn-primary">Submit</button>
         </Form>
       )}
     </Formik>
