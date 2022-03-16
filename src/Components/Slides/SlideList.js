@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { Link } from "react-router-dom";
-import { getSlides } from '../../store/slices/slides';
+import { getSlides } from '../../features/Slides/slidesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { SLIDE_CREATE } from "../../config/router/routes";
 

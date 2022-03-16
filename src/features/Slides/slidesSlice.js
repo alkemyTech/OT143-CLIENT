@@ -1,6 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export const getSlides = createAsyncThunk('slides/getSlides', async () => {
+    return fetch("https://ongapi.alkemy.org/api/slides").then((res) => res.json())
+}
+)
 
 const initialState = {
+    list: [],
+    status: null,
 	title: '',
 	description: '',
 	image: '',
@@ -26,9 +33,24 @@ export const slidesSlice = createSlice({
 			state.empty = action.payload;
 		},
 	},
+    extraReducers: {
+        [getSlides.pending]: (state, action) => {
+            state.status = 'loading'
+        },
+        [getSlides.fulfilled]: (state, {payload}) => {
+            state.list = payload
+            state.status = 'success'
+        },
+        [getSlides.rejecter]: (state, action) => {
+            state.status = 'failed'
+        }
+    }
 });
 
 export const { getTitle, getDescription, getImage, emptyField } =
 	slidesSlice.actions;
 
 export default slidesSlice.reducer;
+
+
+
