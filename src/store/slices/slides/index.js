@@ -1,28 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { warningMsg } from '../../../Components/Alerts/Alert';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export const getSlides = createAsyncThunk('slides/getSlides', async () => {
+        return fetch("https://ongapi.alkemy.org/api/slides").then((res) => res.json())
+    }
+)
 
 export const slideSlice = createSlice({
     name: 'slides',
     initialState: {
-        list: []
+        list: [],
+        status: null
     },
-    reducers: {
-        setSlidesList: (state, action) => {
-            state.list = action.payload;
+    extraReducers: {
+        [getSlides.pending]: (state, action) => {
+            state.status = 'loading'
+        },
+        [getSlides.fulfilled]: (state, {payload}) => {
+            state.list = payload
+            state.status = 'success'
+        },
+        [getSlides.rejecter]: (state, action) => {
+            state.status = 'failed'
         }
     }
 });
 
-export const { setSlidesList } = slideSlice.actions;
-
 export default slideSlice.reducer;
-
-export const fetchAllSlides = () => (dispatch) => {
-    axios
-        .get("https://ongapi.alkemy.org/api/slides")
-        .then((response) => {
-            dispatch(setSlidesList(response.data.data));
-        })
-        .catch((error) => warningMsg(error));
-}

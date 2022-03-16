@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { Link } from "react-router-dom";
-import { fetchAllSlides } from '../../store/slices/slides';
+import { getSlides } from '../../store/slices/slides';
 import { useDispatch, useSelector } from 'react-redux';
 
 const SlideList = ()=>{
@@ -11,7 +11,7 @@ const SlideList = ()=>{
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchAllSlides());
+        dispatch(getSlides());
     }, [dispatch])
 
     return(
@@ -34,7 +34,7 @@ const SlideList = ()=>{
                             </tr>
                         </thead>
                         <tbody>
-                            {slides?.map((slide) =>( 
+                            {slides.data?.map((slide) =>( 
                                 <tr key={slide.id}>
                                     <td>{slide.order}</td>
                                     <td><img style={{width: "200px"}} src={slide.image} alt="slide"/></td>
