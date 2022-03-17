@@ -13,11 +13,12 @@ import {getAllData} from './../../Services/activitiesService';
 
 const ActivitiesList = () => {
   const [isFetching,setIsFetching] = useState(true);
+  const [error,setError]= useState(false);
   const {list: activities} = useSelector(state=>state.activities);
   const dispatch =useDispatch();
 
   useEffect(() => {
-    console.log(getAllData().then((res)=>res));
+
       const cargaData = ( ) =>{
      
         setTimeout(()=>{
@@ -29,6 +30,7 @@ const ActivitiesList = () => {
 
     try {
       cargaData()
+      if ( activities.length===0 && activities===undefined){warningMsg("error al cargar datos")};
     } catch (error) {
       warningMsg("Vuelva a intentar")
     }

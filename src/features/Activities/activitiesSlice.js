@@ -3,7 +3,7 @@ import {getAllData} from './../../Services/activitiesService'
 
 export const getActivities = createAsyncThunk('activities/getActivities', async ()=>{
 			return  fetch('https://ongapi.alkemy.org/api/activities').then((res)=>res.json());
-			//chequear el service que no funciona.
+			//chequear el service que no funciona bien.
 })
 const initialState = {
 	list:[],
