@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Title from '../Title/Title';
 import ContactForm from './ContactForm';
 import {warningMsg} from './../Alerts/Alert';
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 const Contact = ({ data }) => {
 
