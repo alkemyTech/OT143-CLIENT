@@ -1,29 +1,22 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaPencilAlt } from 'react-icons/fa';
 import Loading from '../Common/Loading';
 import { successMsg, warningMsg } from '../Alerts/Alert';
 import { ACTIVITY_CREATE } from '../../config/router/routes';
+import { getActivities } from '../../features/Activities/activitiesSlice';
+import { useDispatch,useSelector } from 'react-redux';
 
 const ActivitiesList = () => {
-  const [actividades, setActividades] = useState('');
-
-  const getAct = async () => {
-    try {
-      const res = await axios.get('http://ongapi.alkemy.org/api/activities');
-      setActividades(res.data);
-      successMsg('Lista cargada exitosamente');
-    } catch (err) {
-      warningMsg('Error al cargar la lista');
-    }
-  };
+  const {list: activities} = useSelector(state=>state.activities);
+  const dispatch =useDispatch();
 
   useEffect(() => {
-    getAct();
-    //eslint-disable-next-line
-  }, []);
+   const result =  dispatch(getActivities())
+    console.log(result)
+    
+  }, [dispatch]);
 
   return (
     <>
@@ -37,8 +30,9 @@ const ActivitiesList = () => {
               </button>
             </Link>
 
-            {actividades !== '' ? (
+            {activities !== '' ? (
               <table className="table mb-4">
+                {console.log(activities)}
                 <thead>
                   <tr>
                     <th scope="col">Name</th>
@@ -48,7 +42,7 @@ const ActivitiesList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {actividades.data.map(act => {
+                  {/* {actividades.data.map(act => {
                     return (
                       <Fragment key={act.id}>
                         <tr>
@@ -75,7 +69,7 @@ const ActivitiesList = () => {
                         </tr>
                       </Fragment>
                     );
-                  })}
+                  })} */}
                 </tbody>
               </table>
             ) : (
