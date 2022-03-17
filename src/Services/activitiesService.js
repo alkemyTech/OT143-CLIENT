@@ -5,7 +5,7 @@ export const getData = id => {
 };
 
 export const getAllData = () => {
-	GetAll('http://ongapi.alkemy.org/api/activities');
+	GetAll('https://ongapi.alkemy.org/api/activities');
 };
 
 export const putData = (data, id) => {
