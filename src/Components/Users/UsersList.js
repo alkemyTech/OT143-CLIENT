@@ -1,16 +1,20 @@
-import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import { USER_CREATE } from "../../config/router/routes";
+import { Link } from "react-router-dom";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import UsersTable from "./UsersTable";
+import { getUsers } from "../../features/users/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../Common/Loading";
 
 const UsersList = () => {
-  const usersMock = [
-    { id: 1, name: "Usuario 1", email: "usuario1@gmail.com" },
-    { id: 2, name: "Usuario 2", email: "usuario2@hotmail.com" },
-    { id: 3, name: "Usuario 3", email: "usuario3@gmail.com" },
-    { id: 4, name: "Usuario 4", email: "usuario4@live.com" },
-  ];
+
+  const { list: users, status } = useSelector(state => state.users);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
 
   return (
     <Container className="mt-3">
@@ -25,7 +29,15 @@ const UsersList = () => {
         </Col>
       </Row>
       <hr />
-      <UsersTable users={usersMock} />
+      {
+        status === "success" ?
+          <UsersTable users={users} />
+          :
+          <div className="d-flex justify-content-center align-items-center" style={{ height: "500px" }}>
+            <Loading />
+          </div>
+      }
+
     </Container>
   );
 };

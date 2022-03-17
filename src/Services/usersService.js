@@ -1,23 +1,28 @@
-import { Get, Put, Post, Delete } from "./privateApiService";
+import axios from "axios";
 
 const { REACT_APP_USERS_API_ENDPOINT } = process.env;
 
-export const getUsers = () => {
-  Get(REACT_APP_USERS_API_ENDPOINT);
+export const getAll = () => {
+  const request = axios.get(REACT_APP_USERS_API_ENDPOINT);
+  return request.then(response => response);
 };
 
-export const postUser = (data) => {
-  Post(REACT_APP_USERS_API_ENDPOINT, data);
+export const getUser = (id) => {
+  const request = axios.get(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
+  return request.then(response => response);
 };
 
-export const GetUser = (id) => {
-  Get(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
+export const create = (data) => {
+  const request = axios.post(REACT_APP_USERS_API_ENDPOINT, data);
+  return request.then(response => response);
 };
 
-export const putUser = (id, data) => {
-  Put(`${REACT_APP_USERS_API_ENDPOINT}/${id}`, data);
+export const update = (id, data) => {
+  const request = axios.put(`${REACT_APP_USERS_API_ENDPOINT}/${id}`, data);
+  return request.then(response => response);
 };
 
-export const deleteUser = (id) => {
-  Delete(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
+export const remove = (id) => {
+  const request = axios.delete(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
+  return request.then(response => response);
 };
