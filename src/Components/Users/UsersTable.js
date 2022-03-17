@@ -23,7 +23,7 @@ const UsersTable = (props) => {
               <Row className="justify-content-center row-cols-1 row-cols-sm-2">
                 <Col className="mb-2 mb-sm-0">
                   <Button
-                    onClick={putUser(user.id, {
+                    onClick={() => putUser(user.id, {
                       name: user.name,
                       email: user.email,
                     })}
@@ -32,7 +32,7 @@ const UsersTable = (props) => {
                   </Button>
                 </Col>
                 <Col>
-                  <Button variant="danger" onClick={deleteUser(user.id)}>
+                  <Button variant="danger" onClick={() => deleteUser(user.id)}>
                     <BsTrash />
                   </Button>
                 </Col>
