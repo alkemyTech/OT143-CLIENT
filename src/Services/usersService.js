@@ -1,21 +1,23 @@
 import { Get, Put, Post, Delete } from "./privateApiService";
 
+const { REACT_APP_USERS_API_ENDPOINT } = process.env;
+
 export const getUsers = () => {
-  Get("http://ongapi.alkemy.org/api/users");
+  Get(REACT_APP_USERS_API_ENDPOINT);
 };
 
 export const postUser = (data) => {
-  Post("http://ongapi.alkemy.org/api/users", data);
+  Post(REACT_APP_USERS_API_ENDPOINT, data);
 };
 
 export const GetUser = (id) => {
-  Get(`http://ongapi.alkemy.org/api/users/${id}`);
+  Get(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
 };
 
 export const putUser = (id, data) => {
-  Put(`http://ongapi.alkemy.org/api/users/${id}`, data);
+  Put(`${REACT_APP_USERS_API_ENDPOINT}/${id}`, data);
 };
 
 export const deleteUser = (id) => {
-  Delete(`http://ongapi.alkemy.org/api/users/${id}`);
+  Delete(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
 };
