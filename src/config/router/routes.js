@@ -1,5 +1,5 @@
 //BACKOFFICE
-export const BACKOFFICE = "/backoffice";
+export const BACKOFFICE = '/backoffice';
 
 //USERS
 export const USERS = `${BACKOFFICE}/users`;
@@ -48,32 +48,31 @@ export const PROJECT_EDIT = `${PROJECTS}/edit`;
 
 //PUBLIC WEB
 //HOME
-export const HOME = "/";
+export const HOME = '/';
 
 //ABOUT
-export const ABOUT = "/nosotros";
+export const ABOUT = '/nosotros';
 
 //CONTACT
-export const CONTACT = "/contacto";
+export const CONTACT = '/contacto';
 
 //CONTRIBUTE
-export const CONTRIBUTE = "/contribuye";
+export const CONTRIBUTE = '/contribuye';
 
 //THANKS
-export const THANKS = "/gracias";
+export const THANKS = '/gracias';
 
 //NEWS
-export const NEWS_WEB = "/novedades";
+export const NEWS_WEB = '/novedades';
 export const NEWS_WEB_DETAILS = `/${NEWS_WEB}/:id`;
 
 //ACTIVITIES
-export const ACTIVITIES_WEB = "/actividades";
+export const ACTIVITIES_WEB = '/actividades';
 export const ACTIVITIES_WEB_DETAILS = `${ACTIVITIES_WEB}/:id`;
 
 //TESTIMONIALS
-export const TESTIMONIALS_WEB = "/testimonios";
-
+export const TESTIMONIALS_WEB = '/testimonios';
 
 //LANDINGS (CAMPAIGNS)
-export const SCHOOL_CAMPAIGN = "/school-campaign";
-export const TOYS_CAMPAIGN = "/toys-campaign";
+export const SCHOOL_CAMPAIGN = '/school-campaign';
+export const TOYS_CAMPAIGN = '/toys-campaign';
