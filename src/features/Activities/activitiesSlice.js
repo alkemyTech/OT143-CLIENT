@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {getAllData} from './../../Services/activitiesService'
 
-export const getActivities = createAsyncThunk('activities/getActivites', async ()=>{
-			return fetch(getAllData()).then((res)=>res.json());
+export const getActivities = createAsyncThunk('activities/getActivities', async ()=>{
+			return  fetch('https://ongapi.alkemy.org/api/activities').then((res)=>res.json());
+			//chequear el service que no funciona.
 })
 const initialState = {
 	list:[],
@@ -34,14 +35,14 @@ export const activitiesSlice = createSlice({
 	},
 	extraReducers:{
 		[getActivities.pending]:(state,action)=>{
-			state.status ='loading'
+			state.status = 'loading';
 		},
 		[getActivities.fulfilled]:(state,{payload})=>{
-			state.list=payload
-			state.status ='OK'
+			state.list = payload
+			state.status ='success'
 		},
 		[getActivities.rejected]:(state,action)=>{
-			state.status="Error"
+			state.status="failed"
 		}
 	}
 });

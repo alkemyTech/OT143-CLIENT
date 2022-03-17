@@ -1,11 +1,11 @@
-import { Get, GetAll, Put, Post, Patch, Delete } from './privateApiService';
+import { Get, GetAll, Put, Post, Patch, Delete, GetPrivateService} from './privateApiService';
 
 export const getData = id => {
 	Get(`http://ongapi.alkemy.org/api/activities/${id}`);
 };
 
 export const getAllData = () => {
-	GetAll('https://ongapi.alkemy.org/api/activities');
+	GetPrivateService('activities');
 };
 
 export const putData = (data, id) => {
