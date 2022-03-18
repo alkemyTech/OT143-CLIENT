@@ -67,8 +67,6 @@ const LoginForm = () => {
 		dispatch(isAuth(res.data.success));
 
 		localStorage.setItem('token', token);
-		localStorage.setItem('role', role_id);
-		localStorage.setItem('auth', res.data.success);
 	};
 
 	return (
