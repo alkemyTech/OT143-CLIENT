@@ -11,6 +11,7 @@ import { postContact } from '../../Services/contactsService';
 import { warningMsg } from './../Alerts/Alert';
 import Loading from '../Common/Loading';
 
+
 const ContactForm = () => {
 	const [latA, setLat] = useState(-34.603683);
 	const [lngA, setLng] = useState(-58.381557);
