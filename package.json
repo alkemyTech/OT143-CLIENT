@@ -40,6 +40,9 @@
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -55,6 +58,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@types/leaflet": "^1.7.9"
+    "@types/leaflet": "^1.7.9",
+    "react-error-overlay": "6.0.9"
   }
 }
