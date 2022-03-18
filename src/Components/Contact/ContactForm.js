@@ -3,8 +3,6 @@ import '../../Components/FormStyles.css';
 import axios from 'axios';
 import GoogleMaps from 'simple-react-google-maps';
 import Geocode from 'react-geocode';
-import { Loader } from '@googlemaps/js-api-loader';
-import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Button, Container } from 'react-bootstrap';
