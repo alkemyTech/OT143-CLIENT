@@ -5,6 +5,7 @@ import {
 	CONTACT,
 	CONTRIBUTE,
 	HOME,
+	LOGIN,
 	NEWSLETTER,
 	NEWS_WEB,
 	NEWS_WEB_DETAILS,
@@ -26,6 +27,7 @@ import PageNotFound from '../../Components/PageNotFound';
 import Layout from '../../Components/Layout/Layout';
 import NewsletterForm from '../../Components/Newsletter/NewsletterForm';
 import NewsRoute from './NewsRoute';
+import LoginForm from '../../Components/Auth/LoginForm';
 
 const PublicWebRoutes = () => {
 	return (
@@ -43,6 +45,7 @@ const PublicWebRoutes = () => {
 				<Route exact path={CONTACT} component={Contact} />
 				<Route exact path={ABOUT} component={AboutUs} />
 				<Route exact path={HOME} component={Home} />
+				<Route exact path={LOGIN} component={LoginForm} />
 				<NewsRoute exact path={NEWSLETTER} component={NewsletterForm} />
 				<Route path="*" component={PageNotFound} />
 			</Switch>

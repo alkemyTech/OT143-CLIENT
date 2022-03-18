@@ -62,6 +62,9 @@ export const CONTRIBUTE = '/contribuye';
 //THANKS
 export const THANKS = '/gracias';
 
+//LOGIN
+export const LOGIN = '/login';
+
 //NEWS
 export const NEWS_WEB = '/novedades';
 export const NEWS_WEB_DETAILS = `/${NEWS_WEB}/:id`;
