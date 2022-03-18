@@ -1,5 +1,4 @@
-import React, { useEffect,useState } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect,useState,useRef } from 'react';
 import Title from '../../Title/Title';
 import { useParams } from 'react-router-dom';
 import Loading from '../../Common/Loading';
@@ -12,55 +11,49 @@ const NewsDetail = () => {
     const [news,setNews] = useState();
     const [newsApi,setNewsApi] = useState();
     const [isFetching, setIsFetching] = useState(true);
+    const [isInViewPor, setIsInViewport] =useState(false);
+
+    const root=useRef()
 
     useEffect(()=>{
-        const cargaDetail = async () =>{
-                try {
-                    
-                    const res = {
-                        data :{
-                            image : "IMG",
-                            content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, accusantium.",
-                            updated_at: Date(),
-                        }
-                    }
-                    res.data ? setNews(res.data) :
-                    console.log("RES", res,"STATE" ,news) 
-                    setIsFetching(false);
-                } catch (error) {
-                    setIsFetching(true);
-                    warningMsg("Error 404 no hay noticias");
-                }
+        const obs = new IntersectionObserver(onIntersection,{threshold:0});
+        obs.observe(root.current);
+        function onIntersection(entries){
+            const {isIntersecting} = entries[0];
+            if (isIntersecting){obs.disconnect};
+            setTimeout(() => {
+                
+                setIsInViewport(isIntersecting);
+                setIsFetching(false)
+            }, 3000);
         }
-        cargaDetail();
-        
     },[]);
 
+    //aplicar toda esta logica en un evento onScroll
 
     return ( <>
     
     <Title  />
 
     <div className="m-0 row justify-content-center">
-        { isFetching && <Loading />}
     </div>
-    {news ? 
     <div className="container">
         <div className="row">
             <div className="col">
                 <div className="text-center">
 
-                <img  className="img-fluid" src={news.image} alt="ImagenDetalleNovedades"/>
+                <img  className="img-fluid"  alt="ImagenDetalleNovedades"/>
 
                 </div>
                 <div className="text-center" >
                     <h1>DetalleNovedades</h1>
-                    <p >{news.content}</p>
-                    <p >Fecha: {Date(news.updated_at)}</p>
+                    <p >{}</p>
+                    <p >Fecha: {Date()}</p>
                     </div>
                     <h4 className='text-center'> "Seccion Comentarios 👇"</h4>
-                    <div className="row text-center" >
+                    <div className="row text-center" ref={root}  >
                       {isFetching && <Loading /> }
+                      {!isInViewPor && <Skeleton />}
                     </div>
 
 
@@ -68,8 +61,6 @@ const NewsDetail = () => {
             </div>
         </div>
     </div>
-    
-    : ""}
     
     </> );
 }
