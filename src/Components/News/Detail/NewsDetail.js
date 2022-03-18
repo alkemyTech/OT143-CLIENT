@@ -60,7 +60,7 @@ const NewsDetail = () => {
                     </div>
                     <h4 className='text-center'> "Seccion Comentarios 👇"</h4>
                     <div className="row text-center" >
-                      {isFetching && <Skeleton /> }
+                      {isFetching && <Loading /> }
                     </div>
 
 
