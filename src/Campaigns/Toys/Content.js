@@ -2,9 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 const Countdown = () => {
+  // fecha en la que termina el contador 
   const deadline = new Date("Apr 1 2022 19:02:05 GMT-0300");
-  // constante que cambia cada segundo
-  const [timer, setTimer] = useState(0);
+
   const [remainingTime, setRemainingTime] = useState({
     days: "",
     hours: "",
@@ -12,11 +12,6 @@ const Countdown = () => {
     seconds: "",
   });
 
-  const add = () => {
-    setTimer(timer + 0.1);
-  };
-
-  setInterval(add, 1000);
 
   const getRemainingTime = (deadline) => {
     let now = new Date();
@@ -38,14 +33,22 @@ const Countdown = () => {
     };
   };
 
-  useEffect(() => {
+  const changeRemainingTime = () =>{
     setRemainingTime({
       days: getRemainingTime(deadline).remainingDays,
       hours: getRemainingTime(deadline).remainingHours,
       minutes: getRemainingTime(deadline).remainingMinutes,
       seconds: getRemainingTime(deadline).remainingSeconds,
-    });
-  }, [timer]);
+    })
+  }
+
+  useEffect(() => {
+    
+    changeRemainingTime();
+    const interval = setInterval(changeRemainingTime, 1000);
+    return () => clearInterval(interval)
+
+  }, []);
 
   return (
     <>
