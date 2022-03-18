@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { getAllData } from '../../Services/activitiesService';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FaPencilAlt } from 'react-icons/fa';
 import Loading from '../Common/Loading';
@@ -12,7 +12,7 @@ const ActivitiesList = () => {
 
 	const getAct = async () => {
 		try {
-			const res = await axios.get('https://ongapi.alkemy.org/api/activities');
+			const res = await getAllData();
 			setActividades(res.data);
 			successMsg('Lista cargada exitosamente');
 		} catch (err) {
