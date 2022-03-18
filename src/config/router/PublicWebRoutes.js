@@ -22,7 +22,7 @@ const PublicWebRoutes = () => {
         {/* <Route exact path={TESTIMONIALS_WEB} component={<Testimonials />} /> //No existe el componente todavía */}
         <Route exact path={ACTIVITIES_WEB_DETAILS} component={ActivityDetail} />
         {/* <Route exact path={ACTIVITIES_WEB} component={Activities} /> //No existe el componente todavía */}
-        <Route exact path={NEWS_WEB_DETAILS} component={NewsDetail} />
+        <Route exact path={`${NEWS_WEB}/:id`} component={NewsDetail} />
         <Route exact path={NEWS_WEB} component={News} />
         <Route exact path={THANKS} component={Gracias} />
         <Route exact path={CONTRIBUTE} component={Donacion} />
