@@ -1,84 +1,78 @@
 import { Formik, Form, useField } from 'formik';
+import { successMsg } from '../Alerts/Alert';
 
-const NewsletterForm = ()=>{
-  
-  const TextInput = ({ label, ...props }) => {
-    const [field, meta] = useField(props);
-    return (
-      <>
-      <label>
-        {label}
-        <input {...field} {...props}/>
-      </label>
+const errorsStyles = { color: "red", fontSize: ".875em" };
+
+const TextInput = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="mb-3">
+      {label}
+      <input {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div>{meta.error}</div>
+        <div className="mt-1" style={errorsStyles}>{meta.error}</div>
       ) : null}
-    </>
-    );
-  };
+    </div>
+  );
+};
 
-  const validate = (value)=>{
-
+const NewsletterForm = () => {
+  const validate = (value) => {
     const errors = {};
-    if(value.name === ""){
+    if (value.name === "") {
       errors.name = "Campo requerido";
     }
-    if(value.lastname === ""){
+    if (value.lastname === "") {
       errors.lastname = "Campo requerido";
     }
-    if(value.email === ""){
+    if (value.email === "") {
       errors.email = "Campo requerido";
-    }else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value.email)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value.email)) {
       errors.email = 'Email inválido';
     }
-    return errors
+    return errors;
   }
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = (e) => {
     localStorage.setItem('Newsletter', JSON.stringify(e));
+    successMsg("¡Te has suscripto al newsletter!");
+    setTimeout(() => window.location.reload(), 2000);
   }
 
-  return(
+  return (
     <>
-    <Formik 
-      initialValues={{
-        name: "",
-        lastname: "",
-        email: "",
-      }}
-      validate={validate}
-      onSubmit={handleSubmit}>
-      <Form>
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-6 card">
-              <TextInput
-                name="name"
-                type="text"
-                placeholder="Nombre"
-                className="form-control my-3"
-              />
-              <TextInput
-                name="lastname"
-                type="text"
-                placeholder="Apellido"
-                className="form-control my-3"
-              />
-              <TextInput
-                name="email"
-                type="email"
-                placeholder="Email"
-                className="form-control my-3"
-              />
-              <div className="text-center">
-                <button type="submit" className='btn btn-primary my-3'>Enviar</button>
-              </div>
-            </div>
+      <Formik
+        initialValues={{
+          name: "",
+          lastname: "",
+          email: "",
+        }}
+        validate={validate}
+        onSubmit={handleSubmit}>
+        <Form>
+          <TextInput
+            name="name"
+            type="text"
+            placeholder="Nombre"
+            className="form-control"
+          />
+          <TextInput
+            name="lastname"
+            type="text"
+            placeholder="Apellido"
+            className="form-control"
+          />
+          <TextInput
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="form-control"
+          />
+          <div className="text-end">
+            <button type="submit" className='btn btn-primary mb-3'>Enviar</button>
           </div>
-          
-        </div>
-      </Form>
-    </Formik> 
+        </Form>
+      </Formik>
     </>
   )
 }

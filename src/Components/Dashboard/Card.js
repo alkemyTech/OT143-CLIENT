@@ -1,8 +1,9 @@
 import React from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const CardDashboard = (props) => {
-  const { title, children } = props;
+  const { title, to, children } = props;
   return (
     <Col
       xs={12}
@@ -19,11 +20,11 @@ const CardDashboard = (props) => {
             <Col>{children}</Col>
           </Row>
         </Card.Body>
-        <Card.Link className="mb-2">
-          <Button variant="success" size="sm">
+        <Row className="mb-2 pb-2">
+          <Link to={to}><Button variant="success" size="sm">
             Ir
-          </Button>
-        </Card.Link>
+          </Button></Link>
+        </Row>
       </Card>
     </Col>
   );
