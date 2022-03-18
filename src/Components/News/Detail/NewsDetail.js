@@ -3,12 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Title from '../../Title/Title';
 import { useParams } from 'react-router-dom';
 import Loading from '../../Common/Loading';
-<<<<<<< HEAD
 import Skeleton from '../../Common/Skeleton';
 import {Get} from './../../../Services/publicApiService';
-=======
 import { warningMsg } from '../../Alerts/Alert';
->>>>>>> 82225b7c1ee7f2dd4212659634dcd5e150429908
 // import axios from 'axios';
 
 //CARGA DE DATOS DE LA API.
@@ -69,15 +66,10 @@ const NewsDetail = () => {
                 }
         }
         cargaDetail();
-<<<<<<< HEAD
         
     },[]);
 
-  
-=======
 
-    },[])
->>>>>>> 82225b7c1ee7f2dd4212659634dcd5e150429908
     return ( <>
     
     <Title  />
