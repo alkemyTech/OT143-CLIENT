@@ -1,54 +1,62 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Title from '../Title/Title';
-import ContactForm from './ContactForm';
 import {warningMsg} from './../Alerts/Alert';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMapEvents } from 'react-leaflet'
+import { Container,Row } from 'react-bootstrap';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import imgLogo from './../../images/somosMasOrg.png';
+import { useHistory } from 'react-router-dom';
+
+
 
 const Contact = ({ data }) => {
-	console.log(data)
-	// const city = data.city;
-	// const address = data.address;
-	// const phone = data.phone;
-	// const email = data.email;
+	const routerHistory = useHistory()
+	const iconsCustom = new L.Icon({
+		iconUrl:imgLogo,
+		iconSize:[40,45],
+		shadowSize: [50,64],
+		iconAnchor:[20,40],
+		popupAnchor:[0,-40]
+	});
 
-	//COMENTO DATA PORQUE NO RECIBE DATOS.
 
-	useEffect(()=>{
-		try {
-			console.log(data)
-			//setear la logica y los datos aqui.
-		} catch (error) {
-			error ? warningMsg("Error al cargar la pagina") :
-			console.error(error)
-		}
-	},[])
+
+	//position debe ser sacada del estado de la organizacion. se harcodea hasta tener esa info.
+	const positionMarker =[-34.62, -58.51]
+
+	//Si no recibe la posicion no debe renderizarse.(por props o state)
 	return (
 		<>
-			<div className="container mt-5 mb-5">
-				<div className="row">
-					<div className="card col-6 offset-3 pt-3">
-						<Title text={'Contacto'} />
-						<div className="mt-5">
-							<h4 className="d-flex justify-content-center">
-						
-								{/* <b>{about}</b> */}
-							</h4>
-							<h4 className="mt-5">
-								<b>Ciudad:</b> 
-							</h4>
-							<h4 className="mt-3">
-								<b>Direccion:</b> 
-							</h4>
-							<h4 className="mt-3">
-								<b>Telefono:</b> 
-							</h4>
-							<h4 className="mt-3 pb-3">
-								<b>Email:</b> 
-							</h4>
-						</div>
-					</div>
-				</div>
-				<ContactForm />
-			</div>
+				<Title text={'Contacto'} />
+				<h2 className='text-center form-control '>Direccion SomosMas</h2>
+
+				<Container >
+					{positionMarker ?  
+				<Row  className= "align-items-center">
+
+				<MapContainer center={[-34.62, -58.51]} zoom={16} style={{height: '300px'}} >
+  				<TileLayer
+    				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  				/>
+  				<Marker position={positionMarker} icon={iconsCustom}  >
+				<Tooltip>
+					<span>ONG SomosMas</span>
+				</Tooltip>
+    			<Popup>
+     				Fundacion Somos Mas🏡
+    			</Popup>
+  				</Marker>
+
+				</MapContainer> 
+				
+				</Row> : 
+					(warningMsg("Error al cargar Mapa"), routerHistory.push('/'))
+					}
+				</Container>
+				
+				
 		</>
 	);
 };
