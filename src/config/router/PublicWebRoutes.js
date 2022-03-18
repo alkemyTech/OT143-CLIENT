@@ -24,8 +24,6 @@ import AboutUs from '../../Components/About/AboutUs';
 import Home from '../../Components/Home/Home';
 import PageNotFound from '../../Components/PageNotFound';
 import Layout from '../../Components/Layout/Layout';
-import NewsletterForm from '../../Components/Newsletter/NewsletterForm';
-import NewsRoute from './NewsRoute';
 
 const PublicWebRoutes = () => {
 	return (

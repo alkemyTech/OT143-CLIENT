@@ -6,7 +6,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 		<Route
 			{...rest}
 			render={props =>
-				localStorage.getItem('auth') && localStorage.getItem('role') === 1 ? (
+				localStorage.getItem('auth') === 'true' &&
+				localStorage.getItem('role') === '1' ? (
 					<Component {...props} />
 				) : (
 					<Redirect to="/" />
