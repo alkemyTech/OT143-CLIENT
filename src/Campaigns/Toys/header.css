@@ -1,0 +1,17 @@
+@media (max-width: 480px) {
+    .logoSomosMas, .eslogan {
+        display: none;
+    }
+}
+@media (max-width: 1024px) {
+    .eslogan {
+        display: none;
+    }
+}
+@media (max-width: 1200px) {
+    .eslogan {
+        font-family: 'Rubik', sans-serif;
+        font-size: 1.1rem;
+        color: #9991a0;
+    }
+}

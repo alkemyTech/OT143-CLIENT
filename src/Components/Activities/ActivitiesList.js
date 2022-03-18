@@ -5,6 +5,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { FaPencilAlt } from 'react-icons/fa';
 import Loading from '../Common/Loading';
 import { successMsg, warningMsg } from '../Alerts/Alert';
+import { ACTIVITY_CREATE } from '../../config/router/routes';
 
 const ActivitiesList = () => {
 	const [actividades, setActividades] = useState('');
@@ -30,9 +31,9 @@ const ActivitiesList = () => {
 				<div className="row">
 					<div className="card">
 						<h1 className="d-flex justify-content-center mt-3">Actividades</h1>
-						<Link to="/create-activity">
+						<Link to={ACTIVITY_CREATE}>
 							<button className="btn btn-sm text-white bg-primary col-1 offset-11">
-								Create
+								Crear
 							</button>
 						</Link>
 

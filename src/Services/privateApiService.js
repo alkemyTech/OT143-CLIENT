@@ -7,15 +7,22 @@ const getHeaderAuthorization = () => {
 	return token !== null ? headerAuthorization : null;
 };
 
+//Cuando sea solicitado cambiar la baseURL, por las variables de entorno.
+
+const baseURL = 'http://ongapi.alkemy.org/api';
 const config = {
 	headers: {
-		// Group: "143", //Aqui va el ID del equipo!!
 		Authorization: getHeaderAuthorization(),
 	},
 };
 
+//Servicio privado GET
+export const GetPrivateService = (url, id) => {
+	axios.get(`${baseURL}/${url}/${id ? id : null}`, config);
+};
+
 export const GetAll = url => {
-	return axios.get(url, config);
+	axios.get(url, config);
 };
 
 export const Get = url => {
