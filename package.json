@@ -25,11 +25,7 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
-<<<<<<< HEAD
-    "react-scroll": "^1.8.6",
-=======
     "reactjs-popup": "^2.0.5",
->>>>>>> 82225b7c1ee7f2dd4212659634dcd5e150429908
     "sass": "^1.49.8",
     "simple-react-google-maps": "^1.1.2",
     "sweetalert2": "^11.4.4",
