@@ -15,21 +15,31 @@ const NewsDetail = () => {
 
     const root=useRef()
 
-    useEffect(()=>{
+    // useEffect(()=>{
+    //     const obs = new IntersectionObserver(onIntersection,{threshold:0});
+    //     obs.observe(root.current);
+    //     function onIntersection(entries){
+    //         const {isIntersecting} = entries[0];
+    //         if (isIntersecting){obs.disconnect};
+    //         setTimeout(() => {
+                
+    //             setIsInViewport(isIntersecting);
+    //             setIsFetching(false)
+    //         }, 3000);
+    //     }
+    // },[]);
+
+    const handleScroll  = () =>{
         const obs = new IntersectionObserver(onIntersection,{threshold:0});
         obs.observe(root.current);
         function onIntersection(entries){
-            const {isIntersecting} = entries[0];
-            if (isIntersecting){obs.disconnect};
-            setTimeout(() => {
-                
-                setIsInViewport(isIntersecting);
-                setIsFetching(false)
-            }, 3000);
-        }
-    },[]);
-
-    //aplicar toda esta logica en un evento onScroll
+            const {isIntersecting} = entries[0]
+            if (isIntersecting)
+                {obs.disconnect()};
+            setIsInViewport(isIntersecting);
+            setIsFetching(false)
+        } 
+    }
 
     return ( <>
     
@@ -50,9 +60,18 @@ const NewsDetail = () => {
                     <p >{}</p>
                     <p >Fecha: {Date()}</p>
                     </div>
-                    <h4 className='text-center'> "Seccion Comentarios 👇"</h4>
-                    <div className="row text-center" ref={root}  >
+                    <h4  className='text-center'> "Seccion Comentarios 👇"</h4>
+
+
+                    
+                    <div   className="row text-center"   >
                       {isFetching && <Loading /> }
+                      <div ref={root}>
+
+                      </div>
+                      <div onScroll={handleScroll}>
+                          
+                      </div>
                       {!isInViewPor && <Skeleton />}
                     </div>
 
