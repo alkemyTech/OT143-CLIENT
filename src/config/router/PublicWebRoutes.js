@@ -11,6 +11,7 @@ import {
 	THANKS,
 	TOYS_CAMPAIGN,
 	NEWSLETTER,
+	LOGIN,
 } from './routes';
 import SchoolCampaign from '../../Campaigns/School/SchoolCampaign';
 import ToysCampaign from '../../Campaigns/Toys/ToysCampaign';
@@ -24,6 +25,7 @@ import AboutUs from '../../Components/About/AboutUs';
 import Home from '../../Components/Home/Home';
 import PageNotFound from '../../Components/PageNotFound';
 import Layout from '../../Components/Layout/Layout';
+import LoginForm from '../../Components/Auth/LoginForm';
 
 const PublicWebRoutes = () => {
 	return (
@@ -41,6 +43,7 @@ const PublicWebRoutes = () => {
 				<Route exact path={CONTACT} component={Contact} />
 				<Route exact path={ABOUT} component={AboutUs} />
 				<Route exact path={HOME} component={Home} />
+				<Route exact path={LOGIN} component={LoginForm} />
 				<Route path="*" component={PageNotFound} />
 			</Switch>
 		</Layout>

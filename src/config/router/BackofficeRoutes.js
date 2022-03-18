@@ -49,7 +49,7 @@ import PrivateRoute from './PrivateRoute';
 const BackofficeRoutes = () => {
 	return (
 		<Switch>
-			<Route exact path={BACKOFFICE} component={ScreenDashboard} />
+			<PrivateRoute exact path={BACKOFFICE} component={ScreenDashboard} />
 
 			<Route exact path={PROJECT_EDIT} component={ProjectsForm} />
 			<Route exact path={PROJECT_CREATE} component={ProjectsForm} />

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import '../FormStyles.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { postIn } from '../../Services/authService';
-import { regUser } from '../../features/auth/authSlice';
+import { logIn } from '../../Services/authService';
+import { regUser, roleMe, isAuth } from '../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 
 const LoginForm = () => {
@@ -54,16 +54,21 @@ const LoginForm = () => {
 	};
 
 	const handleSubmit = async e => {
-		const res = await postIn({
+		const res = await logIn({
 			email: initialValues.email,
 			password: initialValues.password,
 		});
 
 		const { token, user } = res.data.data;
+		const { role_id } = user;
 
 		dispatch(regUser({ token, user }));
+		dispatch(roleMe(role_id));
+		dispatch(isAuth(res.data.success));
 
 		localStorage.setItem('token', token);
+		localStorage.setItem('role', role_id);
+		localStorage.setItem('auth', res.data.success);
 	};
 
 	return (
