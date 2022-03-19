@@ -1,9 +1,10 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import "./Content.css";
 
 const Content = ({ title, description, image1, image2, children }) => {
   return (
-    <div className="m-3">
+    <div className="m-3 content">
       <Row className="text-center mb-3">
         <h3 className="m-0">{title}</h3>
       </Row>
