@@ -1,89 +1,24 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import Countdown from '../Common/Countdown';
+import Content from '../Common/Content';
+import img1 from './img/toys-campaign-1.jpg';
+import img2 from './img/toys-campaign-2.png';
 
-const Countdown = () => {
-  // fecha en la que termina el contador 
-  const deadline = new Date("Apr 1 2022 19:02:05 GMT-0300");
+const ContentToys = () => {
+  const description = "Desde 1997 en Somos Más trabajamos con los chicos y chicas, mamás y papás, abuelos y vecinos del barrio La Cava generando procesos de crecimiento y de inserción social. Uniendo las manos de todas las familias, las que viven en el barrio y las que viven fuera de él, es que podemos pensar, crear y garantizar estos procesos. Somos una asociación civil sin fines de lucro que se creó en 1997 con la intención de dar alimento a las familias del barrio. Con el tiempo fuimos involucrándonos con la comunidad y agrandando y mejorando nuestra capacidad detrabajo. Hoy somos un centro comunitario que acompaña a más de 700 personas a través de las áreas de: Educación, deportes, primera infancia, salud, alimentación y trabajo social.";
 
-  const [remainingTime, setRemainingTime] = useState({
-    days: "",
-    hours: "",
-    minutes: "",
-    seconds: "",
-  });
-
-
-  const getRemainingTime = (deadline) => {
-    let now = new Date();
-    let remainingTime = (new Date(deadline) - now + 1000) / 1000;
-    let remainingSeconds = ("0" + Math.floor(remainingTime % 60)).slice(-2);
-    let remainingMinutes = ("0" + Math.floor((remainingTime / 60) % 60)).slice(
-      -2
-    );
-    let remainingHours = ("0" + Math.floor((remainingTime / 3600) % 24)).slice(
-      -2
-    );
-    let remainingDays = Math.floor(remainingTime / (3600 * 24));
-
-    return {
-      remainingSeconds,
-      remainingMinutes,
-      remainingHours,
-      remainingDays,
-    };
-  };
-
-  const changeRemainingTime = () =>{
-    setRemainingTime({
-      days: getRemainingTime(deadline).remainingDays,
-      hours: getRemainingTime(deadline).remainingHours,
-      minutes: getRemainingTime(deadline).remainingMinutes,
-      seconds: getRemainingTime(deadline).remainingSeconds,
-    })
-  }
-
-  useEffect(() => {
-    
-    changeRemainingTime();
-    const interval = setInterval(changeRemainingTime, 1000);
-    return () => clearInterval(interval)
-
-  }, []);
 
   return (
     <>
-      <div className="d-flex ">
-        <div className="text-center">
-          <div className="mx-2">{remainingTime.days}</div>
-          <div className="mx-2">DIAS</div>
-        </div>
-        <div className="text-center">
-          <div className="mx-2">{remainingTime.hours}</div>
-          <div className="mx-2">HORAS</div>
-        </div>
-        <div className="text-center">
-          <div className="mx-2">{remainingTime.minutes}</div>
-          <div className="mx-2">MINUTOS</div>
-        </div>
-        <div className="text-center">
-          <div className="mx-2">{remainingTime.seconds}</div>
-          <div className="mx-2">SEGUNDOS</div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-const Content = () => {
-  return (
-    <>
-      <div>
-        <p>¡Te quedan :</p>
+      <Content title="01-04-2022 19:02 hs Cra. 22 ## 80-73, Bogotá, Colombia"
+      description={description}
+      image1={img1}
+      image2={img2}
+      >
         <Countdown />
-        <span>para participar!</span>
-      </div>
+      </Content>
+
     </>
   );
 };
 
-export default Content;
+export default ContentToys;
