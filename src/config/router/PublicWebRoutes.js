@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router-dom";
-import { ABOUT, ACTIVITIES_WEB_DETAILS, CONTACT, CONTRIBUTE, HOME, NEWS_WEB, NEWS_WEB_DETAILS, THANKS } from "./routes";
+import { ABOUT, ACTIVITIES_WEB_DETAILS, CONTACT, CONTRIBUTE, HOME, NEWS_WEB, THANKS } from "./routes";
 import ActivityDetail from "../../Components/Activities/Detail/Detail";
 import NewsDetail from "../../Components/News/Detail/NewsDetail";
 import News from "../../Components/News/News";
