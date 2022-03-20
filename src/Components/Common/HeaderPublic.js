@@ -4,9 +4,13 @@ import { Link, NavLink } from 'react-router-dom';
 import imgLogo from './../../images/somosMasOrg.png';
 import {ABOUT,HOME,CONTACT,TOYS_CAMPAIGN,SCHOOL_CAMPAIGN} from './../../config/router/routes'
 import {BsArrowRightCircle, BsFillPersonCheckFill} from 'react-icons/bs';
+import { RiLoginBoxLine, RiLogoutBoxLine} from "react-icons/ri";
+import './HeaderPublic.scss'
 
 
 const HeaderPublic = () => {
+  const token = localStorage.getItem('token');
+
     const nav =[
          {path: ABOUT,
          title: "Nosotros"},
@@ -19,6 +23,11 @@ const HeaderPublic = () => {
          {path: SCHOOL_CAMPAIGN,
          title: "COLEGIOS"},
     ]
+
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      window.location.reload();
+    }
  
     return (<>
     
@@ -60,8 +69,24 @@ const HeaderPublic = () => {
             </NavDropdown>
           </Nav>
           <Nav>
-             <Nav.Link><NavLink to='/'> <BsArrowRightCircle /> Login</NavLink></Nav.Link> 
-             <Nav.Link><BsFillPersonCheckFill />UserByProps</Nav.Link>   
+            { !token ?
+            <>
+            
+            <Nav.Link ><NavLink style={{background: "#9AC9FB"}} className="text-decoration-none log-button" to='/'> <RiLoginBoxLine />Log-in</NavLink></Nav.Link> 
+            <Nav.Link ><NavLink className="text-decoration-none log-button" to='/'>Registrarse</NavLink></Nav.Link> 
+            
+            </> 
+            
+            :
+            
+            <>
+            
+            <Nav.Link onClick={handleLogout} ><NavLink style={{background: "#DB5752" }} className="text-decoration-none log-button" to='/'> <RiLogoutBoxLine /> Log-out</NavLink></Nav.Link> 
+            <Nav.Link><BsFillPersonCheckFill />UserByProps</Nav.Link>   
+            
+            </>
+
+            }
           </Nav>
         
         </Navbar.Collapse>
