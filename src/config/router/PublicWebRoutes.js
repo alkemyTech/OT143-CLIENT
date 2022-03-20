@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router-dom";
-import { ABOUT, ACTIVITIES_WEB_DETAILS, CONTACT, CONTRIBUTE, HOME, NEWS_WEB, NEWS_WEB_DETAILS, SCHOOL_CAMPAIGN, THANKS, TOYS_CAMPAIGN } from "./routes";
+import { ABOUT, ACTIVITIES_WEB_DETAILS, CONTACT, CONTRIBUTE, HOME, NEWS_WEB, NEWS_WEB_DETAILS, REGISTER, SCHOOL_CAMPAIGN, THANKS, TOYS_CAMPAIGN } from "./routes";
 import SchoolCampaign from "../../Campaigns/School/SchoolCampaign";
 import ToysCampaign from "../../Campaigns/Toys/ToysCampaign";
 import ActivityDetail from "../../Components/Activities/Detail/Detail";
@@ -12,6 +12,8 @@ import AboutUs from "../../Components/About/AboutUs";
 import Home from "../../Components/Home/Home";
 import PageNotFound from "../../Components/PageNotFound";
 import Layout from "../../Components/Layout/Layout";
+import AuthenticatedUserPath from "./AuthenticatedUserPath";
+import RegisterForm from "../../Components/Auth/RegisterForm";
 
 const PublicWebRoutes = () => {
   return (
@@ -28,6 +30,7 @@ const PublicWebRoutes = () => {
         <Route exact path={CONTRIBUTE} component={Donacion} />
         <Route exact path={CONTACT} component={Contact} />
         <Route exact path={ABOUT} component={AboutUs} />
+        <AuthenticatedUserPath path={REGISTER} component={RegisterForm} />
         <Route exact path={HOME} component={Home} />
         <Route path="*" component={PageNotFound} />
       </Switch>

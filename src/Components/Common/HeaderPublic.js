@@ -61,7 +61,7 @@ const HeaderPublic = () => {
           </Nav>
           <Nav>
              <Nav.Link><NavLink to='/'> <BsArrowRightCircle /> Login</NavLink></Nav.Link> 
-             <Nav.Link><BsFillPersonCheckFill />UserByProps</Nav.Link>   
+             <Nav.Link ><NavLink className="text-decoration-none" to='/register'>Registrarse</NavLink></Nav.Link>
           </Nav>
         
         </Navbar.Collapse>
