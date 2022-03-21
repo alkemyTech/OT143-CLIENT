@@ -1,0 +1,9 @@
+@media (min-width: 1200px) {
+	.caption {
+		width: 100%;
+		position: absolute;
+		bottom: 100px;
+		justify-content: center;
+		color: white;
+	}
+}
