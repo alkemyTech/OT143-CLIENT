@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "../FormStyles.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useHistory } from "react-router-dom";
 
 const LoginForm = () => {
+  let history = useHistory();
+
   const [initialValues, setInitialValues] = useState({
     email: "",
     password: "",
@@ -53,6 +56,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     console.log(initialValues);
     localStorage.setItem("token", "tokenValueExample");
+    history.push("/");
   };
 
   return (

@@ -73,6 +73,8 @@ export const ACTIVITIES_WEB_DETAILS = `${ACTIVITIES_WEB}/:id`;
 //TESTIMONIALS
 export const TESTIMONIALS_WEB = "/testimonios";
 
+// LOGIN
+export const LOGIN = "/login";
 
 //LANDINGS (CAMPAIGNS)
 export const SCHOOL_CAMPAIGN = "/school-campaign";

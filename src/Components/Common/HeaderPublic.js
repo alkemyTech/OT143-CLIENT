@@ -8,18 +8,18 @@ import {BsArrowRightCircle, BsFillPersonCheckFill} from 'react-icons/bs';
 
 const HeaderPublic = () => {
     const nav =[
-         {path: ABOUT,
-         title: "Nosotros"},
-         {path: HOME,
-         title: ""},
-         {path: CONTACT,
-         title: "Contacto"},
-         {path: TOYS_CAMPAIGN,
-         title: "JUGETES"},
-         {path: SCHOOL_CAMPAIGN,
-         title: "COLEGIOS"},
+        {path: ABOUT,
+        title: "Nosotros"},
+        {path: HOME,
+        title: ""},
+        {path: CONTACT,
+        title: "Contacto"},
+        {path: TOYS_CAMPAIGN,
+        title: "JUGETES"},
+        {path: SCHOOL_CAMPAIGN,
+        title: "COLEGIOS"},
     ]
- 
+
     return (<>
     
     <Navbar collapseOnSelect bg="light"  expand="lg" sticky="top">
@@ -40,8 +40,6 @@ const HeaderPublic = () => {
               return (<>
               {e.title == "JUGETES" || e.title==="COLEGIOS" ? 
               null : <NavLink key={index} to={e.path} className="nav-link me-auto" activeStyle={{color:"tomato"}} >{e.title}</NavLink> }
-              
-              
               </>
               )
             })}
@@ -60,8 +58,8 @@ const HeaderPublic = () => {
             </NavDropdown>
           </Nav>
           <Nav>
-             <Nav.Link><NavLink to='/'> <BsArrowRightCircle /> Login</NavLink></Nav.Link> 
-             <Nav.Link><BsFillPersonCheckFill />UserByProps</Nav.Link>   
+             <Nav.Link><NavLink className="text-decoration-none" to='/login'> <BsArrowRightCircle /> Login</NavLink></Nav.Link> 
+             <Nav.Link><BsFillPersonCheckFill />UserByProps</Nav.Link>
           </Nav>
         
         </Navbar.Collapse>
