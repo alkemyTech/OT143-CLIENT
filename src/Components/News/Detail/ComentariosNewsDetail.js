@@ -9,14 +9,17 @@ const ComentariosNewsDetail = ({id}) => {
     useEffect(()=>{
         const scrollComent  = (entries )=>{
             const el = entries[0];
-            if(el.isIntersecting){
+            if(el.isIntersecting){  
                 console.log("ESTAMOS ACA");
-                Get('comments').then((res)=>{
-                    setComents(res.data.data.filter(coment=>coment.new_id=== id))
+                Get('comments').then((res)=>{ 
+                    //filtro por new_id el comentario de cada noticia.
+                    const comentFilter = res.data.data.filter(coment=>coment.new_id===id);
+                    setComents(comentFilter)
+                    obs.disconnect();
                 }).catch(error=>console.log(error));
-
                 setInviewPort(true);
                 setSkeleton(false);
+             
             }
         }
         const obs = new IntersectionObserver(scrollComent,{
@@ -29,6 +32,7 @@ const ComentariosNewsDetail = ({id}) => {
                 coments.map(e=>
                     <p>{e.text}</p>)
             }
+            {coments.length===0 && !skeleton ? <h4>No hay comentarios </h4>: null}
         </section>
     </> );
 }
