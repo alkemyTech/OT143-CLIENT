@@ -4,7 +4,7 @@ const baseURL = "https://ongapi.alkemy.org/api"
 //Guardar en una variable de entorno BaseUrl
 export const Get = async (url,id) => {
     try {
-        const result  = await  axios.get(`${baseURL}/${url}/${id ? id : null}`);
+        const result  = await  axios.get(`${baseURL}/${url}${id ? `/${id}` : ""}`);
         return result; 
     } catch (error) {
         console.log(error)
