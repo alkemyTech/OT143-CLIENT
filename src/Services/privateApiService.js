@@ -9,11 +9,7 @@ const getHeaderAuthorization = () => {
 
 //Cuando sea solicitado cambiar la baseURL, por las variables de entorno.
 
-<<<<<<< HEAD
 const baseURL = "https://ongapi.alkemy.org/api";
-=======
-const baseURL = 'http://ongapi.alkemy.org/api';
->>>>>>> ec6c680d393974396d647840caecfcbdc46e68d9
 const config = {
 	headers: {
 		Authorization: getHeaderAuthorization(),
@@ -22,12 +18,8 @@ const config = {
 
 //Servicio privado GET
 export const GetPrivateService = (url, id) => {
-<<<<<<< HEAD
 	axios
 		.get(`${baseURL}/${url}`+ `${ id ? `/${id}` : ""}`, config)
-=======
-	axios.get(`${baseURL}/${url}/${id ? id : null}`, config);
->>>>>>> ec6c680d393974396d647840caecfcbdc46e68d9
 };
 
 export const GetAll = url => {

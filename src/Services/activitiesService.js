@@ -5,11 +5,7 @@ export const getData = id => {
 };
 
 export const getAllData = () => {
-<<<<<<< HEAD
-	GetPrivateService('activities');
-=======
 	return GetAll(`${process.env.REACT_APP_ACTIVITIES}`);
->>>>>>> ec6c680d393974396d647840caecfcbdc46e68d9
 };
 
 export const putData = (data, id) => {
