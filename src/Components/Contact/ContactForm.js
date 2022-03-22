@@ -3,8 +3,6 @@ import '../../Components/FormStyles.css';
 import axios from 'axios';
 import GoogleMaps from 'simple-react-google-maps';
 import Geocode from 'react-geocode';
-import { Loader } from '@googlemaps/js-api-loader';
-import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Button, Container } from 'react-bootstrap';
@@ -12,6 +10,7 @@ import { isSchema } from 'yup';
 import { postContact } from '../../Services/contactsService';
 import { warningMsg } from './../Alerts/Alert';
 import Loading from '../Common/Loading';
+
 
 const ContactForm = () => {
 	const [latA, setLat] = useState(-34.603683);
