@@ -1,10 +1,17 @@
 import React from 'react';
+import SliderCommon from '../Common/Slider';
+import imagen1 from './img/Imágenes-contenido-opción-1.png';
+import imagen2 from './img/Imágenes-contenido-opción-2.png';
+
 
 const Slider = () => {
+  const slides =[
+    {image: imagen1, caption:"TextoSchool"},
+    {image: imagen2, caption:"TextoSchool"},
+    {image: imagen1, caption:"TextoSchool"}
+  ]
   return (
-    <div>
-      
-    </div>
+    <SliderCommon  slides={slides}/>
   );
 }
  
