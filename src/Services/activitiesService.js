@@ -1,25 +1,29 @@
 import { Get, GetAll, Put, Post, Patch, Delete, GetPrivateService} from './privateApiService';
 
 export const getData = id => {
-	Get(`http://ongapi.alkemy.org/api/activities/${id}`);
+	return Get(`${process.env.REACT_APP_ACTIVITIES}/${id}`);
 };
 
 export const getAllData = () => {
+<<<<<<< HEAD
 	GetPrivateService('activities');
+=======
+	return GetAll(`${process.env.REACT_APP_ACTIVITIES}`);
+>>>>>>> ec6c680d393974396d647840caecfcbdc46e68d9
 };
 
 export const putData = (data, id) => {
-	Put(`http://ongapi.alkemy.org/api/activities/${id}`, data);
+	return Put(`${process.env.REACT_APP_ACTIVITIES}/${id}`, data);
 };
 
 export const postData = data => {
-	Post('http://ongapi.alkemy.org/api/activities', data);
+	return Post(`${process.env.REACT_APP_ACTIVITIES}`, data);
 };
 
 export const patchData = (data, id) => {
-	Patch(`http://ongapi.alkemy.org/api/activities/${id}`, data);
+	return Patch(`${process.env.REACT_APP_ACTIVITIES}/${id}`, data);
 };
 
 export const deleteData = id => {
-	Delete(`http://ongapi.alkemy.org/api/activities/${id}`);
+	return Delete(`${process.env.REACT_APP_ACTIVITIES}/${id}`);
 };
