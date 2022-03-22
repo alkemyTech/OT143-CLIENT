@@ -32,7 +32,7 @@ const Carousel = () => {
       navigation={true}
       modules={[Navigation, Pagination, Autoplay]}>
       {!slides ? <Loading style={{ height: "600px" }} /> : slides.map((slide, index) => (
-        <SwiperSlide className='swiper-slide' key={`slide-${index}`}>
+        <SwiperSlide className="swiper-slide-home" key={`slide-${index}`}>
           <img className="img-slide-home" src={slide.image} alt="" />
           <p className="p-slide-home">{slide.name}</p>
         </SwiperSlide>
