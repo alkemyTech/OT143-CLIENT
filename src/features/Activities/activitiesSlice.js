@@ -1,9 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {getAllData} from './../../Services/activitiesService'
+import { getAllData } from '../../Services/activitiesService';
 
 export const getActivities = createAsyncThunk('activities/getActivities', async ()=>{
-			return  fetch('https://ongapi.alkemy.org/api/activities').then((res)=>res.json());
-			//chequear el service que no funciona bien.
+		const {REACT_APP_ACTIVITIES} = process.env;
+		return fetch(REACT_APP_ACTIVITIES).then(res=>res.json())
+				.catch(error=>console.log(error));
+				
+		// const request = getAllData();
+		// return request.then(res=>res.json()).catch(error=>console.log(error)
+		//chequear el service que no funciona bien.
 })
 const initialState = {
 	list:[],

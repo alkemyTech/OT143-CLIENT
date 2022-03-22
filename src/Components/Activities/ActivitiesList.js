@@ -8,10 +8,11 @@ import { ACTIVITY_CREATE } from '../../config/router/routes';
 import { getActivities } from '../../features/Activities/activitiesSlice';
 import { useDispatch,useSelector } from 'react-redux';
 import { Table } from 'react-bootstrap';
-import {getAllData} from './../../Services/activitiesService';
+
 
 
 const ActivitiesList = () => {
+  
   const [isFetching,setIsFetching] = useState(true);
   const [error,setError]= useState(false);
   const {list: activities} = useSelector(state=>state.activities);
@@ -20,19 +21,15 @@ const ActivitiesList = () => {
   useEffect(() => {
 
       const cargaData = ( ) =>{
-     
         setTimeout(()=>{
-          dispatch(getActivities())
           setIsFetching(false)
+          dispatch(getActivities())
         },2000)
-      
       }
-
     try {
-      cargaData()
-      if ( activities.length===0 && activities===undefined){warningMsg("error al cargar datos")};
+      cargaData();
     } catch (error) {
-      warningMsg("Vuelva a intentar")
+      warningMsg("Vuelva a intentar - (500)")
     }
       
   }, [dispatch]);
