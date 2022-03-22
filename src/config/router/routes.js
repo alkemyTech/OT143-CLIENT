@@ -64,7 +64,7 @@ export const THANKS = "/gracias";
 
 //NEWS
 export const NEWS_WEB = "/novedades";
-export const NEWS_WEB_DETAILS = `/${NEWS_WEB}/:id`;
+/* export const NEWS_WEB_DETAILS = `${NEWS_WEB}/:id`; */
 
 //ACTIVITIES
 export const ACTIVITIES_WEB = "/actividades";
