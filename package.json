@@ -7,8 +7,6 @@
     "@babel/preset-react": "^7.16.7",
     "@ckeditor/ckeditor5-build-classic": "^32.0.0",
     "@ckeditor/ckeditor5-react": "^4.0.0",
-    "@googlemaps/js-api-loader": "^1.13.9",
-    "@googlemaps/react-wrapper": "^1.1.27",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
