@@ -1,27 +1,27 @@
 .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: grid;
-    place-content: center;
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: grid;
+	place-content: center;
 }
 
-.swiper-slide img {
-    display: block;
-    object-fit: cover;
-    filter: brightness(30%);
-    width: 100%;
-    height: 500px;
+.img-slide-home {
+	display: block;
+	object-fit: cover;
+	filter: brightness(30%);
+	width: 100%;
+	height: 500px;
 }
 
-.swiper-slide p {
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: absolute;
-    display: grid;
-    place-content: center;
-    color: #fff;
-    text-align: center;
+.p-slide-home {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	display: grid;
+	place-content: center;
+	color: #fff;
+	text-align: center;
 }

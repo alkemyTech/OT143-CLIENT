@@ -94,8 +94,8 @@ const Members = () => {
       }}
       modules={[Navigation, Pagination]}
     >
-      {members.map((member) => (
-        <SwiperSlide className="swiper-slide">
+      {members.map((member, index) => (
+        <SwiperSlide key={index} className="swiper-slide">
           <div className="member">
             <div>
               <img
