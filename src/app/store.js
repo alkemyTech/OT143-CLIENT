@@ -3,6 +3,7 @@ import counterReducer from '../features/counter/counterSlice';
 import activitiesReducer from '../features/Activities/activitiesSlice';
 import projectReducer from '../features/projects/projectSlice';
 import membersReducer from '../features/members/membersSlice';
+import authReducer from '../features/auth/authSlice';
 import slidesReducer from '../features/Slides/slidesSlice';
 
 export default configureStore({
@@ -11,6 +12,7 @@ export default configureStore({
 		project: projectReducer,
 		activities: activitiesReducer,
 		members: membersReducer,
+		auth: authReducer,
 		slides: slidesReducer,
 	},
 });
