@@ -5,10 +5,11 @@ import imagen2 from './img/Imágenes-contenido-opción-2.png';
 
 
 const Slider = () => {
+  
   const slides =[
-    {image: imagen1, caption:"TextoSchool"},
-    {image: imagen2, caption:"TextoSchool"},
-    {image: imagen1, caption:"TextoSchool"}
+    {image: imagen1, caption:"Texto School"},
+    {image: imagen2, caption:"Texto School"},
+    {image: imagen1, caption:"Texto School"}
   ]
   return (
     <SliderCommon  slides={slides}/>
