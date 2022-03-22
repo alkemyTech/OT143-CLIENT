@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
+import Mercadopago from "./../Mercadopago/Mercadopago";
 
-const texto = 'Ayudanos con la causa';
+const texto = "Ayudanos con la causa";
 
 const Donacion = ({ text }) => {
-	return (
-		<div className="container">
-			<div className="row">
-				<div className="card col-6 offset-3 mt-5 pt-3 mb-3 pb-4">
-					<h1 className="d-flex justify-content-center">{text || texto}</h1>
-
-					<button className="btn btn-primary mt-3 col-4 offset-4">
-						Continuar a Mercadopago
-					</button>
-				</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-6 offset-3 mt-5 pt-3 mb-3 pb-4">
+          <h1 className="d-flex justify-content-center text-center">
+            {text || texto}
+          </h1>
+        </div>
+        <Mercadopago />
+      </div>
+    </div>
+  );
 };
 
 export default Donacion;
