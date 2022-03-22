@@ -1,103 +1,135 @@
-import React from 'react'; 
-import { Container, Nav , Navbar, Button, NavDropdown} from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom';
-import imgLogo from './../../images/somosMasOrg.png';
-import {ABOUT,HOME,CONTACT,TOYS_CAMPAIGN,SCHOOL_CAMPAIGN} from './../../config/router/routes'
-import {BsArrowRightCircle, BsFillPersonCheckFill} from 'react-icons/bs';
-import { RiLoginBoxLine, RiLogoutBoxLine} from "react-icons/ri";
-import './HeaderPublic.scss'
-
+import React from "react";
+import { useState, useEffect } from "react";
+import { Container, Nav, Navbar, Button, NavDropdown } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+import imgLogo from "./../../images/somosMasOrg.png";
+import {
+  ABOUT,
+  HOME,
+  CONTACT,
+  TOYS_CAMPAIGN,
+  SCHOOL_CAMPAIGN,
+} from "./../../config/router/routes";
+import { BsArrowRightCircle, BsFillPersonCheckFill } from "react-icons/bs";
+import { RiLoginBoxLine, RiLogoutBoxLine } from "react-icons/ri";
+import "./HeaderPublic.scss";
 
 const HeaderPublic = () => {
-  const token = localStorage.getItem('token');
+  const [isLogged, setIsLogged] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
-    const nav =[
-         {path: ABOUT,
-         title: "Nosotros"},
-         {path: HOME,
-         title: ""},
-         {path: CONTACT,
-         title: "Contacto"},
-         {path: TOYS_CAMPAIGN,
-         title: "JUGETES"},
-         {path: SCHOOL_CAMPAIGN,
-         title: "COLEGIOS"},
-    ]
+  console.log(token)
 
-    const handleLogout = () => {
-      localStorage.removeItem('token');
-      window.location.reload();
+  useEffect(() => {
+    if (token) {
+      setIsLogged(true);
+    } else {
+      setIsLogged(false);
     }
- 
-    return (<>
-    
-    <Navbar collapseOnSelect bg="light"  expand="lg" sticky="top">
-      <Container>
-        <Link to={HOME}>
-          <img
-            alt='IMGNAV'
-            src={imgLogo}
-            width='60%'
-            height='50%'
-            className="d-inline-block align-top"
-          />
-        </Link>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            {nav.map((e, index) => {
-              return (<>
-              {e.title == "JUGETES" || e.title==="COLEGIOS" ? 
-              null : <NavLink key={index} to={e.path} className="nav-link me-auto" activeStyle={{color:"tomato"}} >{e.title}</NavLink> }
-              
-              
-              </>
-              )
-            })}
-            {/* mejorar la logica recorriendo con un filter el array y que devuelva los dos elementos que necesito */}
-            <NavDropdown title="Campañas"  >
-                <NavDropdown.Item >
-                    <NavLink activeStyle={{color:"tomato"}} to={nav[3].path}>
-                    {nav[3].title}
-                    </NavLink>
-                    </NavDropdown.Item>
-               <NavDropdown.Item> 
-                   <NavLink  activeStyle={{color:"tomato"}} to={nav[4].path}>
-                   {nav[4].title}
-                   </NavLink>
-                   </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Nav>
-            { !token ?
-            <>
-            
-            <Nav.Link ><NavLink style={{background: "#9AC9FB"}} className="text-decoration-none log-button" to='/'> <RiLoginBoxLine />Log-in</NavLink></Nav.Link> 
-            <Nav.Link ><NavLink className="text-decoration-none log-button" to='/'>Registrarse</NavLink></Nav.Link> 
-            
-            </> 
-            
-            :
-            
-            <>
-            
-            <Nav.Link onClick={handleLogout} ><NavLink style={{background: "#DB5752" }} className="text-decoration-none log-button" to='/'> <RiLogoutBoxLine /> Log-out</NavLink></Nav.Link> 
-            <Nav.Link><BsFillPersonCheckFill />UserByProps</Nav.Link>   
-            
-            </>
+  }, [token]);
 
-            }
-          </Nav>
-        
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
- 
-    
-    
-    
+  const nav = [
+    { path: ABOUT, title: "Nosotros" },
+    { path: HOME, title: "" },
+    { path: CONTACT, title: "Contacto" },
+    { path: TOYS_CAMPAIGN, title: "JUGETES" },
+    { path: SCHOOL_CAMPAIGN, title: "COLEGIOS" },
+  ];
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLogged(false);
+  };
+
+  return (
+    <>
+      <Navbar collapseOnSelect bg="light" expand="lg" sticky="top">
+        <Container>
+          <Link to={HOME}>
+            <img
+              alt="IMGNAV"
+              src={imgLogo}
+              width="60%"
+              height="50%"
+              className="d-inline-block align-top"
+            />
+          </Link>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              {nav.map((e, index) => {
+                return (
+                  <>
+                    {e.title == "JUGETES" || e.title === "COLEGIOS" ? null : (
+                      <NavLink
+                        key={index}
+                        to={e.path}
+                        className="nav-link me-auto"
+                        activeStyle={{ color: "tomato" }}
+                      >
+                        {e.title}
+                      </NavLink>
+                    )}
+                  </>
+                );
+              })}
+              {/* mejorar la logica recorriendo con un filter el array y que devuelva los dos elementos que necesito */}
+              <NavDropdown title="Campañas">
+                <NavDropdown.Item>
+                  <NavLink activeStyle={{ color: "tomato" }} to={nav[3].path}>
+                    {nav[3].title}
+                  </NavLink>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <NavLink activeStyle={{ color: "tomato" }} to={nav[4].path}>
+                    {nav[4].title}
+                  </NavLink>
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+            <Nav>
+              {isLogged ? (
+                <>
+                  <Nav.Link onClick={handleLogout}>
+                    <NavLink
+                      style={{ background: "#DB5752" }}
+                      className="text-decoration-none log-button"
+                      to="/"
+                    >
+                      <RiLogoutBoxLine /> Log-out
+                    </NavLink>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <BsFillPersonCheckFill />
+                    UserByProps
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link>
+                    <NavLink
+                      style={{ background: "#9AC9FB" }}
+                      className="text-decoration-none log-button"
+                      to="/"
+                    >
+                      {" "}
+                      <RiLoginBoxLine />
+                      Log-in
+                    </NavLink>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <NavLink className="text-decoration-none log-button" to="/">
+                      Registrarse
+                    </NavLink>
+                  </Nav.Link>
+                </>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </>
-    );
-}
- 
+  );
+};
+
 export default HeaderPublic;
