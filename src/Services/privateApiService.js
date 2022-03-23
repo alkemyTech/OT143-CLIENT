@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getHeaderAuthorization = ()=>{
+const getHeaderAuthorization = () => {
 	const token = localStorage.getItem('token');
 	const headerAuthorization = `Bearer ${token}`;
 
@@ -9,40 +9,38 @@ const getHeaderAuthorization = ()=>{
 
 //Cuando sea solicitado cambiar la baseURL, por las variables de entorno.
 
-const baseURL = "http://ongapi.alkemy.org/api";
+const baseURL = 'https://ongapi.alkemy.org/api';
 const config = {
 	headers: {
-		
 		Authorization: getHeaderAuthorization(),
 	},
 };
 
 //Servicio privado GET
 export const GetPrivateService = (url, id) => {
-	axios
-		.get(`${baseURL}/${url}/${id ? id : null}`, config)
+	axios.get(`${baseURL}/${url}/${id ? id : null}`, config);
 };
 
-export const GetAll =  url => {
-    axios.get(url, config);
-};
-
-export const Get = async url => {
+export const GetAll = url => {
 	axios.get(url, config);
 };
 
+export const Get = url => {
+	return axios.get(url, config);
+};
+
 export const Put = (url, data) => {
-	axios.put(url, data, config);
+	return axios.put(url, data, config);
 };
 
 export const Patch = (url, data) => {
-	axios.patch(url, data, config);
+	return axios.patch(url, data, config);
 };
 
 export const Post = (url, data) => {
-	axios.post(url, data, config);
+	return axios.post(url, data, config);
 };
 
 export const Delete = url => {
-	axios.delete(url, config);
+	return axios.delete(url, config);
 };

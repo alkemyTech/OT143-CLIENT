@@ -1,4 +1,3 @@
-import React from 'react'; 
 import { Container, Nav , Navbar, Button, NavDropdown} from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import imgLogo from './../../images/somosMasOrg.png';
@@ -7,18 +6,18 @@ import {BsArrowRightCircle, BsFillPersonCheckFill} from 'react-icons/bs';
 
 
 const HeaderPublic = () => {
-    const nav =[
-        {path: ABOUT,
-        title: "Nosotros"},
-        {path: HOME,
-        title: ""},
-        {path: CONTACT,
-        title: "Contacto"},
-        {path: TOYS_CAMPAIGN,
-        title: "JUGETES"},
-        {path: SCHOOL_CAMPAIGN,
-        title: "COLEGIOS"},
-    ]
+  const nav =[
+    {path: ABOUT,
+    title: "Nosotros"},
+    {path: HOME,
+    title: ""},
+    {path: CONTACT,
+    title: "Contacto"},
+    {path: TOYS_CAMPAIGN,
+    title: "JUGETES"},
+    {path: SCHOOL_CAMPAIGN,
+    title: "COLEGIOS"},
+  ]
 
     return (<>
     
