@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from "react";
+import { useState, useEffect } from 'react';
 
 const Countdown = () => {
   // fecha en la que termina el contador 
@@ -7,9 +8,9 @@ const Countdown = () => {
   const [remainingTime, setRemainingTime] = useState({
     days: "",
     hours: "",
-    minutes: "",
-    seconds: "",
+    minutes: ""
   });
+
 
   const getRemainingTime = (deadline) => {
     let now = new Date();
@@ -33,20 +34,22 @@ const Countdown = () => {
     setRemainingTime({
       days: getRemainingTime(deadline).remainingDays,
       hours: getRemainingTime(deadline).remainingHours,
-      minutes: getRemainingTime(deadline).remainingMinutes
+      minutes: getRemainingTime(deadline).remainingMinutes,
     })
   }
 
   useEffect(() => {
+
     changeRemainingTime();
     const interval = setInterval(changeRemainingTime, 1000);
     return () => clearInterval(interval)
+
   }, []);
 
   return (
     <>
       <h4>¡Te quedan :</h4>
-      <div className="d-flex justify-content-center my-4 fs-5">
+      <div className="d-flex justify-content-center my-4 fs-5 ">
         <div className="d-flex border border-secondary rounded p-4">
           <div className="text-center">
             <div className="mx-2">{remainingTime.days}</div>
@@ -64,7 +67,6 @@ const Countdown = () => {
       </div>
       <h4 className="text-end">para participar!</h4>
     </>
-
   );
 };
 

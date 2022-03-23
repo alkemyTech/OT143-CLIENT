@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
-import imagenCM from './../../images/members/Cecilia Mendez.jpeg';
-import imagenMF from './../../images/members/Marco Fernandez.jpg';
-import imagenMG from './../../images/members/Marita Gomez.jpeg';
 import { MEMBER_CREATE } from '../../config/router/routes';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMembers } from '../../features/members/membersSlice';
+import Loading from '../Common/Loading';
 
 const MembersBackofficeList = () => {
-  const miembros = [
-    { id: "1", nombre: "Cecilia Mendez", imagen: imagenCM },
-    { id: "2", nombre: "Marco Fernandez", imagen: imagenMF },
-    { id: "3", nombre: "Maria Garcia", imagen: imagenMG }
-  ];
+  const [ loading, setLoading ] = useState(true);
+  const { list: members } = useSelector(state=>state.members);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMembers());
+    setLoading(false);
+
+  }, [dispatch]);
 
   const editarClick = () => {
     alert("Click Editar");
@@ -21,6 +25,8 @@ const MembersBackofficeList = () => {
   const eliminarClick = () => {
     alert("Click Eliminar");
   };
+
+  loading && <Loading/>
 
   return (
     <div className="container mt-2">
@@ -38,34 +44,33 @@ const MembersBackofficeList = () => {
                 <th><h5 className='text-center'>⚙</h5></th>
               </tr>
             </thead>
-            <tbody>
-              {miembros?.map((miembro) => (
-                <tr key={miembro.id}>
-
-                  <td>{miembro.nombre}</td>
-                  <td>
-                    <img src={miembro.imagen} height="80px!important" />
-                  </td>
-                  <td >
-                    <div className="col mb-2 mb-sm-0 text-center">
-                      <Button variant='dark' onClick={() => editarClick()}>
-                        <BsPencilSquare />
-                      </Button>
-                    </div>
-                    <div className="col mt-2 mb-sm-0 text-center ">
+            {members.data?.slice(-7).map(member => (
+            <tbody key={member.id}>
+              <tr>
+                <td>{member.name}</td>
+                <td>
+                  <img src={member.image} height="80px!important" />
+                </td>
+                <td >
+                  <div className="col mb-2 mb-sm-0 text-center">
+                    <Button variant='dark' onClick={() => editarClick()}>
+                      <BsPencilSquare />
+                    </Button>
+                  </div>
+                  <div className="col mt-2 mb-sm-0 text-center ">
                       <Button variant='danger' onClick={() => eliminarClick()}>
                         <BsTrash />
                       </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+                  </div>
+                </td>
+              </tr>
+            </tbody> 
+            ))}
           </Table>
         </div>
       </div>
     </div>
-  );
+  );          
 }
 
 export default MembersBackofficeList;

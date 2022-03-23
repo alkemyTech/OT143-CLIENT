@@ -6,11 +6,14 @@ import BackofficeRoutes from './config/router/BackofficeRoutes';
 import PublicWebRoutes from './config/router/PublicWebRoutes';
 import SchoolCampaign from './Campaigns/School/SchoolCampaign';
 import ToysCampaign from './Campaigns/Toys/ToysCampaign';
+import ScrollToTop from './config/scrollTop';
 
 function App() {
+
   return (
     <>
       <Router>
+        <ScrollToTop />
         <Switch>
           <Route path={BACKOFFICE} component={BackofficeRoutes} />
           <Route exact path={SCHOOL_CAMPAIGN} component={SchoolCampaign} />
