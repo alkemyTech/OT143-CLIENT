@@ -1,11 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { getAllData } from '../../Services/activitiesService';
 
+export const getActivities = createAsyncThunk('activities/getActivities', async ()=>{
+		const {REACT_APP_ACTIVITIES} = process.env;
+		return fetch(REACT_APP_ACTIVITIES).then(res=>res.json())
+				.catch(error=>console.log(error));
+				
+		// const request = getAllData();
+		// return request.then(res=>res.json()).catch(error=>console.log(error)
+		//chequear el service que no funciona bien.
+})
 const initialState = {
-	title: '',
-	description: '',
-	image: '',
-	edit: false,
-	date_cr: '',
+	list:[],
+	status : null,
+		title:'',
+		description:'',
+		image:'',
+		edit:false,
+		empty :'',
+		data_cr:''
 };
 
 export const activitiesSlice = createSlice({
@@ -21,13 +34,25 @@ export const activitiesSlice = createSlice({
 		getImage: (state, action) => {
 			state.image = action.payload;
 		},
-		getActivities: (state, action) => {
+		emptyField: (state, action) => {
 			state.activities = action.payload;
 		},
 	},
+	extraReducers:{
+		[getActivities.pending]:(state,action)=>{
+			state.status = 'loading';
+		},
+		[getActivities.fulfilled]:(state,{payload})=>{
+			state.list = payload
+			state.status ='success'
+		},
+		[getActivities.rejected]:(state,action)=>{
+			state.status="failed"
+		}
+	}
 });
 
-export const { getTitle, getDescription, getImage, getActivities } =
+export const { getTitle, getDescription, getImage, emptyField } =
 	activitiesSlice.actions;
 
 export default activitiesSlice.reducer;

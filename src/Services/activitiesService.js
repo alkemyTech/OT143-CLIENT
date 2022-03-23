@@ -1,11 +1,11 @@
-import { Get, GetAll, Put, Post, Patch, Delete } from './privateApiService';
+import { Get, GetAll, Put, Post, Patch, Delete, GetPrivateService} from './privateApiService';
 
 export const getData = id => {
 	return Get(`${process.env.REACT_APP_ACTIVITIES}/${id}`);
 };
 
 export const getAllData = () => {
-	return GetAll(`${process.env.REACT_APP_ACTIVITIES}`);
+	return GetAll(process.env.REACT_APP_ACTIVITIES);
 };
 
 export const putData = (data, id) => {
