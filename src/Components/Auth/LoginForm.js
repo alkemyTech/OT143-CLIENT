@@ -53,7 +53,7 @@ const LoginForm = ({ close }) => {
 		return errors;
 	};
 
-	let errorLogin;
+	let errorLogin
 
 	const handleSubmit = async e => {
 		const res = await postIn({
@@ -62,21 +62,23 @@ const LoginForm = ({ close }) => {
 		});
 		console.log(res)
 
-		const { token, user } = res.data.data;
-
-		dispatch(regUser({ token, user }));
-
-		localStorage.setItem('token', token);
-
-		localStorage.setItem('user', user.name);
+		
 
 		if (res.data.data) {
+
+			const { token, user } = res.data.data;
+
+			dispatch(regUser({ token, user }));
+	
+			localStorage.setItem('token', token);
+	
+			localStorage.setItem('user', user.name);
+
 			close()
+		} else {
+			errorLogin = <div className="ms-3"> Email o contraseña incorrectos</div>
 		}
 		
-		if (res.data.error){
-			errorLogin = <div>Email o contraseña incorrectos</div>
-		}
 	};
 
 	return (
