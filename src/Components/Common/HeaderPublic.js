@@ -20,20 +20,20 @@ import LoginForm from "./../Auth/LoginForm";
 import Modal from "react-bootstrap/Modal";
 
 const HeaderPublic = () => {
-  const { token: token} = useSelector((state) => state.auth);
-  const user = localStorage.getItem('user')
+  const { token: token } = useSelector((state) => state.auth);
+  const user = localStorage.getItem("user");
   const dispatch = useDispatch();
   const [isLogged, setIsLogged] = useState();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
 
-  useEffect(() =>{
+  useEffect(() => {
     if (token) {
-      setIsLogged(true)
+      setIsLogged(true);
     } else {
-      setIsLogged(false)
+      setIsLogged(false);
     }
-  }, [token])
+  }, [token]);
 
   const nav = [
     { path: ABOUT, title: "Nosotros" },
@@ -42,7 +42,6 @@ const HeaderPublic = () => {
     { path: TOYS_CAMPAIGN, title: "JUGETES" },
     { path: SCHOOL_CAMPAIGN, title: "COLEGIOS" },
   ];
-
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -66,25 +65,13 @@ const HeaderPublic = () => {
     setShowRegisterModal(false);
   };
 
-
   return (
     <>
+      {/* Modals para login y register  */}
 
-    {/* Modals para login y register  */}
+      <LoginForm show={showLoginModal} close={handleCloseLoginModal} />
 
-      <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
-        </Modal.Header>
-          <LoginForm close={handleCloseLoginModal} />
-      </Modal>
-
-      <Modal show={showRegisterModal} onHide={handleCloseRegisterModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Register</Modal.Title>
-        </Modal.Header>
-          <RegisterForm close={handleCloseRegisterModal} />
-      </Modal>
+      <RegisterForm show={showRegisterModal} close={handleCloseRegisterModal} />
 
       <Navbar collapseOnSelect bg="light" expand="lg" sticky="top">
         <Container>
@@ -143,7 +130,7 @@ const HeaderPublic = () => {
                     </NavLink>
                   </Nav.Link>
                   <Nav.Link className="d-flex align-items-center">
-                    <FaUser style={{ fontSize: "1.5rem"}} className="mx-2"/>
+                    <FaUser style={{ fontSize: "1.5rem" }} className="mx-2" />
                     <span>{user}</span>
                   </Nav.Link>
                 </>
