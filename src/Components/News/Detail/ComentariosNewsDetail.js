@@ -17,8 +17,11 @@ const ComentariosNewsDetail = ({id}) => {
                     setComents(comentFilter)
                     obs.disconnect();
                 }).catch(error=>console.log(error));
-                setInviewPort(true);
-                setSkeleton(false);
+                //para demorar un y que se vea como se muestra el Skeleton, luego sacar el setTimeOut
+                setTimeout(()=>{
+                    setInviewPort(true);
+                    setSkeleton(false);
+                },3000)
              
             }
         }
