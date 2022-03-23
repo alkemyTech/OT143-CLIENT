@@ -4,7 +4,6 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
 import '../FormStyles.css';
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
 import { GetAllCategories, GetCategoriesId } from '../../Services/serviceCategories';
 
@@ -124,5 +123,5 @@ const CategoriesForm = () => {
        </>
     );
 }
- 
+
 export default CategoriesForm;

@@ -1,5 +1,4 @@
-import React, {  useEffect,useState } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from 'react';
 import Title from '../../Title/Title';
 import { useParams } from 'react-router-dom';
 import Loading from '../../Common/Loading';

@@ -1,0 +1,80 @@
+/* Media Queries */
+$breakpoints: (
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1800px
+);
+
+@mixin media($media) {
+    @if map-has-key($breakpoints, $media) {
+        @media screen and (min-width: map-get($breakpoints, $media)) {
+            @content;
+        }
+    } @else {
+        @error 'Los valores permitidos son: sm, md, lg, xl, xxl';
+    }
+}
+
+.footer {
+     //Mobile
+    .contenido {
+        display: flex;
+        .logo-container {
+            display: grid;
+            place-content: center;
+            .ong {
+                display: none;
+            }
+        }
+        .campaigns {
+            display: none;
+        }
+        .social-icons {
+            span {
+                display: none;
+            }
+        }
+    }
+    @include media(md) {
+        //Tablet
+        .contenido {
+            .logo-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .ong {
+                    display: inline-block;
+                    color: #3b3b3b;
+                    font-size: 1.5em;
+                    margin-left: .5em;
+                }
+            }
+        }
+    }
+    @include media(lg) {
+        //Desktop lg & xl
+        .contenido {
+            .social-icons {
+                span {
+                    display: block;
+                }
+            }
+        }
+    }
+    @media tv and (min-width: 1400px) {
+        //TV
+        .contenido {
+            .campaigns {
+                display: block;
+                display: grid;
+                place-content: center;
+                ul {
+                    padding: 0;
+                    list-style-type: none;
+                }
+            }
+        }
+    }
+}
