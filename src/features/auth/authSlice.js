@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const tokenStorage = localStorage.getItem('token') 
+
+// GUARDAR TOKEN Y USER EN LOCALSTORAGE
+
 const initialState = {
-	token: null,
+	token: tokenStorage ? tokenStorage : null,
 	user: null,
 	auth: null,
 	role: null,

@@ -13,20 +13,18 @@ import {
 import { BsArrowRightCircle, BsFillPersonCheckFill } from "react-icons/bs";
 import { RiLoginBoxLine, RiLogoutBoxLine } from "react-icons/ri";
 import "./HeaderPublic.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { regUser, isAuth, logOut } from "./../../features/auth/authSlice";
+import RegisterForm from "./../Auth/RegisterForm";
+import LoginForm from "./../Auth/LoginForm";
+import Modal from "react-bootstrap/Modal";
 
 const HeaderPublic = () => {
-  const [isLogged, setIsLogged] = useState(false);
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
-  console.log(token)
-
-  useEffect(() => {
-    if (token) {
-      setIsLogged(true);
-    } else {
-      setIsLogged(false);
-    }
-  }, [token]);
+  const { token: token} = useSelector((state) => state.auth);
+  const user = localStorage.getItem('user')
+  const dispatch = useDispatch();
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
   const nav = [
     { path: ABOUT, title: "Nosotros" },
@@ -36,13 +34,48 @@ const HeaderPublic = () => {
     { path: SCHOOL_CAMPAIGN, title: "COLEGIOS" },
   ];
 
+
   const handleLogout = () => {
     localStorage.removeItem("token");
-    setIsLogged(false);
+    localStorage.removeItem("user");
+    dispatch(logOut);
   };
+
+  const handleShowLoginModal = () => {
+    setShowLoginModal(true);
+  };
+  const handleShowRegisterModal = () => {
+    setShowRegisterModal(true);
+  };
+
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
+  const handleCloseRegisterModal = () => {
+    setShowRegisterModal(false);
+  };
+
 
   return (
     <>
+
+    {/* Modals para login y register  */}
+
+      <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+          <LoginForm close={handleCloseLoginModal} />
+      </Modal>
+
+      <Modal show={showRegisterModal} onHide={handleCloseRegisterModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register</Modal.Title>
+        </Modal.Header>
+          <RegisterForm close={handleCloseRegisterModal} />
+      </Modal>
+
       <Navbar collapseOnSelect bg="light" expand="lg" sticky="top">
         <Container>
           <Link to={HOME}>
@@ -88,7 +121,7 @@ const HeaderPublic = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              {isLogged ? (
+              {token ? (
                 <>
                   <Nav.Link onClick={handleLogout}>
                     <NavLink
@@ -99,29 +132,30 @@ const HeaderPublic = () => {
                       <RiLogoutBoxLine /> Log-out
                     </NavLink>
                   </Nav.Link>
-                  <Nav.Link>
+                  <Nav.Link className="d-flex">
                     <BsFillPersonCheckFill />
-                    UserByProps
+                    {user}
                   </Nav.Link>
                 </>
               ) : (
                 <>
-                  <Nav.Link>
-                    <NavLink
-                      style={{ background: "#9AC9FB" }}
-                      className="text-decoration-none log-button"
-                      to="/"
-                    >
-                      {" "}
-                      <RiLoginBoxLine />
-                      Log-in
-                    </NavLink>
-                  </Nav.Link>
-                  <Nav.Link>
-                    <NavLink className="text-decoration-none log-button" to="/">
-                      Registrarse
-                    </NavLink>
-                  </Nav.Link>
+                  <NavLink
+                    style={{ background: "#9AC9FB" }}
+                    className="text-decoration-none log-button mx-2"
+                    to="/"
+                    onClick={handleShowLoginModal}
+                  >
+                    <RiLoginBoxLine />
+                    Log-in
+                  </NavLink>
+
+                  <NavLink
+                    className="text-decoration-none log-button mx-2"
+                    to="/"
+                    onClick={handleShowRegisterModal}
+                  >
+                    Registrarse
+                  </NavLink>
                 </>
               )}
             </Nav>

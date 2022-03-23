@@ -5,7 +5,7 @@ import { postIn } from '../../Services/authService';
 import { regUser } from '../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
 
-const LoginForm = () => {
+const LoginForm = ({ close }) => {
 	const [initialValues, setInitialValues] = useState({
 		email: '',
 		password: '',
@@ -53,17 +53,30 @@ const LoginForm = () => {
 		return errors;
 	};
 
+	let errorLogin;
+
 	const handleSubmit = async e => {
 		const res = await postIn({
 			email: initialValues.email,
 			password: initialValues.password,
 		});
+		console.log(res)
 
 		const { token, user } = res.data.data;
 
 		dispatch(regUser({ token, user }));
 
 		localStorage.setItem('token', token);
+
+		localStorage.setItem('user', user.name);
+
+		if (res.data.data) {
+			close()
+		}
+		
+		if (res.data.error){
+			errorLogin = <div>Email o contraseña incorrectos</div>
+		}
 	};
 
 	return (
@@ -73,9 +86,9 @@ const LoginForm = () => {
 				onSubmit={handleSubmit}
 				validate={validate}>
 				{() => (
-					<Form>
+					<Form className="d-flex flex-column">
 						<Field
-							className="input-field"
+							className="input-field rounded-pill m-3"
 							name="email"
 							type="email"
 							value={initialValues.name}
@@ -83,14 +96,15 @@ const LoginForm = () => {
 							placeholder="Email"></Field>
 						<ErrorMessage name="email" />
 						<Field
-							className="input-field"
+							className="input-field rounded-pill m-3"
 							name="password"
 							type="password"
 							value={initialValues.password}
 							onChange={handleChange}
 							placeholder="Password"></Field>
-						<ErrorMessage name="password" />
-						<button className="submit-btn" type="submit">
+						<ErrorMessage className="m-3" name="password" />
+						{errorLogin}
+						<button className="submit-btn rounded-pill m-2" type="submit">
 							Log In
 						</button>
 					</Form>

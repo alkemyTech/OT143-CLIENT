@@ -7,7 +7,7 @@ import { postReg } from '../../Services/authService';
 import TermsAndConditionsModal from '../Modal/TermsAndConditionsModal';
 import TermsAndConditionsONG from '../TermsAndConditions/TermsAndConditionsONG';
 
-const RegisterForm = () => {
+const RegisterForm = ( { close } ) => {
 	const [checked, setChecked] = useState(false);
 	const [initialValues, setInitialValues] = useState({
 		name: '',
@@ -81,10 +81,20 @@ const RegisterForm = () => {
 			password: initialValues.password,
 		});
 
+		console.log(res)
+
 		const { token, user } = res.data.data;
 
 		dispatch(regUser({ token, user }));
+
 		localStorage.setItem('token', `${token}`);
+		
+		localStorage.setItem('user', user.name);
+
+		if (res.data.data){
+			close()
+		}
+
 	};
 
 	const handleCheckbox = e => {
@@ -99,7 +109,7 @@ const RegisterForm = () => {
 			{() => (
 				<Form className="form-control card">
 					<Field
-						className="input-field"
+						className="input-field  rounded-pill m-2"
 						name="name"
 						value={initialValues.name}
 						placeholder="Nombre"
@@ -109,7 +119,7 @@ const RegisterForm = () => {
 					<ErrorMessage name="name" />
 
 					<Field
-						className="input-field"
+						className="input-field  rounded-pill m-2"
 						name="lastName"
 						value={initialValues.lastName}
 						placeholder="Apellido"
@@ -120,7 +130,7 @@ const RegisterForm = () => {
 					<ErrorMessage name="lastName" />
 
 					<Field
-						className="input-field"
+						className="input-field  rounded-pill m-2"
 						name="email"
 						value={initialValues.email}
 						placeholder="Email"
@@ -130,7 +140,7 @@ const RegisterForm = () => {
 					<ErrorMessage name="email" />
 
 					<Field
-						className="input-field"
+						className="input-field  rounded-pill m-2"
 						name="password"
 						value={initialValues.password}
 						placeholder="Contraseña"
@@ -140,7 +150,7 @@ const RegisterForm = () => {
 					<ErrorMessage name="password" />
 
 					<Field
-						className="input-field"
+						className="input-field  rounded-pill m-2"
 						name="confirmPassword"
 						value={initialValues.confirmPassword}
 						placeholder="Confirmar contraseña"
@@ -157,11 +167,11 @@ const RegisterForm = () => {
 							setChecked(true);
 						}}
 					/>
-					<TermsAndConditionsModal setChecked={setChecked} />
+					<TermsAndConditionsModal className="rounded-pill m-3" setChecked={setChecked} />
 					<button
 						disabled={checked === !true}
 						type="submit"
-						className="btn btn-primary">
+						className="btn btn-primary rounded-pill m-2 ">
 						Submit
 					</button>
 				</Form>
