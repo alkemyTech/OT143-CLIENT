@@ -10,11 +10,11 @@ import {
   TOYS_CAMPAIGN,
   SCHOOL_CAMPAIGN,
 } from "./../../config/router/routes";
-import { BsArrowRightCircle, BsFillPersonCheckFill } from "react-icons/bs";
+import { FaUser } from "react-icons/fa";
 import { RiLoginBoxLine, RiLogoutBoxLine } from "react-icons/ri";
 import "./HeaderPublic.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { regUser, isAuth, logOut } from "./../../features/auth/authSlice";
+import { logOut } from "./../../features/auth/authSlice";
 import RegisterForm from "./../Auth/RegisterForm";
 import LoginForm from "./../Auth/LoginForm";
 import Modal from "react-bootstrap/Modal";
@@ -23,8 +23,17 @@ const HeaderPublic = () => {
   const { token: token} = useSelector((state) => state.auth);
   const user = localStorage.getItem('user')
   const dispatch = useDispatch();
+  const [isLogged, setIsLogged] = useState();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+  useEffect(() =>{
+    if (token) {
+      setIsLogged(true)
+    } else {
+      setIsLogged(false)
+    }
+  }, [token])
 
   const nav = [
     { path: ABOUT, title: "Nosotros" },
@@ -39,6 +48,7 @@ const HeaderPublic = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     dispatch(logOut);
+    setIsLogged(false);
   };
 
   const handleShowLoginModal = () => {
@@ -121,7 +131,7 @@ const HeaderPublic = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              {token ? (
+              {isLogged ? (
                 <>
                   <Nav.Link onClick={handleLogout}>
                     <NavLink
@@ -132,9 +142,9 @@ const HeaderPublic = () => {
                       <RiLogoutBoxLine /> Log-out
                     </NavLink>
                   </Nav.Link>
-                  <Nav.Link className="d-flex">
-                    <BsFillPersonCheckFill />
-                    {user}
+                  <Nav.Link className="d-flex align-items-center">
+                    <FaUser style={{ fontSize: "1.5rem"}} className="mx-2"/>
+                    <span>{user}</span>
                   </Nav.Link>
                 </>
               ) : (
