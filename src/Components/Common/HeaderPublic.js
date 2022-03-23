@@ -1,11 +1,21 @@
+import React, { useEffect } from 'react';
 import { Container, Nav , Navbar, Button, NavDropdown} from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import imgLogo from './../../images/somosMasOrg.png';
 import {ABOUT,HOME,CONTACT,TOYS_CAMPAIGN,SCHOOL_CAMPAIGN} from './../../config/router/routes'
 import {BsArrowRightCircle, BsFillPersonCheckFill} from 'react-icons/bs';
+import { getUser } from '../../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const HeaderPublic = () => {
+  const { isAdmin: auth } = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
   const nav =[
     {path: ABOUT,
     title: "Nosotros"},
@@ -37,8 +47,10 @@ const HeaderPublic = () => {
           <Nav className="me-auto">
             {nav.map((e, index) => {
               return (<>
-              {e.title == "JUGETES" || e.title==="COLEGIOS" ? 
-              null : <NavLink key={index} to={e.path} className="nav-link me-auto" activeStyle={{color:"tomato"}} >{e.title}</NavLink> }
+              { e.title == "JUGETES" || e.title==="COLEGIOS" 
+                ? 
+                null : auth && auth === 2 && e.title==="Contacto" ? null : <NavLink key={index} to={e.path} className="nav-link me-auto" activeStyle={{color:"tomato"}} >{e.title}</NavLink>
+              }
               </>
               )
             })}

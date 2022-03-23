@@ -1,24 +1,5 @@
 import { Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
-
-
-const token = localStorage.getItem('token');
-const headerAuthorization = token != null ? `Bearer ${token}` : null;
-
-const config = {
-    headers: {
-        Authorization: headerAuthorization,
-    },
-};
-
-export const getUser = async () => {
-    try {
-        let res = await axios.get('https://ongapi.alkemy.org/api/auth/me', config)
-        let user = await res.data;
-    } catch (error) {
-        console.log(error)
-    }
-}
+import { useSelector } from 'react-redux';
 
 export const AuthUser = ({...props}) => {
     const token = localStorage.getItem('token');
@@ -31,11 +12,11 @@ export const AuthUser = ({...props}) => {
 }
 
 export const AuthAdmin = ({...props}) => {
-    const isAdmin = true;
+    const { isAdmin: auth } = useSelector(state => state.auth)
 
-    if(isAdmin === false) {
-        return <Route {...props} />
-    } else {
+    if(auth && auth === 2) {
         return <Redirect to="/" />
+    } else {
+        return <Route {...props} />
     }
 }

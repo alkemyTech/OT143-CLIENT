@@ -13,7 +13,7 @@ import Home from "../../Components/Home/Home";
 import PageNotFound from "../../Components/PageNotFound";
 import Layout from "../../Components/Layout/Layout";
 import LoginForm from "../../Components/Auth/LoginForm";
-import { AuthUser, AuthAdmin} from "./auth";
+import { AuthUser, AuthAdmin } from "./auth";
 
 const PublicWebRoutes = () => {
   return (
