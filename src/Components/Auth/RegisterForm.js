@@ -1,156 +1,173 @@
-import React, { useState } from "react";
-import "../FormStyles.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import TermsAndConditionsModal from "../Modal/TermsAndConditionsModal";
-import TermsAndConditionsONG from "../TermsAndConditions/TermsAndConditionsONG";
+import React, { useState } from 'react';
+import '../FormStyles.css';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useDispatch } from 'react-redux';
+import { regUser } from '../../features/auth/authSlice';
+import { postReg } from '../../Services/authService';
+import TermsAndConditionsModal from '../Modal/TermsAndConditionsModal';
+import TermsAndConditionsONG from '../TermsAndConditions/TermsAndConditionsONG';
 
 const RegisterForm = () => {
-  const [checked, setChecked] = useState(false);
-  const [initialValues, setInitialValues] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+	const [checked, setChecked] = useState(false);
+	const [initialValues, setInitialValues] = useState({
+		name: '',
+		lastName: '',
+		email: '',
+		password: '',
+		confirmPassword: '',
+	});
 
-  const handleChange = (e) => {
-    setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
-  };
+	const dispatch = useDispatch();
 
-  //   Formula para validar todos los campos.
-  //   Que todos sean requeridos, longitud mínima e igualdad de contraseñas
+	const handleChange = e => {
+		setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
+	};
 
-  const validate = () => {
-    let errors = {};
+	//   Formula para validar todos los campos.
+	//   Que todos sean requeridos, longitud mínima e igualdad de contraseñas
 
-    // Expresion regular para validar que al contraseña tenga al menos una letra, un numero y un simbolo especial
+	const validate = () => {
+		let errors = {};
 
-    const validatePassword = new RegExp(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]/
-    );
+		// Expresion regular para validar que al contraseña tenga al menos una letra, un numero y un simbolo especial
 
-    if (initialValues.name === "") {
-      errors.name = "Introduce un nombre";
-    }
+		const validatePassword = new RegExp(
+			/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]/
+		);
 
-    if (initialValues.lastName === "") {
-      errors.lastName = "Introduce un apellido";
-    }
+		if (initialValues.name === '') {
+			errors.name = 'Introduce un nombre';
+		}
 
-    if (initialValues.email === "") {
-      errors.email = "Introduce un email";
-    }
+		if (initialValues.lastName === '') {
+			errors.lastName = 'Introduce un apellido';
+		}
 
-    if (initialValues.password === "") {
-      errors.password = "Introduce una contraseña";
-    }
+		if (initialValues.email === '') {
+			errors.email = 'Introduce un email';
+		}
 
-    if (initialValues.confirmPassword === "") {
-      errors.confirmPassword = "Confirma tu contraseña";
-    }
+		if (initialValues.password === '') {
+			errors.password = 'Introduce una contraseña';
+		}
 
-    if (initialValues.password.length < 6) {
-      errors.password =
-        "La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)";
-    }
+		if (initialValues.confirmPassword === '') {
+			errors.confirmPassword = 'Confirma tu contraseña';
+		}
 
-    if (!validatePassword.test(initialValues.password)) {
-      errors.password =
-        "La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)";
-    }
+		if (initialValues.password.length < 6) {
+			errors.password =
+				'La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)';
+		}
 
-    if (initialValues.confirmPassword !== initialValues.password) {
-      errors.confirmPassword = "Las contraseñas deben ser iguales";
-    }
+		if (!validatePassword.test(initialValues.password)) {
+			errors.password =
+				'La contraseña debe tener una longitud mínima de 6 caraceteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)';
+		}
 
-    return errors;
-  };
+		if (initialValues.confirmPassword !== initialValues.password) {
+			errors.confirmPassword = 'Las contraseñas deben ser iguales';
+		}
 
-  //   Funcion para submit
+		return errors;
+	};
 
-  const handleSubmit = (e) => {
-    console.log(initialValues);
-    localStorage.setItem("token", "tokenValueExample");
-  };
+	//   Funcion para submit
 
-  const handleCheckbox = (e) => {
-    setChecked(e.target.checked);
-  }
+	const handleSubmit = async e => {
+		const res = await postReg({
+			name: initialValues.name,
+			email: initialValues.email,
+			password: initialValues.password,
+		});
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validate={validate}
-    >
-      {() => (
-        <Form>
-          <Field
-            className="input-field"
-            name="name"
-            value={initialValues.name}
-            placeholder="Nombre"
-            type="text"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="name" />
+		const { token, user } = res.data.data;
 
-          <Field
-            className="input-field"
-            name="lastName"
-            value={initialValues.lastName}
-            placeholder="Apellido"
-            type="text"
-            onChange={handleChange}
-          />
+		dispatch(regUser({ token, user }));
+		localStorage.setItem('token', `${token}`);
+	};
 
-          <ErrorMessage name="lastName" />
+	const handleCheckbox = e => {
+		setChecked(e.target.checked);
+	};
 
-          <Field
-            className="input-field"
-            name="email"
-            value={initialValues.email}
-            placeholder="Email"
-            type="email"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="email" />
+	return (
+		<Formik
+			initialValues={initialValues}
+			onSubmit={handleSubmit}
+			validate={validate}>
+			{() => (
+				<Form className="form-control card">
+					<Field
+						className="input-field"
+						name="name"
+						value={initialValues.name}
+						placeholder="Nombre"
+						type="text"
+						onChange={handleChange}
+					/>
+					<ErrorMessage name="name" />
 
-          <Field
-            className="input-field"
-            name="password"
-            value={initialValues.password}
-            placeholder="Contraseña"
-            type="password"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="password" />
+					<Field
+						className="input-field"
+						name="lastName"
+						value={initialValues.lastName}
+						placeholder="Apellido"
+						type="text"
+						onChange={handleChange}
+					/>
 
-          <Field
-            className="input-field"
-            name="confirmPassword"
-            value={initialValues.confirmPassword}
-            placeholder="Confirmar contraseña"
-            type="password"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="confirmPassword" />
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={handleCheckbox}
-            className="m-1"
-            onClick={() => {
-              setChecked(true);
-            }}
-          />
-          <TermsAndConditionsModal setChecked={setChecked}/>
-          <button disabled={checked === !true} type="submit" className="btn btn-primary">Submit</button>
-        </Form>
-      )}
-    </Formik>
-  );
+					<ErrorMessage name="lastName" />
+
+					<Field
+						className="input-field"
+						name="email"
+						value={initialValues.email}
+						placeholder="Email"
+						type="email"
+						onChange={handleChange}
+					/>
+					<ErrorMessage name="email" />
+
+					<Field
+						className="input-field"
+						name="password"
+						value={initialValues.password}
+						placeholder="Contraseña"
+						type="password"
+						onChange={handleChange}
+					/>
+					<ErrorMessage name="password" />
+
+					<Field
+						className="input-field"
+						name="confirmPassword"
+						value={initialValues.confirmPassword}
+						placeholder="Confirmar contraseña"
+						type="password"
+						onChange={handleChange}
+					/>
+					<ErrorMessage name="confirmPassword" />
+					<input
+						type="checkbox"
+						checked={checked}
+						onChange={handleCheckbox}
+						className="m-1"
+						onClick={() => {
+							setChecked(true);
+						}}
+					/>
+					<TermsAndConditionsModal setChecked={setChecked} />
+					<button
+						disabled={checked === !true}
+						type="submit"
+						className="btn btn-primary">
+						Submit
+					</button>
+				</Form>
+			)}
+		</Formik>
+	);
 };
 
 export default RegisterForm;

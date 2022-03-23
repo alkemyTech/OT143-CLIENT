@@ -1,0 +1,68 @@
+@media (max-width: 767px) {
+	.logo1 {
+		max-height: 4rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.logo2 {
+		max-width: 4rem;
+	}
+
+	.navbar-school {
+		max-height: 5rem;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+	.logo1 {
+		max-height: 4rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.logo2 {
+		max-width: 4rem;
+	}
+
+	.navbar-school {
+		max-height: 5rem;
+	}
+}
+
+@media (min-width: 1200px) {
+	.logo1 {
+		max-height: 4rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.logo2 {
+		max-width: 4rem;
+	}
+
+	.slogan {
+		max-width: 10%;
+		font-family: "Rubik", sans-serif;
+		margin-left: -1rem;
+	}
+
+	.navbar-school {
+		max-height: 5rem;
+	}
+}
+
+@media tv and (min-width: 1200) {
+	.logo1 {
+		max-height: 4rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.logo2 {
+		max-width: 4rem;
+	}
+
+	.slogan {
+		max-width: 10%;
+		font-family: "Rubik", sans-serif;
+		margin-left: -1rem;
+		color: rgba(255, 215, 240, 0.548);
+	}
+}

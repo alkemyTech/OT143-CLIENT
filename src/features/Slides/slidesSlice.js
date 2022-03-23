@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getSlides = createAsyncThunk('slides/getSlides', async () => {
-    return fetch("https://ongapi.alkemy.org/api/slides").then((res) => res.json())
+    return fetch(process.env.REACT_APP_SLIDES_ENDPOINT).then((res) => res.json())
 	}
 )
 
