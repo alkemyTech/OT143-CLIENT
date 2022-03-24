@@ -38,7 +38,7 @@ const Home = () => {
             <Loading />
             :
             <>
-              <div className="row justify-content-center">
+              <div className="d-flex flex-wrap justify-content-center">
                 {
                   lastNews.length > 0 && lastNews.map((news, index) => (
                     <Cards key={index} title={news.name} content={news.content} image={news.image} onClick={() => handleClick(news.id)} />
@@ -58,7 +58,7 @@ const Home = () => {
         <div className="row text-center my-3">
           <h2 className="display-4">Testimonios</h2>
         </div>
-        <div className="row justify-content-center">
+        <div className="d-flex flex-wrap justify-content-center">
           <Cards title="Card title" image={Retrato} content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, consectetur blanditiis possimus molestias sunt dolorem recusandae maxime distinctio, voluptate totam provident ipsam, similique tenetur est? Rerum cum autem praesentium explicabo." />
 
           <Cards title="Card title" image={Retrato} content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, consectetur blanditiis possimus molestias sunt dolorem recusandae maxime distinctio, voluptate totam provident ipsam, similique tenetur est? Rerum cum autem praesentium explicabo." />

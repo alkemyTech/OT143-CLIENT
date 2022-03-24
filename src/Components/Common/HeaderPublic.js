@@ -17,6 +17,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "./../../features/auth/authSlice";
 import RegisterForm from "./../Auth/RegisterForm";
 import LoginForm from "./../Auth/LoginForm";
+import { BsGearFill } from "react-icons/bs";
+import { BACKOFFICE } from './../../config/router/routes'
 
 const HeaderPublic = () => {
   const { token: token } = useSelector((state) => state.auth);
@@ -119,26 +121,28 @@ const HeaderPublic = () => {
             <Nav>
               {isLogged ? (
                 <>
-                  <Nav.Link onClick={handleLogout}>
                     <NavLink
+                     onClick={handleLogout}
                       style={{ background: "#DB5752" }}
                       className="text-decoration-none log-button"
-                      to="/"
+                      to={HOME}
                     >
                       <RiLogoutBoxLine /> Log-out
                     </NavLink>
-                  </Nav.Link>
                   <Nav.Link className="d-flex align-items-center">
                     <FaUser style={{ fontSize: "1.5rem" }} className="mx-2" />
                     <span>{user}</span>
                   </Nav.Link>
+                  <NavLink to={BACKOFFICE} className="d-flex align-items-center">
+                    <BsGearFill  style={{ fontSize: "1.5rem" }}/>
+                  </NavLink>
                 </>
               ) : (
                 <>
                   <NavLink
                     style={{ background: "#9AC9FB" }}
                     className="text-decoration-none log-button mx-2"
-                    to="/"
+                    to={HOME}
                     onClick={handleShowLoginModal}
                   >
                     <RiLoginBoxLine />
@@ -147,7 +151,7 @@ const HeaderPublic = () => {
 
                   <NavLink
                     className="text-decoration-none log-button mx-2"
-                    to="/"
+                    to={HOME}
                     onClick={handleShowRegisterModal}
                   >
                     Registrarse
