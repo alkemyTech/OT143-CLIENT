@@ -48,12 +48,12 @@ const HeaderPublic = () => {
             {/* mejorar la logica recorriendo con un filter el array y que devuelva los dos elementos que necesito */}
             <NavDropdown title="Campañas"  >
                 <NavDropdown.Item >
-                    <NavLink activeStyle={{color:"tomato"}} to={nav[3].path}>
+                    <NavLink key={nav[3].title} activeStyle={{color:"tomato"}} to={nav[3].path}>
                     {nav[3].title}
                     </NavLink>
                     </NavDropdown.Item>
                <NavDropdown.Item> 
-                   <NavLink  activeStyle={{color:"tomato"}} to={nav[4].path}>
+                   <NavLink  key={nav[3].title} activeStyle={{color:"tomato"}} to={nav[4].path}>
                    {nav[4].title}
                    </NavLink>
                    </NavDropdown.Item>
