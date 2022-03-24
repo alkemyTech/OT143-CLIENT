@@ -30,7 +30,7 @@ const BackofficeRoutes = () => {
       {isLogged ? 
           <>
               <Route exact path={BACKOFFICE} component={ScreenDashboard} />
-              {console.log(user)}
+      
               <Route exact path={PROJECT_EDIT} component={ProjectsForm} />
               <Route exact path={PROJECT_CREATE} component={ProjectsForm} />
               {/* <Route path={PROJECTS} component={Projects} /> //No existe el componente todavía */}
