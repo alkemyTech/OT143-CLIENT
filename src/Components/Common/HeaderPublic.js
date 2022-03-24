@@ -17,7 +17,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "./../../features/auth/authSlice";
 import RegisterForm from "./../Auth/RegisterForm";
 import LoginForm from "./../Auth/LoginForm";
-import Modal from "react-bootstrap/Modal";
 
 const HeaderPublic = () => {
   const { token: token } = useSelector((state) => state.auth);
