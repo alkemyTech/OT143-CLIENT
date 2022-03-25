@@ -1,6 +1,5 @@
-import React from "react";
 import { useState, useEffect } from "react";
-import { Container, Nav, Navbar, Button, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import imgLogo from "./../../images/somosMasOrg.png";
 import {
@@ -18,9 +17,11 @@ import { logOut } from "./../../features/auth/authSlice";
 import RegisterForm from "./../Auth/RegisterForm";
 import LoginForm from "./../Auth/LoginForm";
 import { BsGearFill } from "react-icons/bs";
-import { BACKOFFICE } from './../../config/router/routes'
+import { BACKOFFICE } from './../../config/router/routes';
+import { getUser } from '../../features/auth/authSlice';
 
 const HeaderPublic = () => {
+  const { isAdmin: auth } = useSelector(state => state.auth)
   const { token: token } = useSelector((state) => state.auth);
   const user = localStorage.getItem("user");
   const dispatch = useDispatch();
@@ -35,6 +36,10 @@ const HeaderPublic = () => {
       setIsLogged(false);
     }
   }, [token]);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   const nav = [
     { path: ABOUT, title: "Nosotros" },
@@ -91,7 +96,8 @@ const HeaderPublic = () => {
               {nav.map((e, index) => {
                 return (
                   <div key={index}>
-                    {e.title == "JUGUETES" || e.title === "ESCOLAR" || e.title === "" ? null : (
+                    {e.title == "JUGUETES" || e.title === "ESCOLAR" || e.title === "" ? null : 
+                      auth && auth === 2 && e.title === "Contacto" ? null :(
                       <NavLink
                         to={e.path}
                         className="nav-link me-auto"
