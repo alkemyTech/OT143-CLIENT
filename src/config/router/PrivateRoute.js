@@ -23,7 +23,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 	return (
 		<>
 			{loading === true ? (
-				<Loading />
+				<div className="d-flex justify-content-center align-items-center" style={{height:"300px"}}>
+					<Loading />
+				</div>
 			) : (
 				<Route
 					{...rest}
