@@ -1,0 +1,13 @@
+.log-button{
+    color: #fff;
+    background: #aaa;
+    border-radius: 5px;
+    padding: 10px;
+    transition: .2s ease-in-out;
+    font-size: 1.05rem;
+    backdrop-filter: contrast(40%);
+
+    &:hover{
+        color: #fff;
+    }
+}

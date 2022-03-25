@@ -1,12 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { warningMsg } from '../../Components/Alerts/Alert';
 
+export const getMembers = createAsyncThunk('members/getMembers', async () => {
+	return fetch('https://ongapi.alkemy.org/api/members')
+	.then((res) => res.json())
+	.catch((error) => {
+		console.log(error);
+		warningMsg('Ha ocurrido un problema, error en los datos');
+	});
+})
 const initialState = {
+	list: [],
+	status : null,
 	name: '',
-	email: '',
-	image: '',
-	rol: '',
-	edit: false,
-	date_cr: '',
+	image: ''
 };
 
 export const membersSlice = createSlice({
@@ -16,18 +23,24 @@ export const membersSlice = createSlice({
 		getName: (state, action) => {
 			state.name = action.payload;
 		},
-		getEmail: (state, action) => {
-			state.email = action.payload;
-		},
 		getImage: (state, action) => {
 			state.image = action.payload;
 		},
-		getRol: (state, action) => {
-			state.rol = action.payload;
-		},
 	},
+	extraReducers: {
+		[getMembers.pending]: (state, action) => {
+			state.status = 'loading';
+		},
+		[getMembers.fulfilled]: (state, {payload}) => {
+			state.list = payload
+			state.status = 'success';
+		},
+		[getMembers.rejected]:(state, action) => {
+			state.status= 'failed';
+		}
+	}
 });
 
-export const { getName, getEmail, getImage, getRol } = membersSlice.actions;
+export const { getName, getImage } = membersSlice.actions;
 
 export default membersSlice.reducer;

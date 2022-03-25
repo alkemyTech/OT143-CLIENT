@@ -13,12 +13,17 @@ export const getUser = createAsyncThunk('user/getUser', async () => {
 	return fetch('https://ongapi.alkemy.org/api/auth/me', config).then((res) => res.json())
 })
 
+const tokenStorage = localStorage.getItem('token');
+
+// GUARDAR TOKEN Y USER EN LOCALSTORAGE
+
 const initialState = {
 	isAdmin: null,
 	status: null,
-	token: localStorage.getItem('token'),
+	token: tokenStorage ? tokenStorage : null,
 	user: null,
-	auth: null
+	auth: null,
+	role: null,
 };
 
 export const authSlice = createSlice({

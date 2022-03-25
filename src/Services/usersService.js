@@ -1,21 +1,28 @@
-import { Get, Put, Post, Delete } from './privateApiService';
+import axios from "axios";
 
-export const getUsers = () => {
-	return Get('http://ongapi.alkemy.org/api/users');
+const { REACT_APP_USERS_API_ENDPOINT } = process.env;
+
+export const getAll = () => {
+  const request = axios.get(REACT_APP_USERS_API_ENDPOINT);
+  return request.then(response => response);
 };
 
-export const postUser = data => {
-	return Post('http://ongapi.alkemy.org/api/users', data);
+export const getUser = (id) => {
+  const request = axios.get(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
+  return request.then(response => response);
 };
 
-export const GetUser = id => {
-	return Get(`http://ongapi.alkemy.org/api/users/${id}`);
+export const create = (data) => {
+  const request = axios.post(REACT_APP_USERS_API_ENDPOINT, data);
+  return request.then(response => response);
 };
 
-export const putUser = (id, data) => {
-	return Put(`http://ongapi.alkemy.org/api/users/${id}`, data);
+export const update = (id, data) => {
+  const request = axios.put(`${REACT_APP_USERS_API_ENDPOINT}/${id}`, data);
+  return request.then(response => response);
 };
 
-export const deleteUser = id => {
-	return Delete(`http://ongapi.alkemy.org/api/users/${id}`);
+export const remove = (id) => {
+  const request = axios.delete(`${REACT_APP_USERS_API_ENDPOINT}/${id}`);
+  return request.then(response => response);
 };
