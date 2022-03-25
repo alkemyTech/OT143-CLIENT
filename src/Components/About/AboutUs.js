@@ -6,11 +6,10 @@ import { Container,Row } from 'react-bootstrap';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import imgLogo from './../../images/somosMasOrg.png';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 const AboutUs =({about})=>{
 
-    const routerHistory = useHistory()
 	const iconsCustom = new L.Icon({
 		iconUrl:imgLogo,
 		iconSize:[90,105],
@@ -50,7 +49,7 @@ const AboutUs =({about})=>{
 				</MapContainer> 
 				
 				</Row> : 
-					(warningMsg("Error al cargar Mapa"), routerHistory.push('/'))
+					(warningMsg("Error al cargar Mapa"), <Redirect to="/"/>)
 					}
 				</Container>
             </Row>
