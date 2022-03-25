@@ -36,7 +36,7 @@ const News = () => {
       </div>
       <Container className="news-card-container my-5 py-4 px-5" fluid>
         {news.length === 0 ? null : news.map((card) => (
-          <Card title={card.title} content={card.content} image={card.image} />
+          <Card effect title={card.title} content={card.content} image={card.image} />
         ))}
       </Container>
     </>
