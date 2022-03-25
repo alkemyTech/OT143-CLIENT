@@ -1,75 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import Title from '../../Title/Title';
-import { useParams } from 'react-router-dom';
-import Loading from '../../Common/Loading';
-import { warningMsg } from '../../Alerts/Alert';
-// import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import Title from "../../Title/Title";
+import { useParams } from "react-router-dom";
+import Loading from "../../Common/Loading";
+import { Get } from "./../../../Services/publicApiService";
+import ComentariosNewsDetail from "./ComentariosNewsDetail";
+import moment from "moment";
+import { warningMsg } from "./../../Alerts/Alert";
 
-//CARGA DE DATOS DE LA API.
-// const result = await axios.get(`http://ongapi.alkemy.org/api/news/${params.id}`)
-// .then((res)=>{
-// })
-// .catch((err)=>{
-// });
 const NewsDetail = () => {
-  const params = useParams();
-  const [news, setNews] = useState();
-  const [isFetching, setIsFetching] = useState(false);
-
+  const regex = /(<([^>]+)>)/gi;
+  const [news, setNews] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+  const { id } = useParams();
   useEffect(() => {
-    console.log(params.id);
-    setIsFetching(true);
-    const cargaDetail = async () => {
-      try {
-        const res = {
-          data: {
-            name: "Detalle de la novedad",
-            image: "IMG",
-            content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, accusantium.",
-            updated_at: Date()
-          }
-        }
-        res.data ? setNews(res.data) :
-          console.log("RES", res, "STATE", news)
+    Get(`news`, id)
+      .then((res) => {
+        console.log(res.data.data);
+        setNews(res.data.data);
         setIsFetching(false);
-      } catch (error) {
-        setIsFetching(false);
-        warningMsg("Error 404 no hay noticias");
-      }
-    }
-    cargaDetail();
+      })
+      .catch((error) => {
+        console.log(error);
+        warningMsg("Error Al cargar Novedad");
+      });
   }, []);
-
   return (
     <>
-      {news ?
-        <Title text={news.name} />
-        :
-        <Title text="Detalle de la novedad" />
-      }
+      <Title />
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            {isFetching & (news.length === 0) ? (
+              <div className="text-center">
+                {" "}
+                <Loading />{" "}
+              </div>
+            ) : (
+              <>
+                <img
+                  className="img-fluid my-2"
+                  src={news.image}
+                  alt="ImagenDetalleNovedades"
+                />
 
-      <div className="m-0 row justify-content-center">
-        {isFetching && <Loading />}
-      </div>
-      {news ?
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <div className="text-center">
-                <img className="img-fluid" src={news.image} alt="imagen de la novedad" />
-              </div>
-              <div className="text-center">
-                <p>{news.content}</p>
-                <p>Fecha: {Date(news.updated_at)}</p>
-              </div>
-            </div>
+                <div className="text-center">
+                  <h1>{news.name}</h1>
+                  <h3>Fecha de la noticia</h3>
+                  <p>{moment(news.created_at).format("LL")}</p>
+                  {/* sacar etiquetas html */}
+                  <p dangerouslySetInnerHTML={{ __html: news.content }}></p>
+                  <div className="row justify-content-center">
+                    <div className="text-center">
+                      <ComentariosNewsDetail id={id} />
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
-        :
-        ""
-      }
+      </div>
     </>
   );
-}
+};
 
 export default NewsDetail;

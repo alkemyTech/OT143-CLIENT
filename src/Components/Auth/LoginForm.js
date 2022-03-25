@@ -1,103 +1,123 @@
-import React, { useState } from 'react';
-import '../FormStyles.css';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { postIn } from '../../Services/authService';
-import { regUser } from '../../features/auth/authSlice';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import "../FormStyles.css";
+import { Modal } from "react-bootstrap";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { postIn } from "../../Services/authService";
+import { regUser } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
-const LoginForm = () => {
-	const [initialValues, setInitialValues] = useState({
-		email: '',
-		password: '',
-	});
+const LoginForm = ({ close, show }) => {
+  const [initialValues, setInitialValues] = useState({
+    email: "",
+    password: "",
+  });
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const handleChange = e => {
-		setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
-	};
+  const handleChange = (e) => {
+    setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
+  };
 
-	// Funcion para validar campos y el formato requerido de cada uno
+  // Funcion para validar campos y el formato requerido de cada uno
 
-	const validate = () => {
-		let errors = {};
+  const validate = () => {
+    let errors = {};
 
-		const validateEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    const validateEmail = new RegExp(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
 
-		const validatePassword = new RegExp(
-			/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]/
-		);
+    const validatePassword = new RegExp(
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]/
+    );
 
-		// Si el email está vacio o no cumple el formato, da error
+    // Si el email está vacio o no cumple el formato, da error
 
-		if (
-			initialValues.email === '' ||
-			!validateEmail.test(initialValues.email)
-		) {
-			errors.email = 'Ingresa una direccion de email válida';
-		}
+    if (
+      initialValues.email === "" ||
+      !validateEmail.test(initialValues.email)
+    ) {
+      errors.email = "Ingresa una direccion de email válida";
+    }
 
-		// Si la contraseña esta vacia,
-		// es menor a 6 caracteres o no tiene el formato requerido da error
-		// (minimo 1 letra, 1 numero y 1 simbolo)
+    // Si la contraseña esta vacia,
+    // es menor a 6 caracteres o no tiene el formato requerido da error
+    // (minimo 1 letra, 1 numero y 1 simbolo)
 
-		if (
-			initialValues.password === '' ||
-			initialValues.password.length < 6 ||
-			!validatePassword.test(initialValues.password)
-		) {
-			errors.password =
-				'La contraseña debe tener una longitud mínima de 6 caracteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)';
-		}
+    if (
+      initialValues.password === "" ||
+      initialValues.password.length < 6 ||
+      !validatePassword.test(initialValues.password)
+    ) {
+      errors.password =
+        "La contraseña debe tener una longitud mínima de 6 caracteres, y contener al menos un número, una letra y un símbolo (por ejemplo: @#$%)";
+    }
 
-		return errors;
-	};
+    return errors;
+  };
 
-	const handleSubmit = async e => {
-		const res = await postIn({
-			email: initialValues.email,
-			password: initialValues.password,
-		});
+  let errorLogin;
 
-		const { token, user } = res.data.data;
+  const handleSubmit = async (e) => {
+    const res = await postIn({
+      email: initialValues.email,
+      password: initialValues.password,
+    });
 
-		dispatch(regUser({ token, user }));
+    if (res.data.data) {
+      const { token, user } = res.data.data;
 
-		localStorage.setItem('token', token);
-	};
+      dispatch(regUser({ token, user }));
 
-	return (
-		<>
-			<Formik
-				initialValues={initialValues}
-				onSubmit={handleSubmit}
-				validate={validate}>
-				{() => (
-					<Form>
-						<Field
-							className="input-field"
-							name="email"
-							type="email"
-							value={initialValues.name}
-							onChange={handleChange}
-							placeholder="Email"></Field>
-						<ErrorMessage name="email" />
-						<Field
-							className="input-field"
-							name="password"
-							type="password"
-							value={initialValues.password}
-							onChange={handleChange}
-							placeholder="Password"></Field>
-						<ErrorMessage name="password" />
-						<button className="submit-btn" type="submit">
-							Log In
-						</button>
-					</Form>
-				)}
-			</Formik>
-		</>
-	);
+      localStorage.setItem("token", token);
+
+      localStorage.setItem("user", user.name);
+
+      close();
+    } else {
+      errorLogin = <div className="ms-3"> Email o contraseña incorrectos</div>;
+    }
+  };
+
+  return (
+    <>
+      <Modal show={show} onHide={close}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validate={validate}
+        >
+          {() => (
+            <Form className="d-flex flex-column">
+              <Field
+                className="input-field rounded-pill m-3"
+                name="email"
+                type="email"
+                value={initialValues.name}
+                onChange={handleChange}
+                placeholder="Email"
+              ></Field>
+              <ErrorMessage component="div" className="mx-3" name="email" />
+              <Field
+                className="input-field rounded-pill m-3"
+                name="password"
+                type="password"
+                value={initialValues.password}
+                onChange={handleChange}
+                placeholder="Password"
+              ></Field>
+              <ErrorMessage component="div" className="mx-3" name="password" />
+              {errorLogin}
+              <button className="submit-btn rounded-pill m-2" type="submit">
+                Log In
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </Modal>
+    </>
+  );
 };
 
 export default LoginForm;
