@@ -67,7 +67,8 @@ export const LOGIN = '/login';
 
 //NEWS
 export const NEWS_WEB = '/novedades';
-export const NEWS_WEB_DETAILS = `/${NEWS_WEB}/:id`;
+export const NEWS_WEB_DETAILS = `${NEWS_WEB}/:id`;
+export const NEWSLETTER = '/newsletter';
 
 //ACTIVITIES
 export const ACTIVITIES_WEB = '/actividades';

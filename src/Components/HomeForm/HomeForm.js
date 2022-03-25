@@ -1,6 +1,5 @@
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from 'react-router-dom';
 import imagen from './../../images/somosMasOrg.png';
 import axios from 'axios';

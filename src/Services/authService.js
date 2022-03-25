@@ -1,4 +1,4 @@
-import { Post, Get } from './privateApiService';
+import { Get, Post } from './privateApiService';
 
 const token = localStorage.getItem('token');
 
