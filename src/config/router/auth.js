@@ -1,13 +1,22 @@
 import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const AuthUser = ({...props}) => {
-    const logged = localStorage.getItem('token')
+export const AuthUser = ({...props}) => {
+    const token = localStorage.getItem('token');
 
-    if (logged === null) {
+    if (token === null) {
         return <Route {...props} /> 
     } else {
         return <Redirect to="/" />
     }
 }
 
-export default AuthUser;
+export const AuthAdmin = ({...props}) => {
+    const { isAdmin: auth } = useSelector(state => state.auth)
+
+    if(auth && auth === 2) {
+        return <Redirect to="/" />
+    } else {
+        return <Route {...props} />
+    }
+}

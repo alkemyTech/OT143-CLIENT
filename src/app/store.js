@@ -9,14 +9,14 @@ import usersReducer from '../features/users/usersSlice';
 import newsReducer from '../features/news/newsSlice';
 
 export default configureStore({
-  reducer: {
-    counter: counterReducer,
-    project: projectReducer,
-    activities: activitiesReducer,
-    members: membersReducer,
-    slides: slidesReducer,
-    users: usersReducer,
-    auth: authReducer,
-    news: newsReducer,
-  },
+	reducer: {
+		counter: counterReducer,
+		project: projectReducer,
+		activities: activitiesReducer,
+		members: membersReducer,
+		slides: slidesReducer,
+		users: usersReducer,
+		auth: authReducer,
+		news: newsReducer,
+	},
 });
