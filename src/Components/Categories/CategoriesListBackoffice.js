@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Table } from 'react-bootstrap';
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from 'react-router-dom';
 import { BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
 import moment from 'moment';

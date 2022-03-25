@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import "../FormStyles.css";
+import { Modal } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useHistory } from "react-router-dom";
+import { postIn } from "../../Services/authService";
+import { regUser } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
-const LoginForm = () => {
-  let history = useHistory();
-
+const LoginForm = ({ close, show }) => {
   const [initialValues, setInitialValues] = useState({
     email: "",
     password: "",
   });
 
+
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
   };
-
-
 
   // Funcion para validar campos y el formato requerido de cada uno
 
@@ -53,45 +55,68 @@ const LoginForm = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
-    console.log(initialValues);
-    localStorage.setItem("token", "tokenValueExample");
-    history.push("/");
+  let errorLogin;
+
+  const handleSubmit = async (e) => {
+    const res = await postIn({
+      email: initialValues.email,
+      password: initialValues.password,
+    });
+
+    if (res.data.data) {
+      const { token, user } = res.data.data;
+
+      dispatch(regUser({ token, user }));
+
+      localStorage.setItem("token", token);
+
+      localStorage.setItem("user", user.name);
+
+      close();
+    } else {
+      errorLogin = <div className="ms-3"> Email o contraseña incorrectos</div>;
+    }
   };
 
   return (
     <>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validate={validate}
-      >
-        {() => (
-          <Form>
-            <Field
-              className="input-field"
-              name="email"
-              type="email"
-              value={initialValues.name}
-              onChange={handleChange}
-              placeholder="Email"
-            ></Field>
-            <ErrorMessage name="email" />
-            <Field
-              className="input-field"
-              name="password"
-              type="password"
-              value={initialValues.password}
-              onChange={handleChange}
-              placeholder="Password"
-            ></Field>
-            <ErrorMessage name="password" />
-            <button className="submit-btn" type="submit">
-              Log In
-            </button>
-          </Form>
-        )}
-      </Formik>
+      <Modal show={show} onHide={close}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validate={validate}
+        >
+          {() => (
+            <Form className="d-flex flex-column">
+              <Field
+                className="input-field rounded-pill m-3"
+                name="email"
+                type="email"
+                value={initialValues.name}
+                onChange={handleChange}
+                placeholder="Email"
+              ></Field>
+              <ErrorMessage component="div" className="mx-3" name="email" />
+              <Field
+                className="input-field rounded-pill m-3"
+                name="password"
+                type="password"
+                value={initialValues.password}
+                onChange={handleChange}
+                placeholder="Password"
+              ></Field>
+              <ErrorMessage component="div" className="mx-3" name="password" />
+              {errorLogin}
+              <button className="submit-btn rounded-pill m-2" type="submit">
+                Log In
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </Modal>
     </>
   );
 };
