@@ -2,9 +2,9 @@ import { Card } from "react-bootstrap";
 import "./Cards.scss";
 import placeholder from "./../../images/somosMasOrg.png";
 
-const Cards = ({ id, image, title, content, footer, ...props }) => {
+const Cards = ({ id, image, title, content, footer, effect, ...props }) => {
   return (
-    <Card className="card-common m-5 p-0" bg="light" {...props}>
+    <Card className={effect ? "card-common card-effect m-5 p-0" : "card-common m-5 p-0" } bg="light" {...props}>
       <Card.Img
         className="card-img"
         variant="top"

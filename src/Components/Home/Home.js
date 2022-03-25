@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     getAll().then(response => {
-      setLastNews(response.slice(-3));
+      setLastNews(response.slice(-4));
       setLoading(false);
     });
   }, []);
@@ -35,7 +35,7 @@ const Home = () => {
     <>
       <div className="container-fluid p-0">
         <Carousel />
-        <div className="container-fluid">
+        <div className="container-fluid mt-5">
           <div className="row text-center my-3">
             <h2 className="display-4">Últimas novedades</h2>
           </div>
@@ -49,7 +49,7 @@ const Home = () => {
                 <div className="d-flex flex-wrap justify-content-center">
                   {
                     lastNews.length > 0 && lastNews.map((news, index) => (
-                      <Cards key={index} title={news.name} content={news.content} image={news.image} onClick={() => handleClick(news.id)} />
+                      <Cards effect key={index} title={news.name} content={news.content} image={news.image} onClick={() => handleClick(news.id)} />
                     ))
                   }
                 </div>
@@ -63,10 +63,13 @@ const Home = () => {
               </div>
             </>
         }
+        <div className="container-fluid text-center mt-5 my-3">
+            <h2 className="display-4">Miembros</h2>
+          </div>
         <div className="container-fluid">
           <Miembros />
         </div>
-        <div className="container-fluid">
+        <div className="container-fluid mt-5">
           <div className="row text-center my-3">
             <h2 className="display-4">Testimonios</h2>
           </div>

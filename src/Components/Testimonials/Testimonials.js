@@ -11,7 +11,7 @@ const Testimonials = () => {
   useEffect(() => {
     service.get().then((res) => {
       console.log(res);
-      setTestimonials(res.data.slice(-3));
+      setTestimonials(res.data.slice(-4));
     });
   }, []);
 
