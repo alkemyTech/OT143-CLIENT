@@ -40,8 +40,8 @@ const HeaderPublic = () => {
     { path: ABOUT, title: "Nosotros" },
     { path: HOME, title: "" },
     { path: CONTACT, title: "Contacto" },
-    { path: TOYS_CAMPAIGN, title: "JUGETES" },
-    { path: SCHOOL_CAMPAIGN, title: "COLEGIOS" },
+    { path: TOYS_CAMPAIGN, title: "JUGUETES" },
+    { path: SCHOOL_CAMPAIGN, title: "ESCOLAR" },
   ];
 
   const handleLogout = () => {
@@ -90,10 +90,9 @@ const HeaderPublic = () => {
             <Nav className="me-auto">
               {nav.map((e, index) => {
                 return (
-                  <>
-                    {e.title == "JUGETES" || e.title === "COLEGIOS" ? null : (
+                  <div key={index}>
+                    {e.title == "JUGUETES" || e.title === "ESCOLAR" || e.title === "" ? null : (
                       <NavLink
-                        key={index}
                         to={e.path}
                         className="nav-link me-auto"
                         activeStyle={{ color: "tomato" }}
@@ -101,21 +100,17 @@ const HeaderPublic = () => {
                         {e.title}
                       </NavLink>
                     )}
-                  </>
+                  </div>
                 );
               })}
               {/* mejorar la logica recorriendo con un filter el array y que devuelva los dos elementos que necesito */}
               <NavDropdown title="Campañas">
-                <NavDropdown.Item>
-                  <NavLink activeStyle={{ color: "tomato" }} to={nav[3].path}>
+                <NavLink className="dropdown-item" activeStyle={{ color: "tomato" }} to={nav[3].path}>
                     {nav[3].title}
-                  </NavLink>
-                </NavDropdown.Item>
-                <NavDropdown.Item>
-                  <NavLink activeStyle={{ color: "tomato" }} to={nav[4].path}>
+                </NavLink>
+                <NavLink className="dropdown-item" activeStyle={{ color: "tomato" }} to={nav[4].path} >
                     {nav[4].title}
-                  </NavLink>
-                </NavDropdown.Item>
+                </NavLink>
               </NavDropdown>
             </Nav>
             <Nav>

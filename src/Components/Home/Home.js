@@ -8,6 +8,7 @@ import Retrato from '../../images/members/Cecilia Mendez.jpeg'
 import { NEWS_WEB } from '../../config/router/routes';
 import { getAll } from '../../Services/news';
 import Loading from '../Common/Loading';
+import Testimonials from './../Testimonials/Testimonials';
 
 
 const Home = () => {
@@ -25,6 +26,10 @@ const Home = () => {
       setLoading(false);
     });
   }, []);
+
+  useEffect(()=>{
+
+  },[])
 
   return (
     <>
@@ -66,13 +71,7 @@ const Home = () => {
             <h2 className="display-4">Testimonios</h2>
           </div>
         </div>
-        <div className="container-fluid">
-          <div className="d-flex flex-wrap justify-content-center">
-            <Cards title="Card title" image={Retrato} content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, consectetur blanditiis possimus molestias sunt dolorem recusandae maxime distinctio, voluptate totam provident ipsam, similique tenetur est? Rerum cum autem praesentium explicabo." />
-            <Cards title="Card title" image={Retrato} content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, consectetur blanditiis possimus molestias sunt dolorem recusandae maxime distinctio, voluptate totam provident ipsam, similique tenetur est? Rerum cum autem praesentium explicabo." />
-            <Cards title="Card title" image={Retrato} content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, consectetur blanditiis possimus molestias sunt dolorem recusandae maxime distinctio, voluptate totam provident ipsam, similique tenetur est? Rerum cum autem praesentium explicabo." />
-          </div>
-        </div>
+       <Testimonials />
       </div>
     </>);
 }
