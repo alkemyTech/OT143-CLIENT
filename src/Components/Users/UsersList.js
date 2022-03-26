@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { USER_CREATE } from "../../config/router/routes";
-import { Link } from "react-router-dom";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import UsersTable from "./UsersTable";
-import { getUsers } from "../../features/users/usersSlice";
-import { useDispatch, useSelector } from "react-redux";
-import Loading from "../Common/Loading";
-import Pagination from "../Common/Pagination";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { USER_CREATE } from '../../config/router/routes';
+import { getUsers } from '../../features/users/usersSlice';
+import { update, remove } from "../../Services/usersService";
+import { BsPencilSquare, BsTrash, BsPlusCircle } from "react-icons/bs";
+import { Button, Table } from "react-bootstrap";
+import Loading from '../Common/Loading';
+import Pagination from '../Common/Pagination';
+import { warningMsg } from '../Alerts/Alert';
+import moment from 'moment';
 
 const UsersList = () => {
-
   const { list: users, status } = useSelector(state => state.users);
   const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ const UsersList = () => {
       currentPage,
       currentPage + 10
     );
-  };
+  }
 
   const handlePrevPage = () => {
     if (currentPage > 0)
@@ -32,40 +34,83 @@ const UsersList = () => {
   };
 
   useEffect(() => {
-    dispatch(getUsers());
+    try {
+      dispatch(getUsers());
+    }
+    catch (error) {
+      warningMsg("Error. No se pudo cargar los datos");
+    }
   }, [dispatch]);
 
-  return (
-    <Container className="my-3">
-      <Row className="mb-2">
-        <Col>
-          <h2>Usuarios</h2>
-        </Col>
-        <Col className="text-end">
-          <Link to={USER_CREATE}>
-            <Button>Crear</Button>
-          </Link>
-        </Col>
-      </Row>
-      <hr />
-      {
-        status === "success" ?
-          <div>
-            <UsersTable users={filteredUsers()} />
-            <Pagination
-              onPrev={handlePrevPage}
-              onNext={handleNextPage}
-              disabledButtonPrev={currentPage === 0}
-              disabledButtonNext={filteredUsers().length < 10}
-            />
-          </div>
-          :
-          <div className="d-flex justify-content-center align-items-center" style={{ height: "500px" }}>
-            <Loading />
-          </div>
-      }
 
-    </Container>
+  const middleStyles = { verticalAlign: "middle" };
+
+  return (
+    <>
+      <div className="container mt-2">
+        <div className="row">
+          <div className="col">
+            <h2 className='text-center'>Usuarios</h2>
+            <div className="col text-end mb-2">
+              <Link to={USER_CREATE}><Button className='btn-success'>
+                <BsPlusCircle /> Crear</Button></Link>
+            </div>
+            {status === "success" ?
+              <div>
+                <Table responsive>
+                  <thead>
+                    <tr>
+                      <th style={{ width: "10%" }}>Nombre</th>
+                      <th style={{ width: "30%" }}>Email</th>
+                      <th style={{ width: "20%" }}>Fecha de creación</th>
+                      <th style={{ width: "10%" }} className="text-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredUsers().map((user) => (
+                      <tr key={user.id}>
+                        <td style={middleStyles}>{user.name}</td>
+                        <td style={middleStyles}>{user.email}</td>
+                        <td style={middleStyles}>{moment(user.created_at).format("MMM Do YY")}</td>
+                        <td style={middleStyles}>
+                          <div className="row text-center">
+                            <div className="mb-1 mb-md-0 col-12 col-md-6">
+                              <Button variant='dark' onClick={
+                                () => update(user.id, {
+                                  name: user.name,
+                                  email: user.email,
+                                })
+                              }>
+                                <BsPencilSquare />
+                              </Button>
+                            </div>
+                            <div className="col-12 col-md-6">
+                              <Button variant='danger' onClick={() => remove(user.id)}>
+                                <BsTrash />
+                              </Button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                <div className="my-3">
+                  <Pagination
+                    onPrev={handlePrevPage}
+                    onNext={handleNextPage}
+                    disabledButtonPrev={currentPage === 0}
+                    disabledButtonNext={filteredUsers().length < 10}
+                  />
+                </div>
+              </div>
+              :
+              <div className="d-flex justify-content-center align-items-center" style={{ height: "300px" }}><Loading /></div>
+            }
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

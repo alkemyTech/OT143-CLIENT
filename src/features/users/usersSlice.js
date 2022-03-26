@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { warningMsg } from "../../Components/Alerts/Alert";
 import { getAll } from "../../Services/usersService";
 
 export const getUsers = createAsyncThunk(
@@ -8,7 +7,6 @@ export const getUsers = createAsyncThunk(
     return request.then(response => response.data.data)
       .catch(error => {
         console.log(error);
-        warningMsg("Error. No se pudo cargar los usuarios");
       });
   });
 

@@ -1,5 +1,5 @@
 import { Route, Switch } from "react-router-dom";
-import { ACTIVITIES, ACTIVITY_CREATE, ACTIVITY_EDIT, BACKOFFICE, CATEGORIES, CATEGORY_CREATE, CATEGORY_EDIT, MEMBERS, MEMBER_CREATE, MEMBER_EDIT, NEWS, NEWS_CREATE, NEWS_EDIT, ORGANIZATION, ORGANIZATION_CREATE, ORGANIZATION_EDIT, /* PROJECTS, */ PROJECT_CREATE, PROJECT_EDIT, SLIDES, SLIDE_CREATE, SLIDE_EDIT, /* TESTIMONIALS,*/ TESTIMONY_CREATE, TESTIMONY_EDIT, USERS, USER_CREATE, USER_EDIT } from './routes';
+import { ACTIVITIES, ACTIVITY_CREATE, ACTIVITY_EDIT, BACKOFFICE, CATEGORIES, CATEGORY_CREATE, CATEGORY_EDIT, MEMBERS, MEMBER_CREATE, MEMBER_EDIT, NEWS, NEWS_CREATE, NEWS_EDIT, ORGANIZATION, ORGANIZATION_CREATE, ORGANIZATION_EDIT, /* PROJECTS, */ PROJECT_CREATE, PROJECT_EDIT, SLIDES, SLIDE_CREATE, SLIDE_EDIT, TESTIMONIALS, /* TESTIMONIALS,*/ TESTIMONY_CREATE, TESTIMONY_EDIT, USERS, USER_CREATE, USER_EDIT } from './routes';
 import ScreenDashboard from '../../Components/Dashboard/ScreenDashboard';
 import ProjectsForm from '../../Components/Projects/ProjectsForm';
 import TestimonialForm from '../../Components/Testimonials/TestimonialsForm';
@@ -17,6 +17,7 @@ import HomeForm from '../../Components/HomeForm/HomeForm';
 import Members from '../../Components/Members/MembersBackofficeList';
 import MembersForm from '../../Components/Members/MembersEdit';
 import OrganizationForm from '../../Components/Organization/OrganizationForm';
+import Testimonials from "../../Components/Testimonials/TestimonialsListBackoffice";
 
 const BackofficeRoutes = () => {
   return (
@@ -29,7 +30,7 @@ const BackofficeRoutes = () => {
 
       <Route exact path={TESTIMONY_EDIT} component={TestimonialForm} />
       <Route exact path={TESTIMONY_CREATE} component={TestimonialForm} />
-      {/* <Route exact path={TESTIMONIALS} component={Testimonials} /> //No existe el componente todavía*/}
+      <Route exact path={TESTIMONIALS} component={Testimonials} />
 
       <Route exact path={ACTIVITY_EDIT} component={ActivitiesForm} />
       <Route exact path={ACTIVITY_CREATE} component={ActivitiesForm} />
