@@ -21,9 +21,11 @@ const CardDashboard = (props) => {
           </Row>
         </Card.Body>
         <Row className="mb-2 pb-2">
-          <Link to={to}><Button variant="success" size="sm">
-            Ir
-          </Button></Link>
+          <Col xs={4}>
+            <Link to={to}><Button variant="success" size="sm">
+              Ir
+            </Button></Link>
+          </Col>
         </Row>
       </Card>
     </Col>
