@@ -1,5 +1,7 @@
 import React from 'react';
 import { Navbar, Container, NavbarBrand } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import {HOME} from './../../config/router/routes'
 import './header.css';
 
 const Header = () => {
@@ -17,7 +19,8 @@ const Header = () => {
           </Navbar.Brand>
           <Navbar.Brand> 
             <span className="eslogan">Juguetes por más sonrisas</span> 
-          </Navbar.Brand> 
+          </Navbar.Brand>
+          <Link to={HOME}>
           <NavbarBrand> 
             <img src="/images/logo-somos-mas.png"
               width="60"
@@ -26,6 +29,8 @@ const Header = () => {
               alt="Logo Somos Mas"
             />
           </NavbarBrand>
+          
+          </Link> 
         </Container>
       </Navbar>
     </header> 
