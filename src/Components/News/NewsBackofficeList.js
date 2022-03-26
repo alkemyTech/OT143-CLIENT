@@ -2,29 +2,30 @@ import { Container, Button, Table, Row, Col } from "react-bootstrap";
 import { BsPlusCircle, BsPencilSquare, BsTrash } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { NEWS_CREATE } from "../../config/router/routes";
-import image from "../../images/members/Cecilia Mendez.jpeg";
+import Loading from "../Common/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { getNews } from "./../../features/news/newsSlice";
+import { useEffect, useState } from "react";
+import { warningMsg } from '../Alerts/Alert';
 
 const NewsBackofficeList = () => {
-  const newsMock = [
-    {
-      id: 2,
-      name: "Titulo de prueba 1",
-      image: image,
-      createdAt: "Fecha",
-    },
-    {
-      id: 1,
-      name: "Titulo de prueba 2",
-      image: image,
-      createdAt: "Fecha",
-    },
-    {
-      id: 3,
-      name: "Titulo de prueba 3",
-      image: image,
-      createdAt: "Fecha",
-    },
-  ];
+  const { list: news } = useSelector((state) => state.news);
+  const { status: status } = useSelector((state) => state.news);
+  const [isFetching, setIsFetching] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getNews());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (status === 'success') {
+      setIsFetching(false);
+    } else if (status === 'failed'){
+      warningMsg('Error al cargar novedades');
+      setIsFetching(false);
+    }
+  }, [status]);
 
   return (
     <Container className="mt-2">
@@ -32,7 +33,11 @@ const NewsBackofficeList = () => {
         <Col>
           <h2 className="text-center">Novedades</h2>
           <div className="col text-end mb-2">
-            <Link to={NEWS_CREATE}><Button className="btn-success"><BsPlusCircle /> Crear</Button></Link>
+            <Link to={NEWS_CREATE}>
+              <Button className="btn-success">
+                <BsPlusCircle /> Crear
+              </Button>
+            </Link>
           </div>
           <Table bordered hover>
             <thead>
@@ -45,29 +50,33 @@ const NewsBackofficeList = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {newsMock.map((news) => (
-                <tr key={news.id}>
-                  <td>{news.name}</td>
-                  <td>
-                    <img src={news.image} style={{ height: "80px" }} />
-                  </td>
-                  <td>{news.createdAt}</td>
-                  <td>
-                    <Col className="text-center">
-                      <Button className="mb-2" variant="dark">
-                        <BsPencilSquare />
-                      </Button>
-                    </Col>
-                    <Col className="text-center">
-                      <Button variant="danger">
-                        <BsTrash />
-                      </Button>
-                    </Col>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            {isFetching ? (
+              <Loading />
+            ) : (
+              <tbody>
+                {news.map((news) => (
+                  <tr key={news.id}>
+                    <td>{news.name}</td>
+                    <td>
+                      <img src={news.image} style={{ height: "80px" }} />
+                    </td>
+                    <td>{news.created_at}</td>
+                    <td>
+                      <Col className="text-center">
+                        <Button className="mb-2" variant="dark">
+                          <BsPencilSquare />
+                        </Button>
+                      </Col>
+                      <Col className="text-center">
+                        <Button variant="danger">
+                          <BsTrash />
+                        </Button>
+                      </Col>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            )}
           </Table>
         </Col>
       </Row>

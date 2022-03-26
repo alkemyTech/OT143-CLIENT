@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "../FormStyles.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useDispatch } from "react-redux";
+import { regUser } from "../../features/auth/authSlice";
+import { postReg } from "../../Services/authService";
 import TermsAndConditionsModal from "../Modal/TermsAndConditionsModal";
 import TermsAndConditionsONG from "../TermsAndConditions/TermsAndConditionsONG";
+import { Modal } from "react-bootstrap";
 
-const RegisterForm = () => {
+const RegisterForm = ({ close, show }) => {
   const [checked, setChecked] = useState(false);
   const [initialValues, setInitialValues] = useState({
     name: "",
@@ -13,6 +17,8 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setInitialValues({ ...initialValues, [e.target.name]: e.target.value });
@@ -69,87 +75,120 @@ const RegisterForm = () => {
 
   //   Funcion para submit
 
-  const handleSubmit = (e) => {
-    console.log(initialValues);
-    localStorage.setItem("token", "tokenValueExample");
+  const handleSubmit = async (e) => {
+    const res = await postReg({
+      name: initialValues.name,
+      email: initialValues.email,
+      password: initialValues.password,
+    });
+
+    const { token, user } = res.data.data;
+
+    dispatch(regUser({ token, user }));
+
+    localStorage.setItem("token", `${token}`);
+
+    localStorage.setItem("user", user.name);
+
+    if (res.data.data) {
+      close();
+    }
   };
 
   const handleCheckbox = (e) => {
     setChecked(e.target.checked);
-  }
+  };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validate={validate}
-    >
-      {() => (
-        <Form>
-          <Field
-            className="input-field"
-            name="name"
-            value={initialValues.name}
-            placeholder="Nombre"
-            type="text"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="name" />
+    <Modal show={show} onHide={close}>
+      <Modal.Header closeButton>
+        <Modal.Title>Registrarse</Modal.Title>
+      </Modal.Header>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validate={validate}
+      >
+        {() => (
+          <Form className="form-control card">
+            <Field
+              className="input-field  rounded-pill m-2"
+              name="name"
+              value={initialValues.name}
+              placeholder="Nombre"
+              type="text"
+              onChange={handleChange}
+            />
+            <ErrorMessage component="div" className="mx-3" name="name" />
 
-          <Field
-            className="input-field"
-            name="lastName"
-            value={initialValues.lastName}
-            placeholder="Apellido"
-            type="text"
-            onChange={handleChange}
-          />
+            <Field
+              className="input-field  rounded-pill m-2"
+              name="lastName"
+              value={initialValues.lastName}
+              placeholder="Apellido"
+              type="text"
+              onChange={handleChange}
+            />
 
-          <ErrorMessage name="lastName" />
+            <ErrorMessage component="div" className="mx-3" name="lastName" />
 
-          <Field
-            className="input-field"
-            name="email"
-            value={initialValues.email}
-            placeholder="Email"
-            type="email"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="email" />
+            <Field
+              className="input-field  rounded-pill m-2"
+              name="email"
+              value={initialValues.email}
+              placeholder="Email"
+              type="email"
+              onChange={handleChange}
+            />
+            <ErrorMessage component="div" className="mx-3" name="email" />
 
-          <Field
-            className="input-field"
-            name="password"
-            value={initialValues.password}
-            placeholder="Contraseña"
-            type="password"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="password" />
+            <Field
+              className="input-field  rounded-pill m-2"
+              name="password"
+              value={initialValues.password}
+              placeholder="Contraseña"
+              type="password"
+              onChange={handleChange}
+            />
+            <ErrorMessage component="div" className="mx-3" name="password" />
 
-          <Field
-            className="input-field"
-            name="confirmPassword"
-            value={initialValues.confirmPassword}
-            placeholder="Confirmar contraseña"
-            type="password"
-            onChange={handleChange}
-          />
-          <ErrorMessage name="confirmPassword" />
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={handleCheckbox}
-            className="m-1"
-            onClick={() => {
-              setChecked(true);
-            }}
-          />
-          <TermsAndConditionsModal setChecked={setChecked}/>
-          <button disabled={checked === !true} type="submit" className="btn btn-primary">Submit</button>
-        </Form>
-      )}
-    </Formik>
+            <Field
+              className="input-field  rounded-pill m-2"
+              name="confirmPassword"
+              value={initialValues.confirmPassword}
+              placeholder="Confirmar contraseña"
+              type="password"
+              onChange={handleChange}
+            />
+            <ErrorMessage
+              component="div"
+              className="mx-3"
+              name="confirmPassword"
+            />
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={handleCheckbox}
+              className="m-1"
+              onClick={() => {
+                setChecked(true);
+              }}
+            />
+            <TermsAndConditionsModal
+              className="rounded-pill m-3"
+              setChecked={setChecked}
+            />
+            <button
+              disabled={checked === !true}
+              type="submit"
+              className="btn btn-primary rounded-pill m-2 "
+            >
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </Modal>
   );
 };
 
