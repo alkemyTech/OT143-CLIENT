@@ -1,7 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { putData, postData } from '../../Services/activitiesService';
-import { v4 as uuid } from 'uuid';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Formik, Form, useField } from 'formik';
@@ -37,11 +35,19 @@ const FileInput = ({ label, ...props }) => {
 	);
 };
 
-const ActivitiesForm = ({ id }) => {
-	const edicion = useSelector(state => state.activities.edit);
-	const titulo = useSelector(state => state.activities.title);
-	const info = useSelector(state => state.activities.description);
-	const imagen = useSelector(state => state.activities.image);
+const ActivitiesForm = props => {
+	const activities = props.activities
+		? {
+				id: props.activities.id,
+				title: props.activities.name,
+				content: props.activities.content,
+				image: props.activities.image,
+		  }
+		: {
+				title: '',
+				content: '',
+				image: '',
+		  };
 
 	let timeout = null;
 	let data = '';
@@ -55,14 +61,13 @@ const ActivitiesForm = ({ id }) => {
 	};
 
 	const handleReady = editor => {
-		editor.setData(info);
+		editor.setData(activities.content);
 	};
 
 	const createActivity = (values, id) => {
-		if (edicion !== true) {
+		if (!props.news) {
 			try {
 				postData({
-					id: uuid(),
 					name: values.title,
 					description: data,
 					image: values.image,
@@ -97,14 +102,14 @@ const ActivitiesForm = ({ id }) => {
 
 	return (
 		<>
-			<div className="container">
+			<div className="container mt-3">
+				<h2 className="title-form">{`${
+					!props.activities ? 'Crear' : 'Editar'
+				} actividad`}</h2>
 				<div className="row">
-					<div className="card col-6 offset-3 mt-5 pt-3">
+					<div className="mt-5 pt-3">
 						<Formik
-							initialValues={{
-								title: titulo,
-								image: imagen,
-							}}
+							initialValues={activities}
 							validationSchema={Yup.object({
 								title: Yup.string().required('Ingresar titulo'),
 								image: Yup.mixed()
@@ -130,7 +135,7 @@ const ActivitiesForm = ({ id }) => {
 							}}>
 							<Form>
 								<TextInput
-									label="Titulo"
+									label="Título"
 									name="title"
 									type="text"
 									className="form-control mt-3 mb-3"
@@ -161,11 +166,11 @@ const ActivitiesForm = ({ id }) => {
 									accept=".jpg, .jpeg, .png"
 									className="form-control mt-3 mb-3"
 								/>
-								<img src={info} alt="" />
+
 								<button
 									type="submit"
 									className="form-control btn btn-primary mt-3 mb-3">
-									{edicion === false ? 'Submit' : 'Edit'}
+									{!props.news ? 'Crear' : 'Editar'}
 								</button>
 							</Form>
 						</Formik>
