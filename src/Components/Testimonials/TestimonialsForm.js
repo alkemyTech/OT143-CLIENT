@@ -87,8 +87,8 @@ const TestimonialForm = props => {
 			<h2 className="title-form">
 				{`${!props.testimonial ? 'Crear' : 'Editar'}`} testimonios
 			</h2>
-			<div className=" col-6 offset-3 mt-5">
-				<Form className="form-control" onSubmit={formik.handleSubmit}>
+			<div className="mt-5">
+				<Form className="form" onSubmit={formik.handleSubmit}>
 					<Form.Group className="mt-2 mb-3">
 						<Form.Label>Nombre</Form.Label>
 						<Form.Control

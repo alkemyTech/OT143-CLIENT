@@ -107,7 +107,7 @@ const ActivitiesForm = props => {
 					!props.activities ? 'Crear' : 'Editar'
 				} actividad`}</h2>
 				<div className="row">
-					<div className="card col-6 offset-3 mt-5 pt-3">
+					<div className="mt-5 pt-3">
 						<Formik
 							initialValues={activities}
 							validationSchema={Yup.object({
