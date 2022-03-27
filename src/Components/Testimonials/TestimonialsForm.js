@@ -134,7 +134,7 @@ const TestimonialForm = props => {
               <div className="mt-1">{formik.errors.image}</div>
             ) : null}
           </Form.Group>
-          <Button type="submit" className="w-100 mb-2 mt-3">
+          <Button type="submit" className="w-100 mb-2 mt-3" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
             {!props.testimonials ? 'Crear' : 'Editar'}
           </Button>
         </Form>

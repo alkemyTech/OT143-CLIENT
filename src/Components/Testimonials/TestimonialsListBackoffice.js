@@ -58,7 +58,7 @@ const TestimonialsListBackoffice = () => {
             <h2 className="text-center">Testimonios</h2>
             <div className="col text-end mb-2">
               <Link to={TESTIMONY_CREATE}>
-                <Button className="btn-success">
+                <Button style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                   <BsPlusCircle /> Crear
                 </Button>
               </Link>
@@ -104,11 +104,11 @@ const TestimonialsListBackoffice = () => {
                             <div className="row text-center align-items-center">
                               <div className="mb-1 mb-md-0 col-12 col-md-6">
                                 <Button
-                                  variant="dark"
                                   onClick={() => {
                                     setEdit(testimony);
                                     handleEdit()
                                   }}
+                                  style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}
                                 >
                                   <BsPencilSquare />
                                 </Button>

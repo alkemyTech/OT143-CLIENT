@@ -49,7 +49,7 @@ const SlideList = () => {
         <Row>
           <h2 className='text-center'>Slides</h2>
           <Col className="text-end mb-2">
-            <Link to={SLIDE_CREATE}> <Button className="btn-success">
+            <Link to={SLIDE_CREATE}> <Button style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
               <BsPlusCircle /> Crear</Button>
             </Link>
           </Col>
@@ -73,8 +73,7 @@ const SlideList = () => {
                       <td style={middleStyles}>
                         <div className="row text-center">
                           <div className="mb-1 mb-md-0 col-12 col-md-6">
-                            <Button variant='dark'
-                              onClick={() => update(slide.id, { order: slide.order, image: slide.image, name: slide.name })}
+                            <Button onClick={() => update(slide.id, { order: slide.order, image: slide.image, name: slide.name })} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}
                             >
                               <BsPencilSquare />
                             </Button>

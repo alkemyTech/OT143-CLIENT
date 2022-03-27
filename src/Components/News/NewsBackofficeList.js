@@ -56,7 +56,7 @@ const NewsBackofficeList = () => {
           <h2 className="text-center">Novedades</h2>
           <div className="col text-end mb-2">
             <Link to={NEWS_CREATE}>
-              <Button className="btn-success">
+              <Button style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                 <BsPlusCircle /> Crear
               </Button>
             </Link>
@@ -82,7 +82,7 @@ const NewsBackofficeList = () => {
                       <td style={middleStyles}>
                         <div className="row text-center">
                           <div className="mb-1 mb-md-0 col-12 col-md-6">
-                            <Button variant='dark' onClick={() => console.log("Editar")}>
+                            <Button onClick={() => console.log("Editar")} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                               <BsPencilSquare />
                             </Button>
                           </div>

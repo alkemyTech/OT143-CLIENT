@@ -195,7 +195,7 @@ const OrganizationForm = () => {
         </Row>
         <Row>
           <Col className="text-end">
-            <Button type="submit">Editar</Button>
+            <Button type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>Editar</Button>
           </Col>
         </Row>
       </Form>

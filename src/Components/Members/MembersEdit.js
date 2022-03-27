@@ -150,7 +150,7 @@ const MembersEdit = (props) => {
           </Col>
         </Row>
 
-        <Button type="submit">{!props.member ? "Crear" : "Editar"}</Button>
+        <Button type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>{!props.member ? "Crear" : "Editar"}</Button>
       </Form>
     </Container>
   );
