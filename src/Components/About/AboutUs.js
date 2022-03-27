@@ -10,16 +10,20 @@ import { Redirect } from 'react-router-dom';
 import organizationService from '../../Services/organization';
 import moment from 'moment';
 import 'moment/locale/es';
+import './AboutUs.scss';
+import Loading from './../../Components/Common/Loading'
 
 const AboutUs =()=>{
 	moment.locale('es');
+	const [isFetching,setIsFetching] = useState(true);
 	const [about,setAbout]=useState()
 	useEffect(()=>{
 		try  {
 		 const cargaData= async () =>{
 				const result = await organizationService.get();
-				console.log(result)	
-				setAbout(result)}
+				console.log(result)
+				setAbout(result)
+				setIsFetching(false)};
 
 
 				cargaData();
@@ -44,29 +48,24 @@ const AboutUs =()=>{
 
     return(<>
         <Title text={about?.name}/>
-		<h2 className='text-center'>{about?.welcome_text}</h2>
-		<Container>
-					<Row className= "" >
-					<Col className='justify-content-center'>
-					<img  src={about?.logo} alt="NosotrosIMG" />
-					</Col>
-					</Row>
-					
+		<div className='about__container'>
+			<h2 className='about__title text-center'> {about?.welcome_text}</h2>					
+					 <div className='about__container__banner '>
+					{isFetching && <Loading />}
+					<img  src={about?.logo} alt="NosotrosIMG" />															
+					 </div>						
 			
-			<Row className='justify-content-start'>
-				<span>{about?.long_description}</span>
-			</Row>
-			<Row className='d-flex justify-content-end'>
-			<Col>
+			<div className="about__container__text">	
+			<span className='about__title'>{about?.long_description}</span>
 			<span dangerouslySetInnerHTML={{ __html: about?.short_description }}></span>
-			</Col>
-			<Col>
-			<span>Fundada en : {moment(about?.created_at).format('LL')}</span>
-			</Col>
-			</Row>
-			
+		
 
-		</Container>
+			<div className="row justify-content-center about__container__text__comentarios"> 
+			<span className='text-center'>Fundada en : {moment(about?.created_at).format('LL')}</span>		
+			</div>
+			</div>					
+			</div> 
+
         <Container className='my-2'>
             <Row>
 					{positionMarker ?  
