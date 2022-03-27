@@ -30,19 +30,28 @@ const SidebarBackoffice = ({ show , close }) => {
         {
             name: "Usuarios" ,
             url: "/backoffice/users" ,
-        }
+        },
+        {
+            name: "Actividades" ,
+            url: "/backoffice/activities" ,
+        },
+        {
+            name: "Testimonios" ,
+            url: "/backoffice/testimonials" ,
+        },
+
     ]
 
     
     return ( 
-        <Container className={show ? "sidebar d-flex flex-column active" : "sidebar d-flex flex-column" }>
+        <div className={show ? "sidebar d-flex flex-column active px-3" : "sidebar flex-column" }>
             <span className="menu-title mb-4">Menú</span>
                 {
                     backofficeLinks.map(link=>{
                         return <Link onClick={close} className="backoffice-link p-2 ps-4" to={link.url} >{link.name}</Link>
                     })
                 }
-        </Container>
+        </div>
      );
 }
  
