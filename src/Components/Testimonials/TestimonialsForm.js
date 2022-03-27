@@ -38,8 +38,7 @@ const TestimonialForm = (props) => {
     const testimonials = props.testimonials ? {
         id: props.testimonials.id,
         name: props.testimonials.name,
-        description: props.testimonials.description,
-        image: props.testimonials.image
+        description: props.testimonials.description
     } : {
         id: uuid(),
         name: "",
@@ -82,7 +81,7 @@ const TestimonialForm = (props) => {
 
     return (
         <Container>
-            <h2 className='title-form'>{`${!props.testimonial ? "Crear" : "Editar"}`} Testimonios</h2>
+            <h2 className='title-form'>{`${!props.testimonials ? "Crear" : "Editar"}`} Testimonios</h2>
             <Form className='form-container' onSubmit={formik.handleSubmit}>
                 <Form.Group className="mb-2">
                     <Form.Label>Nombre</Form.Label>
