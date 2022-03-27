@@ -1,21 +1,23 @@
 import axios from "axios";
 
+const BASE_URL = process.env.REACT_APP_MEMBERS_API_ENDPOINT;
+
 export const getAll = () => {
-  const request = axios.get(process.env.REACT_APP_MEMBERS_API_ENDPOINT);
-  return request.then(response => response.data.data);
+  const request = axios.get(BASE_URL);
+  return request.then(response => response);
 };
 
 export const create = body => {
-  const request = axios.post(process.env.REACT_APP_MEMBERS_API_ENDPOINT, body);
+  const request = axios.post(BASE_URL);
   return request.then(response => response.data);
 };
 
 export const update = (body, id) => {
-  const request = axios.put(`${process.env.REACT_APP_MEMBERS_API_ENDPOINT}/${id}`, body);
+  const request = axios.put(`${BASE_URL}/${id}`, body);
   return request.then(response => response.data);
 };
 
 export const remove = id => {
-  const request = axios.delete(`${process.env.REACT_APP_MEMBERS_API_ENDPOINT}/${id}`);
+  const request = axios.delete(`${BASE_URL}/${id}`);
   return request.then(response => response);
 };

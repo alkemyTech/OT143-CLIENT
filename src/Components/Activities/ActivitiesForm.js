@@ -99,7 +99,7 @@ const ActivitiesForm = ({ id }) => {
 		<>
 			<div className="container">
 				<div className="row">
-					<div className="card col-6 offset-3 mt-5 pt-3">
+					<div className="col-12 mt-5 pt-3">
 						<Formik
 							initialValues={{
 								title: titulo,

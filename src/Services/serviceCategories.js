@@ -1,19 +1,18 @@
-import {Get} from './publicApiService';
+import { Get, Post } from './publicApiService';
 
-export const GetAllCategories = ()=>{
-    const {data} = Get('categories');
-    console.log(data,"resultado de servicio de categorias")
+export const getAll = () => {
+  return Get('categories').then(response => response);
+}
+
+export const GetCategoriesId = async (id) => {
+  try {
+    const { data } = await Get('categories', id);
     return data;
+  } catch (error) {
+    return error;
+  }
 }
 
-export const GetCategoriesId = async ()=>{
-    try {
-        const {data} =  await Get('categories',`${1606}`);
-        console.log(data);
-        return data;
-    } catch (error) {
-        return error;
-    }
-   
+export const create = body => {
+  Post('categories', body);
 }
-

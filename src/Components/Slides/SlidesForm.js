@@ -89,7 +89,7 @@ const SlidesForm = ({ id }) => {
 	const createSlide = async (values, id) => {
 		if (edicion !== true) {
 			try {
-				await axios.post('http://ongapi.alkemy.org/api/activities', {
+				await axios.post('http://ongapi.alkemy.org/api/slides', {
 					id: uuid(),
 					name: values.title,
 					description: data,
@@ -104,7 +104,7 @@ const SlidesForm = ({ id }) => {
 			}
 		} else {
 			try {
-				await axios.put(`http://ongapi.alkemy.org/api/activities/${id}`, {
+				await axios.put(`http://ongapi.alkemy.org/api/slides/${id}`, {
 					id: id,
 					name: values.title,
 					description: data,
@@ -124,7 +124,7 @@ const SlidesForm = ({ id }) => {
 		<>
 			<div className="container">
 				<div className="row">
-					<div className="card col-6 offset-3 mt-5 pt-3">
+					<div className="col-12 mt-5 pt-3">
 						<Formik
 							initialValues={{
 								name: titulo,

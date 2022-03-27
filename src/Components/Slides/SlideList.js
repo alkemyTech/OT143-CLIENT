@@ -1,61 +1,110 @@
-import { useEffect } from "react";
-import { Container, Row, Col, Button, Table } from "react-bootstrap";
-import { BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getSlides } from '../../features/Slides/slidesSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { SLIDE_CREATE } from "../../config/router/routes";
+import { getSlides } from '../../features/Slides/slidesSlice';
+import { update, remove } from "../../Services/slideService";
+import { BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { Container, Row, Col, Button, Table } from "react-bootstrap";
+import Loading from "../Common/Loading";
+import Pagination from "../Common/Pagination";
+import { warningMsg } from "../Alerts/Alert";
 
-const SlideList = ()=>{
-    const { list: slides } = useSelector(state => state.slides);
-    const dispatch = useDispatch();
+const SlideList = () => {
+  const { list: slides } = useSelector(state => state.slides);
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getSlides());
-    }, [dispatch])
+  const [currentPage, setCurrentPage] = useState(0);
 
-return (
-    <Container className="pt-5">
+  const filteredSlides = () => {
+    return slides.slice(
+      currentPage,
+      currentPage + 10
+    );
+  }
+
+  const handlePrevPage = () => {
+    if (currentPage > 0)
+      setCurrentPage(currentPage - 10);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 10);
+  };
+
+  useEffect(() => {
+    try {
+      dispatch(getSlides());
+    }
+    catch (error) {
+      warningMsg("Error. No se pudo cargar los datos");
+    }
+  }, [dispatch]);
+
+  const middleStyles = { verticalAlign: "middle" };
+
+  return (
+    <>
+      <Container className="mt-2">
         <Row>
-            <Col sm={6}>
-            <h4>Slides</h4>
-            </Col>
-            <Col sm={6} className="text-center">
-            <Link to={SLIDE_CREATE} className="btn btn-primary">Crear</Link>
-            </Col>
-            <Col>
-            <Table>
+          <h2 className='text-center'>Slides</h2>
+          <Col className="text-end mb-2">
+            <Link to={SLIDE_CREATE}> <Button className="btn-success">
+              <BsPlusCircle /> Crear</Button>
+            </Link>
+          </Col>
+          {slides.length === 0 ? <div className="d-flex justify-content-center align-items-center" style={{ height: "300px" }}><Loading /></div> :
+            <div>
+              <Table responsive>
                 <thead>
-                <tr>
+                  <tr>
                     <th>Orden</th>
                     <th>Imagen</th>
-                    <th>Titulo</th>
-                </tr>
+                    <th>Título</th>
+                    <th className="text-center">Acciones</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {slides.data?.map((slide) => (
+                  {filteredSlides().map((slide) => (
                     <tr key={slide.id}>
-                    <td>{slide.order}</td>
-                    <td><img style={{width: "200px"}} src={slide.image} alt="slide" /></td>
-                    <td>{slide.name}</td>
-                    <td>
-                        <Button variant="primary" className="m-1"
-                        onClick={() => console.log("Editar")}>
-                        <BsPencilSquare />
-                        </Button>
-                        <Button variant="danger" className="m-1"
-                        onClick={() => console.log("Eliminar")}>
-                        <BsTrash />
-                        </Button>
-                    </td>
+                      <td style={middleStyles}>{slide.order}</td>
+                      <td style={middleStyles}><img src={slide.image} style={{ height: "80px" }} alt="imagen de slide" /></td>
+                      <td style={middleStyles}>{slide.name}</td>
+                      <td style={middleStyles}>
+                        <div className="row text-center">
+                          <div className="mb-1 mb-md-0 col-12 col-md-6">
+                            <Button variant='dark'
+                              onClick={() => update(slide.id, { order: slide.order, image: slide.image, name: slide.name })}
+                            >
+                              <BsPencilSquare />
+                            </Button>
+                          </div>
+                          <div className="col-12 col-md-6">
+                            <Button variant='danger' onClick={() => remove(slide.id)}>
+                              <BsTrash />
+                            </Button>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
-                ))}
+                  ))}
                 </tbody>
-            </Table>
-            </Col>
+              </Table>
+              <div className="my-3">
+                <Pagination
+                  onPrev={handlePrevPage}
+                  onNext={handleNextPage}
+                  disabledButtonPrev={currentPage === 0}
+                  disabledButtonNext={filteredSlides().length < 10}
+                />
+              </div>
+            </div>
+          }
         </Row>
-    </Container>
-    )
+      </Container>
+    </>
+
+  )
 }
 
 export default SlideList;
