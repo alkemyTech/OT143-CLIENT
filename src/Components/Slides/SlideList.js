@@ -84,12 +84,7 @@ const SlideList = () => {
                       <td style={middleStyles}>{slide.name}</td>
                       <td style={middleStyles}>
                         <div className="row text-center">
-                          <div className="mb-1 mb-md-0 col-12 col-md-6">
-                            <Button onClick={handleEdit} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
-                              <BsPencilSquare />
-                            </Button>
-                          </div>
-                          <div className="col-12 col-md-6">
+                          <div className="col-12">
                             <Button variant='danger' onClick={() => remove(slide.id)}>
                               <BsTrash />
                             </Button>
