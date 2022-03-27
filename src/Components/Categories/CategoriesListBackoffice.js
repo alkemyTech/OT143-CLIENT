@@ -8,10 +8,19 @@ import Loading from '../Common/Loading';
 import Pagination from '../Common/Pagination';
 import { warningMsg } from '../Alerts/Alert';
 import moment from 'moment';
+import EditModal from './../Backoffice/EditModal';
+import CategoriesForm from './CategoriesForm';
 
 const CategoriesListBackoffice = () => {
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [showEdit, setShowEdit] = useState(false);
+  const [edit, setEdit] = useState({});
+
+  const handleEdit = () => {
+    setShowEdit((prev) => !prev);
+  };
+
 
   const filteredCategories = () => {
     return categories.slice(
@@ -37,6 +46,9 @@ const CategoriesListBackoffice = () => {
   const middleStyles = { verticalAlign: "middle" };
 
   return (<>
+  <EditModal show={showEdit} close={handleEdit}>
+    <CategoriesForm />
+  </EditModal>
     <div className="container mt-2">
       <div className="row">
         <div className="col">
@@ -65,7 +77,10 @@ const CategoriesListBackoffice = () => {
                         <td style={middleStyles}>
                           <div className="row text-center">
                             <div className="mb-1 mb-md-0 col-12 col-md-6">
-                              <Button variant='dark' onClick={() => console.log("Editar")}>
+                              <Button variant='dark' onClick={() => {
+                                setEdit(category);
+                                handleEdit();
+                              }}>
                                 <BsPencilSquare />
                               </Button>
                             </div>

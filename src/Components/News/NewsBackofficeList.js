@@ -9,10 +9,19 @@ import Loading from "../Common/Loading";
 import Pagination from '../Common/Pagination';
 import { warningMsg } from '../Alerts/Alert';
 import moment from "moment";
+import EditModal from './../Backoffice/EditModal';
+import NewsForm from './NewsForm';
 
 const NewsBackofficeList = () => {
   const { list: news, status } = useSelector((state) => state.news);
   const dispatch = useDispatch();
+  const [showEdit, setShowEdit] = useState(false);
+  const [edit, setEdit] = useState({});
+
+  const handleEdit = () => {
+    setShowEdit((prev) => !prev);
+  };
+
 
   const [isFetching, setIsFetching] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -50,6 +59,10 @@ const NewsBackofficeList = () => {
   const middleStyles = { verticalAlign: "middle" };
 
   return (
+    <>
+    <EditModal show={showEdit} close={handleEdit}>
+      <NewsForm news={edit} />
+    </EditModal>
     <Container className="mt-2">
       <Row>
         <Col>
@@ -82,7 +95,10 @@ const NewsBackofficeList = () => {
                       <td style={middleStyles}>
                         <div className="row text-center">
                           <div className="mb-1 mb-md-0 col-12 col-md-6">
-                            <Button variant='dark' onClick={() => console.log("Editar")}>
+                            <Button variant='dark' onClick={()=>{
+                              setEdit(news);
+                              handleEdit()
+                            }}>
                               <BsPencilSquare />
                             </Button>
                           </div>
@@ -111,6 +127,7 @@ const NewsBackofficeList = () => {
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 
