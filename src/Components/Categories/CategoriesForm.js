@@ -1,127 +1,186 @@
-import React, { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
+import React from 'react';
+import { putData, postData } from '../../Services/serviceCategories';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Formik, Form, useField } from 'formik';
+import { successMsg, warningMsg } from '../Alerts/Alert';
 import * as Yup from 'yup';
 import '../FormStyles.css';
-import axios from 'axios';
-import { GetAllCategories, GetCategoriesId } from '../../Services/serviceCategories';
 
-const CategoriesForm = () => {
-    
-    const [dataApi, setDataApi] = useState();
-    const FORMAT_SUPPORTED = ['image/jpg', 'image/jpeg', 'image/png'];
-    
-    const SchemaValidation = Yup.object().shape({
-        name : Yup.string()
-            .required("Campo requerido")
-            .min(4,"Obligatorio mas de 4 letras"),
-        image : Yup.mixed()
-            .required("No hay imagen cargada")
-            .test("fileType","Formato de imagen invalido",(value)=> value && FORMAT_SUPPORTED.includes(value.type) ),
-        description: Yup.string()
-            .required("Campo requerido"),
+const TextInput = ({ label, foc, ...props }) => {
+	const [field, meta] = useField(props);
 
-    });
- 
-    const formCategories = useFormik({
-        initialValues:{
-            name:"",
-            image : "",
-            description : ""
-        },
-        validationSchema: SchemaValidation,
-         async onSubmit(values){
-            const resutl = await axios.post('http://ongapi.alkemy.org/api/categories', values)
-            .then((res)=>{
-                if(res.data.error){
-                    const cargoId = async()=>{
+	return (
+		<>
+			<label htmlFor={props.id || props.name}>{label}</label>
+			<input className="text-input" {...field} {...props} />
+			{meta.touched && meta.error ? (
+				<div className="error alert alert-danger">{meta.error}</div>
+			) : null}
+		</>
+	);
+};
 
-                        //Harcodeo un ID para probar la funcion GetCategorias y mostrar la info
+const FileInput = ({ label, ...props }) => {
+	const [field, meta] = useField(props);
 
-                        const dataId =  await GetCategoriesId(`${1606}`)
-                        console.log(dataId.data);
-                        setDataApi(dataId)
-                        formCategories.resetForm({
-                            name : dataId.data.name,
-                            image: dataId.data.image,
-                            description: dataId.data.description
-                        });
-                        formCategories.setSubmitting(false);
-                        
-                        
-                    }
-                    cargoId();
-                }
-            })
+	return (
+		<>
+			<label htmlFor={props.id || props.name}>{label}</label>
+			<input className="file-input" {...field} {...props} />
+			{meta.touched && meta.error ? (
+				<div className="error alert alert-danger">{meta.error}</div>
+			) : null}
+		</>
+	);
+};
 
-        }
-    });
+const CategoriesForm = props => {
+	const categories = props.categories
+		? {
+				id: props.categories.id,
+				title: props.categories.name,
+				content: props.categories.content,
+				image: props.categories.image,
+		  }
+		: {
+				title: '',
+				content: '',
+				image: '',
+		  };
 
-    return (
-       <> 
-       
-        <form className='form-container' onSubmit={formCategories.handleSubmit} >
-            <h3 className='title-form'>Categoria </h3>'
-               
-                <input 
-                    onChange={formCategories.handleChange}
-                    value={dataApi ? dataApi.data.name : formCategories.values.name }
-                    className="input-field"
-                    name="name"
-                    type="text"
-                    placeholder="Categoria" 
-                    autoComplete='Objecto que traemos de la api'
-                         />
+	let timeout = null;
+	let data = '';
 
-                {formCategories.touched.name && formCategories.errors.name ? 
-                 <span className='errors-forms'>
-                {formCategories.errors.name}
-                </span>: null}
+	const handleEditor = (e, editor) => {
+		const desc = editor.getData();
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
+			data = desc;
+		}, 1000);
+	};
 
-            <h3 className='title-form'>Imagen</h3>
-                <input className="input-field"
-                    id="image"
-                    name="image"
-                    type="file"
-                    placeholder="Imagen aqui"
-                    onChange={(e) => {formCategories.setFieldValue("image", e.currentTarget.files[0])}}
-                 />
-            {formCategories.touched.image && formCategories.errors.image ? 
-            <span className='errors-forms'>
-                {formCategories.errors.image}
-            </span>: null}
-            
+	const handleReady = editor => {
+		editor.setData(categories.content);
+	};
 
-            <h3 className='title-form'>Descripcion</h3>
-            <CKEditor 
-                
-                editor={ClassicEditor}
-                data={dataApi ? dataApi.data.description : "Escrbiba aqui"}
-                name="description"
-                type="text"
-                onReady={editor=> editor}
-                onChange={(e,editor)=>{
-                    const data = editor.getData();
-                    formCategories.setFieldValue("description", data);
-                }}
-                
-             />
+	const createCategory = (values, id) => {
+		if (!props.categories) {
+			try {
+				postData({
+					name: values.title,
+					description: data,
+					image: values.image,
+					user_id: 0,
+					category_id: 1,
+					created_at: Date(),
+				});
+				successMsg('Creacion exitosa');
+			} catch (err) {
+				warningMsg('Creacion fallida');
+			}
+		} else {
+			try {
+				putData(
+					{
+						id: id,
+						name: values.title,
+						description: data,
+						image: values.image,
+						user_id: 0,
+						category_id: 1,
+						created_at: Date(),
+					},
+					id
+				);
+				successMsg('Edicion exitosa');
+			} catch (err) {
+				warningMsg('Edicion fallida');
+			}
+		}
+	};
 
-             
-                {formCategories.touched.description && formCategories.errors.description ? 
-                <span className='errors-forms'>
-                    {formCategories.errors.description}
-                </span> : null  }
-             
-             <span className='erros-forms' >{dataApi ? dataApi.error : ""}</span>
-                    <button type='submit' >{formCategories.isSubmitting ? `Obteniendo datos de API...` : "Enviar"}
-                    </button>
-        </form>      
+	return (
+		<>
+			<div className="container mt-3">
+				<h2 className="title-form">{`${
+					!props.activities ? 'Crear' : 'Editar'
+				} categoria`}</h2>
+				<div className="row">
+					<div className="card col-6 offset-3 mt-5 pt-3">
+						<Formik
+							initialValues={categories}
+							validationSchema={Yup.object({
+								title: Yup.string()
+									.required('Ingresar titulo')
+									.max(4, 'Máximo 4 caracteres'),
+								image: Yup.mixed()
+									.required('Ingresar imagen')
+									.test('fileType', 'Unsupported File Format', value => {
+										if (value) {
+											if (value.includes('png')) {
+												return true;
+											} else if (value.includes('jpg')) {
+												return true;
+											} else if (value.includes('jpeg')) {
+												return true;
+											} else {
+												return false;
+											}
+										}
+									}),
+							})}
+							onSubmit={(values, { setFieldValue }) => {
+								createCategory(values);
+								// setFieldValue('title', '');
+								// setFieldValue('image', '');
+							}}>
+							<Form>
+								<TextInput
+									label="Título"
+									name="title"
+									type="text"
+									className="form-control mt-3 mb-3"
+								/>
+								<div className="mb-3">
+									<div className="mb-3">
+										<span>Descripción</span>
+									</div>
 
-      
-       </>
-    );
-}
+									<CKEditor
+										label="Descripción"
+										editor={ClassicEditor}
+										data=""
+										name="description"
+										type="text"
+										placeholder="Descripción"
+										onChange={handleEditor}
+										onReady={handleReady}
+										className="form-control"
+									/>
+								</div>
+
+								<FileInput
+									label="Imagen"
+									name="image"
+									type="file"
+									placeholder="Imagen"
+									accept=".jpg, .jpeg, .png"
+									className="form-control mt-3 mb-3"
+								/>
+
+								<button
+									type="submit"
+									className="form-control btn btn-primary mt-3 mb-3">
+									{!props.categories ? 'Crear' : 'Editar'}
+								</button>
+							</Form>
+						</Formik>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
 
 export default CategoriesForm;
