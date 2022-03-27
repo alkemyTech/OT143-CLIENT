@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import '../FormStyles.css';
 import { Form, Button, Container } from "react-bootstrap";
 import { warningMsg, successMsg } from '../Alerts/Alert';
+import { create, update } from './../../Services/slideService';
 
 const baseURL = "https://ongapi.alkemy.org/api";
 
@@ -56,16 +57,8 @@ const TestimonialForm = (props) => {
                 description: values.description,
                 image: values.image
             }
-            !props.testimonials ? axios
-                .post(`${baseURL}/testimonials`, body)
-                .then((response) => {
-                    console.log(response);
-                    successMsg("Testimonio creado con éxito");
-                })
-                .catch((error) => {
-                    console.log(error);
-                    warningMsg("No se pudo crear el testimonio");
-                })
+            !props.testimonials ?
+            create(values).then(res=>console.log(res))
             : axios
                 .put(`${baseURL}/testimonials/${testimonials.id}`, values)
                 .then((response) => {

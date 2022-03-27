@@ -8,7 +8,7 @@ const SidebarBackoffice = ({ show , close }) => {
     const backofficeLinks = [
         {
             name: "Miembros" ,
-            url: "/backoffice/members" ,
+            url: "/backoffice/members",
         },
         {
             name: "Categorías" ,
@@ -44,7 +44,7 @@ const SidebarBackoffice = ({ show , close }) => {
 
     
     return ( 
-        <div className={show ? "sidebar d-flex flex-column active px-3" : "sidebar flex-column" }>
+        <div className={show ? "sidebar d-flex flex-column active-sidebar-backoffice px-3" : "sidebar flex-column" }>
             <span className="menu-title mb-4">Menú</span>
                 {
                     backofficeLinks.map(link=>{
