@@ -10,10 +10,19 @@ import Loading from '../Common/Loading';
 import Pagination from '../Common/Pagination';
 import { warningMsg } from '../Alerts/Alert';
 import moment from 'moment';
+import EditModal from './../Backoffice/EditModal';
+import UsersForm from './UsersForm';
 
 const UsersList = () => {
   const { list: users, status } = useSelector(state => state.users);
   const dispatch = useDispatch();
+  const [showEdit, setShowEdit] = useState(false);
+  const [edit, setEdit] = useState({});
+
+  const handleEdit = () => {
+    setShowEdit((prev) => !prev);
+  };
+
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -47,6 +56,9 @@ const UsersList = () => {
 
   return (
     <>
+      <EditModal show={showEdit} close={handleEdit}  >
+        <UsersForm />
+      </EditModal>
       <div className="container mt-2">
         <div className="row">
           <div className="col">
@@ -75,12 +87,10 @@ const UsersList = () => {
                         <td style={middleStyles}>
                           <div className="row text-center">
                             <div className="mb-1 mb-md-0 col-12 col-md-6">
-                              <Button onClick={
-                                () => update(user.id, {
-                                  name: user.name,
-                                  email: user.email,
-                                })} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}
-                              >
+                              <Button onClick={() => {
+                                setEdit(user);
+                                handleEdit();
+                              }} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                                 <BsPencilSquare />
                               </Button>
                             </div>

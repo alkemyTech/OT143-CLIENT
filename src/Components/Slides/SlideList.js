@@ -9,12 +9,21 @@ import { Container, Row, Col, Button, Table } from "react-bootstrap";
 import Loading from "../Common/Loading";
 import Pagination from "../Common/Pagination";
 import { warningMsg } from "../Alerts/Alert";
+import EditModal from './../Backoffice/EditModal';
+import SlidesForm from './SlidesForm';
 
 const SlideList = () => {
   const { list: slides } = useSelector(state => state.slides);
   const dispatch = useDispatch();
-
+  const [showEdit, setShowEdit] = useState(false);
+  const [edit, setEdit] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
+
+  const handleEdit = () => {
+    setShowEdit((prev) => !prev);
+  };
+
+
 
   const filteredSlides = () => {
     return slides.slice(
@@ -45,6 +54,9 @@ const SlideList = () => {
 
   return (
     <>
+      <EditModal show={showEdit} close={handleEdit}>
+        <SlidesForm />
+      </EditModal>
       <Container className="mt-2">
         <Row>
           <h2 className='text-center'>Slides</h2>
@@ -73,8 +85,7 @@ const SlideList = () => {
                       <td style={middleStyles}>
                         <div className="row text-center">
                           <div className="mb-1 mb-md-0 col-12 col-md-6">
-                            <Button onClick={() => update(slide.id, { order: slide.order, image: slide.image, name: slide.name })} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}
-                            >
+                            <Button onClick={handleEdit} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                               <BsPencilSquare />
                             </Button>
                           </div>

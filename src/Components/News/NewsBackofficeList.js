@@ -9,10 +9,19 @@ import Loading from "../Common/Loading";
 import Pagination from '../Common/Pagination';
 import { warningMsg } from '../Alerts/Alert';
 import moment from "moment";
+import EditModal from './../Backoffice/EditModal';
+import NewsForm from './NewsForm';
 
 const NewsBackofficeList = () => {
   const { list: news, status } = useSelector((state) => state.news);
   const dispatch = useDispatch();
+  const [showEdit, setShowEdit] = useState(false);
+  const [edit, setEdit] = useState({});
+
+  const handleEdit = () => {
+    setShowEdit((prev) => !prev);
+  };
+
 
   const [isFetching, setIsFetching] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -50,67 +59,75 @@ const NewsBackofficeList = () => {
   const middleStyles = { verticalAlign: "middle" };
 
   return (
-    <Container className="mt-2">
-      <Row>
-        <Col>
-          <h2 className="text-center">Novedades</h2>
-          <div className="col text-end mb-2">
-            <Link to={NEWS_CREATE}>
-              <Button style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
-                <BsPlusCircle /> Crear
-              </Button>
-            </Link>
-          </div>
-          {isFetching ? <div className="d-flex justify-content-center align-items-center" style={{ height: "300px" }}><Loading /></div>
-            :
-            <div>
-              <Table responsive>
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Imagen</th>
-                    <th>Fecha de creación</th>
-                    <th className="text-center">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredNews().map(news => (
-                    <tr key={news.id}>
-                      <td style={middleStyles}>{news.name}</td>
-                      <td style={middleStyles}><img src={news.image} style={{ height: "80px" }} alt='imagen de novedad' /></td>
-                      <td style={middleStyles}>{moment(news.created_at).format("MMM Do YY")}</td>
-                      <td style={middleStyles}>
-                        <div className="row text-center">
-                          <div className="mb-1 mb-md-0 col-12 col-md-6">
-                            <Button onClick={() => console.log("Editar")} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
-                              <BsPencilSquare />
-                            </Button>
-                          </div>
-
-                          <div className="mb-1 mb-md-0 col-12 col-md-6">
-                            <Button variant='danger' onClick={() => console.log("Eliminar")}>
-                              <BsTrash />
-                            </Button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-              <div className="my-3">
-                <Pagination
-                  onPrev={handlePrevPage}
-                  onNext={handleNextPage}
-                  disabledButtonPrev={currentPage === 0}
-                  disabledButtonNext={filteredNews().length < 10}
-                />
-              </div>
+    <>
+      <EditModal show={showEdit} close={handleEdit}>
+        <NewsForm news={edit} />
+      </EditModal>
+      <Container className="mt-2">
+        <Row>
+          <Col>
+            <h2 className="text-center">Novedades</h2>
+            <div className="col text-end mb-2">
+              <Link to={NEWS_CREATE}>
+                <Button style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
+                  <BsPlusCircle /> Crear
+                </Button>
+              </Link>
             </div>
-          }
-        </Col>
-      </Row>
-    </Container>
+            {isFetching ? <div className="d-flex justify-content-center align-items-center" style={{ height: "300px" }}><Loading /></div>
+              :
+              <div>
+                <Table responsive>
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Imagen</th>
+                      <th>Fecha de creación</th>
+                      <th className="text-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredNews().map(news => (
+                      <tr key={news.id}>
+                        <td style={middleStyles}>{news.name}</td>
+                        <td style={middleStyles}><img src={news.image} style={{ height: "80px" }} alt='imagen de novedad' /></td>
+                        <td style={middleStyles}>{moment(news.created_at).format("MMM Do YY")}</td>
+                        <td style={middleStyles}>
+                          <div className="row text-center">
+                            <div className="mb-1 mb-md-0 col-12 col-md-6">
+                              <Button onClick={() => {
+                                setEdit(news);
+                                handleEdit()
+                              }} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
+                                <BsPencilSquare />
+                              </Button>
+                            </div>
+
+                            <div className="mb-1 mb-md-0 col-12 col-md-6">
+                              <Button variant='danger' onClick={() => console.log("Eliminar")}>
+                                <BsTrash />
+                              </Button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                <div className="my-3">
+                  <Pagination
+                    onPrev={handlePrevPage}
+                    onNext={handleNextPage}
+                    disabledButtonPrev={currentPage === 0}
+                    disabledButtonNext={filteredNews().length < 10}
+                  />
+                </div>
+              </div>
+            }
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 

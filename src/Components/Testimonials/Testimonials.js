@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import Card from "./../Common/Cards";
-import axios from "axios";
 import service from "./../../Services/testimonialsService";
 import moment from "moment";
 

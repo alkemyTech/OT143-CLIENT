@@ -5,7 +5,8 @@ import * as Yup from "yup";// Poner dentro de la carpeta Service o hacerlo local
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import membersService from "../../Services/members";
+import { create, update } from "../../Services/membersService";
+import { successMsg, warningMsg } from "../Alerts/Alert";
 
 const FORMAT_SUPPORTED = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
@@ -52,24 +53,24 @@ const MembersEdit = (props) => {
     onSubmit(values) {
       !props.member
         ?
-        membersService.create(values)
+        create(values)
           .then((response) => {
             console.log(response);
-            alert("Miembro creado con éxito");
+            successMsg("Miembro creado con éxito");
           })
           .catch((error) => {
             console.log(error);
-            alert("Error. No se pudo crear el nuevo miembro");
+            warningMsg("Error. No se pudo crear el nuevo miembro");
           })
 
-        : membersService.update(values, values.id)
+        : update(values, values.id)
           .then((response) => {
             console.log(response);
-            alert("Miembro editado con éxito");
+            successMsg("Miembro editado con éxito");
           })
           .catch((error) => {
             console.log(error);
-            alert("Error. No se pudo editar el miembro");
+            warningMsg("Error. No se pudo editar el miembro");
           });
 
     }

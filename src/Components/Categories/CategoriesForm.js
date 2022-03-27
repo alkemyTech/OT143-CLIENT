@@ -41,7 +41,7 @@ const CategoriesForm = props => {
       id: props.categories.id,
       title: props.categories.name,
       content: props.categories.content,
-      image: props.categories.image,
+      /* image: props.categories.image, */
     }
     : {
       title: '',
@@ -149,12 +149,10 @@ const CategoriesForm = props => {
                   <CKEditor
                     label="Descripción"
                     editor={ClassicEditor}
-                    data=""
+                    data={categories.content || ""}
                     name="description"
                     type="text"
                     placeholder="Descripción"
-                    onChange={handleEditor}
-                    onReady={handleReady}
                     className="form-control"
                   />
                 </div>
