@@ -4,6 +4,10 @@ import './Sidebar.scss';
 const SidebarBackoffice = ({ show, close }) => {
   const backofficeLinks = [
     {
+      name: "Dashboard",
+      url: "/backoffice",
+    },
+    {
       name: "Miembros",
       url: "/backoffice/members",
     },
