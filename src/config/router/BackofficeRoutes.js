@@ -1,5 +1,33 @@
-import { Route, Switch } from "react-router-dom";
-import { ACTIVITIES, ACTIVITY_CREATE, ACTIVITY_EDIT, BACKOFFICE, CATEGORIES, CATEGORY_CREATE, CATEGORY_EDIT, MEMBERS, MEMBER_CREATE, MEMBER_EDIT, NEWS, NEWS_CREATE, NEWS_EDIT, ORGANIZATION, ORGANIZATION_CREATE, ORGANIZATION_EDIT, /* PROJECTS, */ PROJECT_CREATE, PROJECT_EDIT, SLIDES, SLIDE_CREATE, SLIDE_EDIT, TESTIMONIALS, /* TESTIMONIALS,*/ TESTIMONY_CREATE, TESTIMONY_EDIT, USERS, USER_CREATE, USER_EDIT } from './routes';
+import { Switch } from 'react-router-dom';
+import {
+  ACTIVITIES,
+  ACTIVITY_CREATE,
+  ACTIVITY_EDIT,
+  BACKOFFICE,
+  CATEGORIES,
+  CATEGORY_CREATE,
+  CATEGORY_EDIT,
+  MEMBERS,
+  MEMBER_CREATE,
+  MEMBER_EDIT,
+  NEWS,
+  NEWS_CREATE,
+  NEWS_EDIT,
+  ORGANIZATION,
+  ORGANIZATION_CREATE,
+  ORGANIZATION_EDIT,
+	/* PROJECTS, */ PROJECT_CREATE,
+  PROJECT_EDIT,
+  SLIDES,
+  SLIDE_CREATE,
+  SLIDE_EDIT,
+  TESTIMONIALS,
+  TESTIMONY_CREATE,
+  TESTIMONY_EDIT,
+  USERS,
+  USER_CREATE,
+  USER_EDIT,
+} from './routes';
 import ScreenDashboard from '../../Components/Dashboard/ScreenDashboard';
 import ProjectsForm from '../../Components/Projects/ProjectsForm';
 import TestimonialForm from '../../Components/Testimonials/TestimonialsForm';
@@ -19,51 +47,61 @@ import MembersForm from '../../Components/Members/MembersEdit';
 import OrganizationForm from '../../Components/Organization/OrganizationForm';
 import Testimonials from "../../Components/Testimonials/TestimonialsListBackoffice";
 import Layout from "../../Components/Backoffice/Layout";
+import PrivateRoute from './PrivateRoute';
 
 const BackofficeRoutes = () => {
   return (
     <Layout>
       <Switch>
-        <Route exact path={BACKOFFICE} component={ScreenDashboard} />
+        <PrivateRoute exact path={BACKOFFICE} component={ScreenDashboard} />
 
-        <Route exact path={PROJECT_EDIT} component={ProjectsForm} />
-        <Route exact path={PROJECT_CREATE} component={ProjectsForm} />
-        {/* <Route path={PROJECTS} component={Projects} /> //No existe el componente todavía */}
+        <PrivateRoute exact path={PROJECT_EDIT} component={ProjectsForm} />
+        <PrivateRoute exact path={PROJECT_CREATE} component={ProjectsForm} />
+        {/* <PrivateRoute path={PROJECTS} component={Projects} /> //No existe el componente todavía */}
 
-        <Route exact path={TESTIMONY_EDIT} component={TestimonialForm} />
-        <Route exact path={TESTIMONY_CREATE} component={TestimonialForm} />
-        <Route exact path={TESTIMONIALS} component={Testimonials} />
+        <PrivateRoute exact path={TESTIMONY_EDIT} component={TestimonialForm} />
+        <PrivateRoute exact path={TESTIMONY_CREATE} component={TestimonialForm} />
+        <PrivateRoute exact path={TESTIMONIALS} component={Testimonials} />
 
-        <Route exact path={ACTIVITY_EDIT} component={ActivitiesForm} />
-        <Route exact path={ACTIVITY_CREATE} component={ActivitiesForm} />
-        <Route exact path={ACTIVITIES} component={Activities} />
+        <PrivateRoute exact path={ACTIVITY_EDIT} component={ActivitiesForm} />
+        <PrivateRoute exact path={ACTIVITY_CREATE} component={ActivitiesForm} />
+        <PrivateRoute exact path={ACTIVITIES} component={Activities} />
 
-        <Route exact path={NEWS_EDIT} component={NewsForm} />
-        <Route exact path={NEWS_CREATE} component={NewsForm} />
-        <Route exact path={NEWS} component={News} />
+        <PrivateRoute exact path={NEWS_EDIT} component={NewsForm} />
+        <PrivateRoute exact path={NEWS_CREATE} component={NewsForm} />
+        <PrivateRoute exact path={NEWS} component={News} />
 
-        <Route exact path={SLIDE_EDIT} component={SlidesForm} />
-        <Route exact path={SLIDE_CREATE} component={SlidesForm} />
-        <Route exact path={SLIDES} component={Slides} />
+        <PrivateRoute exact path={SLIDE_EDIT} component={SlidesForm} />
+        <PrivateRoute exact path={SLIDE_CREATE} component={SlidesForm} />
+        <PrivateRoute exact path={SLIDES} component={Slides} />
 
-        <Route exact path={CATEGORY_EDIT} component={CategoriesForm} />
-        <Route exact path={CATEGORY_CREATE} component={CategoriesForm} />
-        <Route exact path={CATEGORIES} component={Categories} />
+        <PrivateRoute exact path={CATEGORY_EDIT} component={CategoriesForm} />
+        <PrivateRoute exact path={CATEGORY_CREATE} component={CategoriesForm} />
+        <PrivateRoute exact path={CATEGORIES} component={Categories} />
 
-        <Route exact path={USER_EDIT} component={UserForm} />
-        <Route exact path={USER_CREATE} component={UserForm} />
-        <Route exact path={USERS} component={Users} />
+        <PrivateRoute exact path={USER_EDIT} component={UserForm} />
+        <PrivateRoute path={USER_CREATE} component={UserForm} />
+        {/* <PrivateRoute exact path={USER_CREATE} component={UserForm} /> */}
+        <PrivateRoute exact path={USERS} component={Users} />
 
-        <Route exact path={MEMBER_EDIT} component={MembersForm} />
-        <Route exact path={MEMBER_CREATE} component={MembersForm} />
-        <Route exact path={MEMBERS} component={Members} />
+        <PrivateRoute exact path={MEMBER_EDIT} component={MembersForm} />
+        <PrivateRoute exact path={MEMBER_CREATE} component={MembersForm} />
+        <PrivateRoute exact path={MEMBERS} component={Members} />
 
-        <Route exact path={ORGANIZATION_EDIT} component={OrganizationForm} />
-        <Route exact path={ORGANIZATION_CREATE} component={OrganizationForm} />
-        <Route exact path={ORGANIZATION} component={HomeForm} />
+        <PrivateRoute
+          exact
+          path={ORGANIZATION_EDIT}
+          component={OrganizationForm}
+        />
+        <PrivateRoute
+          exact
+          path={ORGANIZATION_CREATE}
+          component={OrganizationForm}
+        />
+        <PrivateRoute exact path={ORGANIZATION} component={HomeForm} />
       </Switch>
     </Layout>
-  )
+  );
 };
 
 export default BackofficeRoutes;

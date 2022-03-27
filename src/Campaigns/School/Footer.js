@@ -5,7 +5,6 @@ import "./Footer.scss";
 import { SiInstagram, SiTwitter } from "react-icons/si";
 import { FaFacebookF } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
 
 const Footer = () => {
 

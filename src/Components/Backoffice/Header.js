@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import { BACKOFFICE } from "../../config/router/routes";
 import logo from "./../../images/somosMasOrg.png";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import "./Header.scss";
@@ -8,7 +9,6 @@ import Sidebar from "./Sidebar";
 
 const HeaderBackoffice = () => {
   const [showSidebar, setShowSidebar] = useState(false);
-
 
   const toggleSidebar = () => {
     setShowSidebar((prev) => !prev);
@@ -28,7 +28,7 @@ const HeaderBackoffice = () => {
             className="header-menu-icon mx-4"
           />
         )}
-        <Link to="/backoffice"><img className="header-logo ms-2 me-auto" src={logo} /></Link>
+        <Link to={BACKOFFICE}><img className="header-logo ms-2 me-auto" src={logo} alt="Logo de la organización" /></Link>
       </Container>
       <Sidebar show={showSidebar} close={toggleSidebar} />
     </>

@@ -1,9 +1,10 @@
 import axios from "axios";
+import { Get } from "./publicApiService";
 
 const { REACT_APP_ORGANIZATION_API_ENDPOINT } = process.env;
 
 const get = () => {
-  const request = axios.get(REACT_APP_ORGANIZATION_API_ENDPOINT);
+  const request = Get('organization');
   return request.then(response => response.data.data);
 }
 

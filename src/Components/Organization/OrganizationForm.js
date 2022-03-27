@@ -54,9 +54,9 @@ const OrganizationForm = () => {
   });
 
   return (
-    <Container className="mt-3">
+    <Container className="mb-3">
       <h2 className="title-form">Editar datos</h2>
-      <Form className="form-container" onSubmit={formik.handleSubmit}>
+      <Form onSubmit={formik.handleSubmit}>
         <Form.Group controlId="name" className="mb-2">
           <Form.Label>Nombre</Form.Label>
           <Form.Control
@@ -193,8 +193,11 @@ const OrganizationForm = () => {
             </Form.Group>
           </Col>
         </Row>
-
-        <Button type="submit">Editar</Button>
+        <Row>
+          <Col className="text-end">
+            <Button type="submit">Editar</Button>
+          </Col>
+        </Row>
       </Form>
     </Container>
   );
