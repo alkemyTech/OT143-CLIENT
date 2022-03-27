@@ -15,8 +15,7 @@ const config = {
 
 //Servicio privado GET
 export const GetPrivateService = (url, id) => {
-  axios
-    .get(`${url}` + `${id ? `/${id}` : null}`, config)
+	axios.get(`${url}` + `${id ? `/${id}` : null}`, config);
 };
 
 export const GetAll = url => {
