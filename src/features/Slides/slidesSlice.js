@@ -3,7 +3,7 @@ import { getAll } from "../../Services/slideService";
 
 export const getSlides = createAsyncThunk('slides/getSlides', async () => {
   const request = getAll();
-  return request.then(response => response.data)
+  return request.then(response => response.data.data)
     .catch(error => {
       console.log(error);
     });
