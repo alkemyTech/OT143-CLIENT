@@ -49,7 +49,7 @@ const TestimonialsListBackoffice = () => {
   return (
     <>
       <EditModal show={showEdit} close={handleEdit}>
-        <TestimonialsForm testimonials={edit} />
+        <TestimonialsForm testimony={edit} />
       </EditModal>
 
       <div className="container mt-2">
@@ -86,45 +86,43 @@ const TestimonialsListBackoffice = () => {
                   </thead>
                   <tbody>
                     {filteredTestimonials().map((testimony) => (
-                      <>
-                        <tr key={testimony.id}>
-                          <td style={middleStyles}>{testimony.name}</td>
-                          <td style={middleStyles}>
-                            <img
-                              src={testimony.image}
-                              style={{ height: "80px" }}
-                              alt="imagen del testimonio"
-                            />
-                          </td>
-                          <td style={middleStyles}>{testimony.description}</td>
-                          <td style={middleStyles}>
-                            {moment(testimony.created_at).format("MMM Do YY")}
-                          </td>
-                          <td style={middleStyles}>
-                            <div className="row text-center align-items-center">
-                              <div className="mb-1 mb-md-0 col-12 col-md-6">
-                                <Button
-                                  onClick={() => {
-                                    setEdit(testimony);
-                                    handleEdit()
-                                  }}
-                                  style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}
-                                >
-                                  <BsPencilSquare />
-                                </Button>
-                              </div>
-                              <div className="col-12 col-md-6">
-                                <Button
-                                  variant="danger"
-                                  onClick={() => console.log("Eliminar")}
-                                >
-                                  <BsTrash />
-                                </Button>
-                              </div>
+                      <tr key={testimony.id}>
+                        <td style={middleStyles}>{testimony.name}</td>
+                        <td style={middleStyles}>
+                          <img
+                            src={testimony.image}
+                            style={{ height: "80px" }}
+                            alt="imagen del testimonio"
+                          />
+                        </td>
+                        <td style={middleStyles}>{testimony.description}</td>
+                        <td style={middleStyles}>
+                          {moment(testimony.created_at).format("MMM Do YY")}
+                        </td>
+                        <td style={middleStyles}>
+                          <div className="row text-center align-items-center">
+                            <div className="mb-1 mb-md-0 col-12 col-md-6">
+                              <Button
+                                onClick={() => {
+                                  setEdit(testimony);
+                                  handleEdit()
+                                }}
+                                style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}
+                              >
+                                <BsPencilSquare />
+                              </Button>
                             </div>
-                          </td>
-                        </tr>
-                      </>
+                            <div className="col-12 col-md-6">
+                              <Button
+                                variant="danger"
+                                onClick={() => console.log("Eliminar")}
+                              >
+                                <BsTrash />
+                              </Button>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
                     ))}
                   </tbody>
                 </Table>

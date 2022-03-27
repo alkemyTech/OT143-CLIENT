@@ -3,13 +3,10 @@ import { useFormik } from 'formik';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as Yup from 'yup';
-import axios from 'axios';
-import { v4 as uuid } from 'uuid';
-import '../FormStyles.css';
+import testimonialsService from "../../Services/testimonialsService";
 import { Form, Button, Container } from 'react-bootstrap';
 import { warningMsg, successMsg } from '../Alerts/Alert';
-
-const baseURL = 'https://ongapi.alkemy.org/api';
+import '../FormStyles.css';
 
 const schema = Yup.object().shape({
   name: Yup.string()
@@ -34,47 +31,38 @@ const schema = Yup.object().shape({
 });
 
 const TestimonialForm = props => {
-  const testimonials = props.testimonials
+  const testimony = props.testimony
     ? {
-      id: props.testimonials.id,
-      name: props.testimonials.name,
-      description: props.testimonials.description,
-      image: props.testimonials.image,
+      id: props.testimony.id,
+      name: props.testimony.name,
+      description: props.testimony.description,
+      /* image: props.testimony.image, */
     }
     : {
-      id: uuid(),
       name: '',
       description: '',
       image: '',
     };
 
   const formik = useFormik({
-    initialValues: testimonials,
+    initialValues: testimony,
     validationSchema: schema,
     onSubmit: values => {
-      const body = {
-        id: testimonials.id,
-        name: values.name,
-        description: values.description,
-        image: values.image,
-      };
-      !props.testimonials
-        ? axios
-          .post(`${baseURL}/testimonials`, body)
-          .then(response => {
-            console.log(response);
-            successMsg('Testimonio creado con éxito');
-          })
+      !props.testimony
+        ?
+        testimonialsService.create(values).then(response => {
+          console.log(response);
+          successMsg('Testimonio creado con éxito');
+        })
           .catch(error => {
             console.log(error);
             warningMsg('No se pudo crear el testimonio');
           })
-        : axios
-          .put(`${baseURL}/testimonials/${testimonials.id}`, values)
-          .then(response => {
-            console.log(response);
-            successMsg('Testimonio editado con éxito');
-          })
+        :
+        testimonialsService.update(values, testimony.id).then(response => {
+          console.log(response);
+          successMsg('Testimonio editado con éxito');
+        })
           .catch(error => {
             console.log(error);
             warningMsg('No se pudo editar el testimonio');
@@ -84,9 +72,8 @@ const TestimonialForm = props => {
 
   return (
     <Container className="mt-4">
-      <h2 className="title-form">
-        {`${!props.testimonial ? 'Crear' : 'Editar'}`} testimonios
-      </h2>
+      <h2 className="title-form">{`${!props.testimony ? 'Crear' : 'Editar'
+        } testimonio`}</h2>
       <div className="mt-5">
         <Form className="form" onSubmit={formik.handleSubmit}>
           <Form.Group className="mt-2 mb-3">
@@ -135,7 +122,7 @@ const TestimonialForm = props => {
             ) : null}
           </Form.Group>
           <Button type="submit" className="w-100 mb-2 mt-3" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
-            {!props.testimonials ? 'Crear' : 'Editar'}
+            {!props.testimony ? 'Crear' : 'Editar'}
           </Button>
         </Form>
       </div>
