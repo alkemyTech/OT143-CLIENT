@@ -36,16 +36,17 @@ const FileInput = ({ label, ...props }) => {
 };
 
 const ActivitiesForm = props => {
-  const activities = props.activities
+  console.log(props);
+  const activity = props.activity
     ? {
-      id: props.activities.id,
-      title: props.activities.name,
-      content: props.activities.content,
-      image: props.activities.image,
+      id: props.activity.id,
+      title: props.activity.name,
+      description: props.activity.description,
+      /* image: props.activity.image, */
     }
     : {
       title: '',
-      content: '',
+      description: '',
       image: '',
     };
 
@@ -60,16 +61,16 @@ const ActivitiesForm = props => {
     }, 1000);
   };
 
-  const handleReady = editor => {
-    editor.setData(activities.content);
-  };
+  /* const handleReady = editor => {
+    editor.setData(activity.content);
+  }; */
 
   const createActivity = (values, id) => {
-    if (!props.news) {
+    if (!props.activity) {
       try {
         postData({
           name: values.title,
-          description: data,
+          description: values.description,
           image: values.image,
           user_id: 0,
           category_id: 1,
@@ -85,7 +86,7 @@ const ActivitiesForm = props => {
           {
             id: id,
             name: values.title,
-            description: data,
+            description: values.description,
             image: values.image,
             user_id: 0,
             category_id: 1,
@@ -103,12 +104,12 @@ const ActivitiesForm = props => {
   return (
     <>
       <div className="container mt-3">
-        <h2 className="title-form">{`${!props.activities ? 'Crear' : 'Editar'
+        <h2 className="title-form">{`${!props.activity ? 'Crear' : 'Editar'
           } actividad`}</h2>
         <div className="row">
           <div className="col-12 mt-5 pt-3">
             <Formik
-              initialValues={activities}
+              initialValues={activity}
               validationSchema={Yup.object({
                 title: Yup.string().required('Ingresar titulo'),
                 image: Yup.mixed()
@@ -147,12 +148,11 @@ const ActivitiesForm = props => {
                   <CKEditor
                     label="Descripción"
                     editor={ClassicEditor}
-                    data=""
+                    data={activity.description || ""}
                     name="description"
                     type="text"
                     placeholder="Descripción"
                     onChange={handleEditor}
-                    onReady={handleReady}
                     className="form-control"
                   />
                 </div>
@@ -169,7 +169,7 @@ const ActivitiesForm = props => {
                 <button
                   type="submit"
                   className="form-control btn btn-primary mt-3 mb-3">
-                  {!props.news ? 'Crear' : 'Editar'}
+                  {!props.activity ? 'Crear' : 'Editar'}
                 </button>
               </Form>
             </Formik>
