@@ -6,11 +6,17 @@ import { getAll } from '../../Services/news';
 import { warningMsg } from '../Alerts/Alert';
 import Card from './../Common/Cards'
 import Loading from '../Common/Loading';
+import { useHistory } from 'react-router-dom';
+import { NEWS_WEB } from '../../config/router/routes';
 
 const News = () => {
-
+  const history = useHistory();
   const [news, setNews] = useState([]);
-  const [isFetching, setIsFetching] = useState(false)
+  const [isFetching, setIsFetching] = useState(false);
+
+  const handleClick = (id) => {
+    history.push(`${NEWS_WEB}/${id}`);
+  };
 
   useEffect(() => {
     setIsFetching(true);
@@ -28,6 +34,7 @@ const News = () => {
     cargaDatos();
   }, [])
 
+
   return (
     <>
       <Title text="Novedades" />
@@ -36,7 +43,7 @@ const News = () => {
       </div>
       <Container className="news-card-container my-5 py-4 px-5" fluid>
         {news.length === 0 ? null : news.map((card) => (
-          <Card effect title={card.title} content={card.content} image={card.image} />
+          <Card effect title={card.title} content={card.content} image={card.image} onClick={() => handleClick(card.id)} />
         ))}
       </Container>
     </>

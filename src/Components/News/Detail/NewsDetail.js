@@ -6,12 +6,13 @@ import { Get } from "./../../../Services/publicApiService";
 import ComentariosNewsDetail from "./ComentariosNewsDetail";
 import moment from "moment";
 import { warningMsg } from "./../../Alerts/Alert";
+import './news-details.scss';
 
 const NewsDetail = () => {
-  const regex = /(<([^>]+)>)/gi;
   const [news, setNews] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const { id } = useParams();
+
   useEffect(() => {
     Get(`news`, id)
       .then((res) => {
@@ -24,12 +25,11 @@ const NewsDetail = () => {
         warningMsg("Error Al cargar Novedad");
       });
   }, []);
+
   return (
     <>
       <Title />
-      <div className="container">
-        <div className="row">
-          <div className="col">
+      <div className="news__container">
             {isFetching & (news.length === 0) ? (
               <div className="text-center">
                 {" "}
@@ -37,19 +37,20 @@ const NewsDetail = () => {
               </div>
             ) : (
               <>
+              <div className="news__container__banner">
                 <img
-                  className="img-fluid my-2"
+                  className="img-fluid"
                   src={news.image}
                   alt="ImagenDetalleNovedades"
                 />
-
-                <div className="text-center">
-                  <h1>{news.name}</h1>
-                  <h3>Fecha de la noticia</h3>
+                <div className="news__container__banner__text">
+                  <h1 className="news__title">{news.name}</h1>
                   <p>{moment(news.created_at).format("LL")}</p>
-                  {/* sacar etiquetas html */}
+                </div>
+              </div>
+                <div className="news__container__text">
                   <p dangerouslySetInnerHTML={{ __html: news.content }}></p>
-                  <div className="row justify-content-center">
+                  <div className="row justify-content-center news__container__text__comentarios">
                     <div className="text-center">
                       <ComentariosNewsDetail id={id} />
                     </div>
@@ -57,8 +58,6 @@ const NewsDetail = () => {
                 </div>
               </>
             )}
-          </div>
-        </div>
       </div>
     </>
   );

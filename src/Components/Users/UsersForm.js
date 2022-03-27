@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import '../FormStyles.css';
-import { postUser } from '../../Services/usersService';
+import { create } from '../../Services/usersService';
 
 const UserForm = () => {
 	const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const UserForm = () => {
 		e.preventDefault();
 
 		if (initialValues.password === initialValues.confirmPassword) {
-			postUser({
+			create({
 				name: initialValues.name,
 				email: initialValues.email,
 				email_verified_at: '2022-03-17T16:07:57.300Z',
