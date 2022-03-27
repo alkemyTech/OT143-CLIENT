@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Card from "./Card";
 import {
   BsNewspaper,
@@ -17,32 +17,46 @@ const ScreenDashboard = () => {
   return (
     <Container className="py-4">
       <Row className="justify-content-center justify-content-md-between my-2">
-        <Card title="Novedades" to={NEWS}>
-          <BsNewspaper size={60} />
-        </Card>
-        <Card title="Actividades" to={ACTIVITIES}>
-          <BsListCheck size={60} />
-        </Card>
-        <Card title="Categorias" to={CATEGORIES}>
-          <BsListTask size={60} />
-        </Card>
-        <Card title="Testimonios" to={TESTIMONIALS}>
-          <BsChatText size={60} />
-        </Card>
-      </Row>
-      <Row className="justify-content-center justify-content-md-between my-2">
-        <Card title="Organización" to={ORGANIZATION}>
-          <BsDiagram3 size={60} />
-        </Card>
-        <Card title="Slides" to={SLIDES}>
-          <BsFileEarmarkSlides size={60} />
-        </Card>
-        <Card title="Usuarios" to={USERS}>
-          <BsFillPeopleFill size={60} />
-        </Card>
-        <Card title="Miembros" to={MEMBERS}>
-          <BsPeople size={60} />
-        </Card>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Novedades" to={NEWS}>
+            <BsNewspaper size={60} />
+          </Card>
+        </Col>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Actividades" to={ACTIVITIES}>
+            <BsListCheck size={60} />
+          </Card>
+        </Col>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Categorias" to={CATEGORIES}>
+            <BsListTask size={60} />
+          </Card>
+        </Col>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Testimonios" to={TESTIMONIALS}>
+            <BsChatText size={60} />
+          </Card>
+        </Col>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Organización" to={ORGANIZATION}>
+            <BsDiagram3 size={60} />
+          </Card>
+        </Col>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Slides" to={SLIDES}>
+            <BsFileEarmarkSlides size={60} />
+          </Card>
+        </Col>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Usuarios" to={USERS}>
+            <BsFillPeopleFill size={60} />
+          </Card>
+        </Col>
+        <Col md={6} lg={3} className="d-flex justify-content-center">
+          <Card title="Miembros" to={MEMBERS}>
+            <BsPeople size={60} />
+          </Card>
+        </Col>
       </Row>
     </Container>
   );

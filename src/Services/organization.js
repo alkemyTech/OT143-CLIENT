@@ -1,5 +1,5 @@
 import axios from "axios";
-import Get from "./publicApiService";
+import { Get } from "./publicApiService";
 
 const { REACT_APP_ORGANIZATION_API_ENDPOINT } = process.env;
 

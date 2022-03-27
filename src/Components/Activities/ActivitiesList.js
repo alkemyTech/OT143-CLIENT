@@ -1,104 +1,148 @@
-import React, { useEffect, Fragment, useState } from 'react';
+import { useEffect, Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaTrashAlt } from 'react-icons/fa';
-import { FaPencilAlt } from 'react-icons/fa';
-import Loading from '../Common/Loading';
-import {  warningMsg } from '../Alerts/Alert';
+import { useDispatch, useSelector } from 'react-redux';
 import { ACTIVITY_CREATE } from '../../config/router/routes';
 import { getActivities } from '../../features/Activities/activitiesSlice';
-import { useDispatch,useSelector } from 'react-redux';
-import { Table } from 'react-bootstrap';
-
-
+import { BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { Table, Button } from 'react-bootstrap';
+import Loading from '../Common/Loading';
+import Pagination from '../Common/Pagination';
+import { warningMsg } from '../Alerts/Alert';
+import moment from 'moment';
 
 const ActivitiesList = () => {
-  
-  const [isFetching,setIsFetching] = useState(true);
-  const [error,setError]= useState(false);
-  const {list: activities} = useSelector(state=>state.activities);
-  const dispatch =useDispatch();
+
+  const { list: activities } = useSelector(state => state.activities);
+  const dispatch = useDispatch();
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const filteredActivities = () => {
+    return activities.slice(
+      currentPage,
+      currentPage + 10
+    );
+  }
+
+  const handlePrevPage = () => {
+    if (currentPage > 0)
+      setCurrentPage(currentPage - 10);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 10);
+  };
 
   useEffect(() => {
-
-      const cargaData = ( ) =>{
-        setTimeout(()=>{
-          setIsFetching(false)
-          dispatch(getActivities())
-        },2000)
-      }
     try {
-      cargaData();
+      dispatch(getActivities());
     } catch (error) {
-      warningMsg("Vuelva a intentar - (500)")
+      warningMsg("Vuelva a intentar - (500)");
     }
-      
   }, [dispatch]);
+
+  const middleStyles = { verticalAlign: "middle" };
 
   return (
     <>
-      <div className="container mt-5 mb-5">
+      <div className="container mt-2">
         <div className="row">
           <div className="col">
-            <h1 className="d-flex justify-content-center mt-3">Actividades</h1>
-            <Link to={ACTIVITY_CREATE}>
-              <button className="btn btn-sm text-white bg-primary col-1 offset-11">
-                Crear
-              </button>
-            </Link>
-          
-                <div className="row justify-content-center mx-2">
-                { isFetching && <Loading />}
-                </div>
-                <Table className=' table-bordered table-hover mx-2 my-2'>
-                
-                <thead>
-                  <tr>
-                   
-                    <th scope="col">Name </th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                
-                <tbody>   
-                  
-                 {activities.data?.map(act => {
-                    return (
-                        <>
+            <h2 className='text-center'>Actividades</h2>
+            <div className="col text-end mb-2">
+              <Link to={ACTIVITY_CREATE}><Button className='btn-success'>
+                <BsPlusCircle /> Crear</Button></Link>
+            </div>
+            {activities.length === 0 ? <div className="d-flex justify-content-center align-items-center" style={{ height: "300px" }}><Loading /></div>
+              :
+              <div>
+                <Table responsive>
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Fecha de creación</th>
+                      <th className="text-center">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredActivities().map(act => (
+                      <tr key={act.id}>
+                        <td style={middleStyles}>{act.name}</td>
+                        <td style={middleStyles}>{moment(act.created_at).format("MMM Do YY")}</td>
+                        <td style={middleStyles}>
+                          <div className="row text-center">
+                            <div className="mb-1 mb-md-0 col-12 col-md-6">
+                              <Button variant='dark' onClick={() => console.log("Editar")}>
+                                <BsPencilSquare />
+                              </Button>
+                            </div>
+                            <div className="col-12 col-md-6">
+                              <Button variant='danger' onClick={() => console.log("Eliminar")}>
+                                <BsTrash />
+                              </Button>
+                            </div>
+                          </div>
 
-                        <tr key={act.id}>
-                          <th scope="row" className="col-3">
-                            {act.name}
-                          </th>
-                          <td className="col-4">
-                            <img
-                              src={act.image}
-                              style={{ maxWidth: '50%' }}
-                              alt="Imagen de actividades"
-                              className=""
-                            />
-                          </td>
-                          <td className="col-3">{act.created_at}</td>
-                          <td className="col-2">
-                            <button className="btn btn-sm bg-secondary m-3 text-white pb-2">
-                              <FaPencilAlt />
-                            </button>
-                            <button className="btn btn-sm bg-danger m-3 text-white pb-2">
-                              <FaTrashAlt />
-                            </button>
-                          </td>
-                        </tr>
-                              </>
-                          );
-                        })} 
-                        </tbody>
-                  </Table>
-                  </div>
-                  </div>
-                  </div>
-          </>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                <div className="my-3">
+                  <Pagination
+                    onPrev={handlePrevPage}
+                    onNext={handleNextPage}
+                    disabledButtonPrev={currentPage === 0}
+                    disabledButtonNext={filteredActivities().length < 10}
+                  />
+                </div>
+
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
 export default ActivitiesList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

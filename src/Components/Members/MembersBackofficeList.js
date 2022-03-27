@@ -1,20 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
-import { MEMBER_CREATE } from '../../config/router/routes';
 import { useDispatch, useSelector } from 'react-redux';
+import { MEMBER_CREATE } from '../../config/router/routes';
 import { getMembers } from '../../features/members/membersSlice';
+import { BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { Button, Table } from 'react-bootstrap';
 import Loading from '../Common/Loading';
+import Pagination from '../Common/Pagination';
+import { warningMsg } from '../Alerts/Alert';
 
 const MembersBackofficeList = () => {
-  const [ loading, setLoading ] = useState(true);
-  const { list: members } = useSelector(state=>state.members);
+  /* const [loading, setLoading] = useState(true); */
+  const { list: members } = useSelector(state => state.members);
   const dispatch = useDispatch();
 
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const filteredMembers = () => {
+    return members.slice(
+      currentPage,
+      currentPage + 10
+    );
+  }
+
+  const handlePrevPage = () => {
+    if (currentPage > 0)
+      setCurrentPage(currentPage - 10);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 10);
+  };
+
   useEffect(() => {
-    dispatch(getMembers());
-    setLoading(false);
+    try {
+      dispatch(getMembers());
+    }
+    catch (error) {
+      warningMsg("Error. No se pudo cargar los datos");
+    }
+    /* setLoading(false); */
 
   }, [dispatch]);
 
@@ -26,7 +51,7 @@ const MembersBackofficeList = () => {
     alert("Click Eliminar");
   };
 
-  loading && <Loading/>
+  const middleStyles = { verticalAlign: "middle" };
 
   return (
     <div className="container mt-2">
@@ -36,41 +61,56 @@ const MembersBackofficeList = () => {
           <div className="col text-end mb-2">
             <Link to={MEMBER_CREATE}><Button className='btn-success'><BsPlusCircle /> Crear</Button></Link>
           </div>
-          <Table className=' table-bordered table-hover'>
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Foto</th>
-                <th><h5 className='text-center'>⚙</h5></th>
-              </tr>
-            </thead>
-            {members.data?.slice(-7).map(member => (
-            <tbody key={member.id}>
-              <tr>
-                <td>{member.name}</td>
-                <td>
-                  <img src={member.image} height="80px!important" />
-                </td>
-                <td >
-                  <div className="col mb-2 mb-sm-0 text-center">
-                    <Button variant='dark' onClick={() => editarClick()}>
-                      <BsPencilSquare />
-                    </Button>
-                  </div>
-                  <div className="col mt-2 mb-sm-0 text-center ">
-                      <Button variant='danger' onClick={() => eliminarClick()}>
-                        <BsTrash />
-                      </Button>
-                  </div>
-                </td>
-              </tr>
-            </tbody> 
-            ))}
-          </Table>
+          {members.length === 0 ? <div className="d-flex justify-content-center align-items-center" style={{ height: "300px" }}><Loading /></div>
+            :
+            <div>
+              <Table responsive>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Foto</th>
+                    <th className="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredMembers().map(member => (
+                    <tr key={member.id}>
+                      <td style={middleStyles}>{member.name}</td>
+                      <td style={middleStyles}>
+                        <img src={member.image} style={{ height: "80px" }} alt='imagen de miembro' />
+                      </td>
+                      <td style={middleStyles}>
+                        <div className="row text-center">
+                          <div className="mb-1 mb-md-0 col-12 col-md-6">
+                            <Button variant='dark' onClick={() => editarClick()}>
+                              <BsPencilSquare />
+                            </Button>
+                          </div>
+                          <div className="col-12 col-md-6">
+                            <Button variant='danger' onClick={() => eliminarClick()}>
+                              <BsTrash />
+                            </Button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              <div className="my-3">
+                <Pagination
+                  onPrev={handlePrevPage}
+                  onNext={handleNextPage}
+                  disabledButtonPrev={currentPage === 0}
+                  disabledButtonNext={filteredMembers().length < 10}
+                />
+              </div>
+            </div>
+          }
         </div>
       </div>
     </div>
-  );          
+  );
 }
 
 export default MembersBackofficeList;

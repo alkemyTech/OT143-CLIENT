@@ -1,25 +1,28 @@
-import { Get, GetAll, Put, Post, Patch, Delete } from './privateApiService';
+import axios from "axios";
 
-export const getData = (id)=>{
-    Get(`https://ongapi.alkemy.org/api/slides/${id}`);
+const { REACT_APP_SLIDES_ENDPOINT } = process.env;
+
+export const getAll = () => {
+  const request = axios.get(REACT_APP_SLIDES_ENDPOINT);
+  return request.then(response => response);
 };
 
-export const getAllData = ()=>{
-    GetAll(`https://ongapi.alkemy.org/api/slides`);
+export const getSlide = (id) => {
+  const request = axios.get(`${REACT_APP_SLIDES_ENDPOINT}/${id}`);
+  return request.then(response => response);
 };
 
-export const putData = (data, id)=>{
-    Put(`https://ongapi.alkemy.org/api/slides/${id}`, data);
+export const create = (data) => {
+  const request = axios.post(REACT_APP_SLIDES_ENDPOINT, data);
+  return request.then(response => response);
 };
 
-export const patchData = (data, id)=>{
-    Patch(`https://ongapi.alkemy.org/api/slides/${id}`, data);
+export const update = (id, data) => {
+  const request = axios.put(`${REACT_APP_SLIDES_ENDPOINT}/${id}`, data);
+  return request.then(response => response);
 };
 
-export const postData = (data)=>{
-    Post(`https://ongapi.alkemy.org/api/slides`, data);
-};
-
-export const deleteData = (id)=>{
-    Delete(`https://ongapi.alkemy.org/api/slides/${id}`);
+export const remove = (id) => {
+  const request = axios.delete(`${REACT_APP_SLIDES_ENDPOINT}/${id}`);
+  return request.then(response => response);
 };

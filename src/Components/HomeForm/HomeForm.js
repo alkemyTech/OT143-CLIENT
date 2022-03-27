@@ -5,23 +5,59 @@ import imagen from './../../images/somosMasOrg.png';
 import axios from 'axios';
 import { warningMsg } from '../Alerts/Alert';
 import { ORGANIZATION_EDIT } from '../../config/router/routes';
+import { Button, FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import { useEffect, useState } from 'react';
+import organizationService from '../../Services/organization';
+
+const InputField = ({ controlId, label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <FormGroup controlId={controlId} className="mb-2">
+      <FormLabel>{label}</FormLabel>
+      {/* <label>
+        {label}
+      </label> */}
+      <FormControl {...field} {...props} />
+      {/* <div>
+        <input className="form-control" {...field} {...props} />
+      </div> */}
+      {meta.touched && meta.error ? (
+        <div className="error">{meta.error}</div>
+      ) : null}
+    </FormGroup>
+  );
+};
+
+const OrganizationInfo = () => {
+  const [organizationData, setOrganizationData] = useState([]);
+
+  useEffect(() => {
+    organizationService.get().then(response => setOrganizationData(prevOrganizacionData => prevOrganizacionData = response));
+  }, []);
+
+  return (
+    <div className="row my-4">
+      <h2 className="text-center mb-4">Datos de la Organización</h2>
+      <div className="col">
+        <div className="card">
+          <div className="card-body">
+            <h5 className="card-title text-center">{organizationData.name}</h5>
+            <div className="d-flex justify-content-center">
+              <img className='card-img-top' src={organizationData.logo} alt="Logo de la organización" style={{ width: "50%" }} />
+            </div>
+            <h5>Descripción</h5>
+            <p className="card-text">{organizationData.long_description}</p>
+          </div>
+          <div className="card-body text-center">
+            <Link to={ORGANIZATION_EDIT}><button className="btn btn-primary">Editar datos</button></Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const HomeForm = () => {
-
-  const InputField = ({ label, ...props }) => {
-    const [field, meta] = useField(props);
-    return (
-      <>
-        <label>
-          {label}
-          <input {...field} {...props} />
-        </label>
-        {meta.touched && meta.error ? (
-          <div className="error">{meta.error}</div>
-        ) : null}
-      </>
-    );
-  };
 
   const validationSchemaYup = Yup.object().shape({
     welcomeText: Yup.string()
@@ -29,100 +65,105 @@ const HomeForm = () => {
   })
 
   const handleChange = (e) => {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   return (
     <div className="container">
-      <div>
-        <Formik
-          initialValues={{
-            welcomeText: "",
-            imageSlideOne: "",
-            textSlideOne: "",
-            imageSlideTwo: "",
-            textSlideTwo: "",
-            imageSlideThree: "",
-            textSlideThree: "",
-          }}
-          validationSchema={validationSchemaYup}
-          onSubmit={(values) => {
-            axios.post(`https://ongapi.alkemy.org/api/organization`, values)
-              .then((response) => {
-                console.log(response.data)
-                alert('Se ha realizado con éxito');
-              })
-              .catch((error) => {
-                console.log(error);
-                warningMsg('Hubo un error, no se pudo realizar esta acción');
-              });
-          }}>
-          <Form >
-            <p>Texto de bienvenida</p>
-            <InputField
-              name="welcomeText"
-              type="text"
-              label="Editar texto"
-            />
-
-            <p>Slides</p>
-            <span>Slide 1</span>
-            <InputField
-              name="imageSlideOne"
-              type="file"
-              label="Imagen"
-            />
-            <InputField
-              name="textSlideOne"
-              type="text"
-              label="Editar texto"
-            />
-
-            <span>Slide 2</span>
-            <InputField
-              name="imageSlideTwo"
-              type="file"
-              label="Imagen"
-            />
-            <InputField
-              name="textSlideTwo"
-              type="text"
-              label="Editar texto"
-            />
-
-            <span>Slide 3</span>
-            <InputField
-              name="imageSlideThree"
-              type="file"
-              label="Imagen"
-            />
-            <InputField
-              name="textSlideThree"
-              type="text"
-              label="Editar texto"
-            />
-
-            <button type="submit">Guardar cambios</button>
-          </Form>
-        </Formik>
-      </div>
-      <div className="row">
-        <div className="col">
-          <div className="card bg-danger">
-            <div className="card-body">
-              <h3 className="card-title bg-success text-center">Somos Más</h3>
-              <img className='card-img-top' src={imagen} alt='ImagenOng' />
-              <h5>Descripcion</h5>
-              <p className="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde sequi dignissimos aperiam temporibus libero eveniet enim quos omnis molestias delectus.</p>
-            </div>
-            <div className="card-body text-center">
-              <Link to={ORGANIZATION_EDIT}><button className="btn btn-primary">Editar datos</button></Link>
+      <h2 className="title-form">Editar datos de la Home</h2>
+      <Formik
+        initialValues={{
+          welcomeText: "",
+          imageSlideOne: "",
+          textSlideOne: "",
+          imageSlideTwo: "",
+          textSlideTwo: "",
+          imageSlideThree: "",
+          textSlideThree: "",
+        }}
+        validationSchema={validationSchemaYup}
+        onSubmit={(values) => {
+          axios.post(`https://ongapi.alkemy.org/api/organization`, values)
+            .then((response) => {
+              console.log(response.data)
+              alert('Se ha realizado con éxito');
+            })
+            .catch((error) => {
+              console.log(error);
+              warningMsg('Hubo un error, no se pudo realizar esta acción');
+            });
+        }}>
+        <Form>
+          <div className="row">
+            <div className="col mb-2">
+              <InputField
+                controlId="welcomeText"
+                name="welcomeText"
+                type="text"
+                label="Texto de bienvenida"
+              />
             </div>
           </div>
-        </div>
-      </div>
+          <div className="row">
+            <div className="col-12 col-md-4">
+              <div className="mb-2">
+                <span>Slide 1</span>
+              </div>
+              <InputField
+                name="imageSlideOne"
+                type="file"
+                label="Imagen"
+              />
+              <InputField
+                name="textSlideOne"
+                type="text"
+                label="Texto"
+              />
+            </div>
+            <div className="col-12 col-md-4">
+              <div className="mb-2">
+                <span>Slide 2</span>
+              </div>
+              <InputField
+                name="imageSlideTwo"
+                type="file"
+                label="Imagen"
+              />
+
+              <InputField
+                name="textSlideTwo"
+                type="text"
+                label="Texto"
+              />
+            </div>
+            <div className="col-12 col-md-4">
+              <div className="mb-2">
+                <span className="mb-2">Slide 3</span>
+              </div>
+              <InputField
+                name="imageSlideThree"
+                type="file"
+                label="Imagen"
+              />
+
+              <InputField
+                name="textSlideThree"
+                type="text"
+                label="Texto"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col text-end">
+              <Button type="submit">Editar</Button>
+            </div>
+          </div>
+        </Form>
+      </Formik>
+
+      <OrganizationInfo />
     </div>
-  )
+  );
 }
 
 export default HomeForm;

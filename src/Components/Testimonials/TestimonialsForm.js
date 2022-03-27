@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 import '../FormStyles.css';
 import { Form, Button, Container } from "react-bootstrap";
 import { warningMsg, successMsg } from '../Alerts/Alert';
+import { create, update } from './../../Services/slideService';
 
 const baseURL = "https://ongapi.alkemy.org/api";
 
@@ -38,8 +39,7 @@ const TestimonialForm = (props) => {
     const testimonials = props.testimonials ? {
         id: props.testimonials.id,
         name: props.testimonials.name,
-        description: props.testimonials.description,
-        image: props.testimonials.image
+        description: props.testimonials.description
     } : {
         id: uuid(),
         name: "",
@@ -57,16 +57,8 @@ const TestimonialForm = (props) => {
                 description: values.description,
                 image: values.image
             }
-            !props.testimonials ? axios
-                .post(`${baseURL}/testimonials`, body)
-                .then((response) => {
-                    console.log(response);
-                    successMsg("Testimonio creado con éxito");
-                })
-                .catch((error) => {
-                    console.log(error);
-                    warningMsg("No se pudo crear el testimonio");
-                })
+            !props.testimonials ?
+            create(values).then(res=>console.log(res))
             : axios
                 .put(`${baseURL}/testimonials/${testimonials.id}`, values)
                 .then((response) => {
@@ -82,7 +74,7 @@ const TestimonialForm = (props) => {
 
     return (
         <Container>
-            <h2 className='title-form'>{`${!props.testimonial ? "Crear" : "Editar"}`} Testimonios</h2>
+            <h2 className='title-form'>{`${!props.testimonials ? "Crear" : "Editar"}`} Testimonios</h2>
             <Form className='form-container' onSubmit={formik.handleSubmit}>
                 <Form.Group className="mb-2">
                     <Form.Label>Nombre</Form.Label>

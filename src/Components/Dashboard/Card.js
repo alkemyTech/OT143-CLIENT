@@ -20,10 +20,12 @@ const CardDashboard = (props) => {
             <Col>{children}</Col>
           </Row>
         </Card.Body>
-        <Row className="mb-2 pb-2">
-          <Link to={to}><Button variant="success" size="sm">
-            Ir
-          </Button></Link>
+        <Row className="justify-content-center mb-2 pb-2">
+          <Col xs={4}>
+            <Link to={to}><Button variant="success" size="sm">
+              Ir
+            </Button></Link>
+          </Col>
         </Row>
       </Card>
     </Col>
