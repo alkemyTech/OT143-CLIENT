@@ -52,7 +52,7 @@ export const authSlice = createSlice({
 			state.status = 'loading'
 		},
 		[getUser.fulfilled]: (state, {payload}) => {
-			state.isAdmin = payload.data.user.role_id
+			state.isAdmin = payload.data.user !== null ? payload.data.user.role_id : 1;
 			state.status = 'success'
 		},
 		[getUser.rejecter]: (state, action) => {
