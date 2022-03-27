@@ -9,30 +9,21 @@ import '../FormStyles.css';
 import { Form, Button, Container } from "react-bootstrap";
 import { warningMsg, successMsg } from '../Alerts/Alert';
 import { create, update } from './../../Services/slideService';
+import { convertToBase64 } from './../base64/toBase64';
 
 const baseURL = "https://ongapi.alkemy.org/api";
 
 const schema = Yup.object().shape({
-    name : Yup.string()
+    name : Yup.string("Ingrese su nombre")
         .required("El campo nombre es requerido")
         .min(4, "El campo nombre debe tener más de 4 letras"),
     image : Yup.mixed()
-        .required("La imagen es requerida")
-        .test("filetype", "Formato de imágen inválido",
-            (value) => {if (value) {
-                if (value.includes('png')) {
-                    return true;
-                } else if (value.includes('jpg')) {
-                    return true;
-                } else if (value.includes('jpeg')) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }}),
-    description : Yup.string()
+        .nullable()
+        .required("La imagen es requerida"),
+    description : Yup.string("Ingrese una descripción")
         .required("El campo descripción es requerido")
 });
+
 
 const TestimonialForm = (props) => {
 
@@ -51,14 +42,23 @@ const TestimonialForm = (props) => {
         initialValues: testimonials,
         validationSchema: schema,
         onSubmit: (values) => {
+            console.log(values)
             const body = {
                 id: testimonials.id,
                 name: values.name,
                 description: values.description,
                 image: values.image
             }
-            !props.testimonials ?
-            create(values).then(res=>console.log(res))
+            !props.testimonials ? axios
+                .post(`${baseURL}/testimonials`, body)
+                .then((response) => {
+                    console.log(response);
+                    successMsg("Testimonio creado con éxito");
+                })
+                .catch((error) => {
+                    console.log(error);
+                    warningMsg("No se pudo crear el testimonio");
+                })
             : axios
                 .put(`${baseURL}/testimonials/${testimonials.id}`, values)
                 .then((response) => {
@@ -71,6 +71,12 @@ const TestimonialForm = (props) => {
                 })
         }
     })
+
+
+    const handleImageChange = async (event) => {
+		const base64String = await convertToBase64(event?.target.files[0]);
+		formik.setFieldValue("image", base64String);
+	};
 
     return (
         <Container>
@@ -112,13 +118,10 @@ const TestimonialForm = (props) => {
                 <Form.Group className="mb-2">
                         <Form.Label>Imagen</Form.Label>
                         <Form.Control
-                            name="image"
+                            accept= "image/png, image/jpeg"
                             type="file"
-                            placeholder="Imagen"
-                            accept=".jpg, .jpeg, .png"
-                            value={formik.values.image || ""}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
+                            name="defaultImage"
+                            onChange={(event) => handleImageChange(event)}
                         />
                         {formik.touched.image && formik.errors.image ? (
                             <div className='mt-1'>

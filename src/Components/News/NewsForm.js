@@ -7,9 +7,10 @@ import { Form, Button, Container } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { create, update } from "../../Services/news";
-import { warningMsg } from "../Alerts/Alert.js";
+import { warningMsg, successMsg } from "../Alerts/Alert.js";
+import { convertToBase64 } from "./../base64/toBase64";
 
-const BASE_URL = "http://ongapi.alkemy.org/api";
+const BASE_URL = "https://ongapi.alkemy.org/api";
 
 const schema = Yup.object().shape({
   title: Yup.string()
@@ -17,9 +18,9 @@ const schema = Yup.object().shape({
     .min(4, "El título debe contener una longitud mínima de 4 caracteres"),
   content: Yup.string().required("El contenido es requerido"),
   category: Yup.number().required().positive("Debe seleccionar una categoría"),
-  image: Yup.string()
-    .url("La imagen debe ser una URL válida")
-    .required("La imagen es requerida"),
+  image : Yup.mixed()
+        .nullable()
+        .required("La imagen es requerida"),
 });
 
 const errorsStyles = { color: "red", fontSize: ".875em" };
@@ -27,18 +28,18 @@ const errorsStyles = { color: "red", fontSize: ".875em" };
 const NewsForm = (props) => {
   const news = props.news
     ? {
-      id: props.news.id,
-      title: props.news.name,
-      content: props.news.content,
-      category: props.news["category_id"] || 0,
-      image: props.news.image,
-    }
+        id: props.news.id,
+        title: props.news.name,
+        content: props.news.content,
+        category: props.news["category_id"] || 0,
+        image: props.news.image,
+      }
     : {
-      title: "",
-      content: "",
-      category: 0,
-      image: "",
-    };
+        title: "",
+        content: "",
+        category: 0,
+        image: "",
+      };
 
   const [categories, setCategories] = useState([]);
 
@@ -53,26 +54,24 @@ const NewsForm = (props) => {
         image: values.image,
       };
       !props.news
-        ?
-        create(body)
-          .then((response) => {
-            console.log(response);
-            alert("Novedad creada con éxito");
-          })
-          .catch((error) => {
-            console.log(error);
-            warningMsg("Error. No se pudo crear la novedad");
-          })
-
+        ? create(body)
+            .then((response) => {
+              console.log(response);
+              successMsg("Novedad creada con éxito");
+            })
+            .catch((error) => {
+              console.log(error);
+              warningMsg("Error. No se pudo crear la novedad");
+            })
         : update(body, news.id)
-          .then((response) => {
-            console.log(response);
-            alert("Novedad editada con éxito");
-          })
-          .catch((error) => {
-            console.log(error);
-            warningMsg("Error. No se pudo editar la novedad");
-          });
+            .then((response) => {
+              console.log(response);
+              alert("Novedad editada con éxito");
+            })
+            .catch((error) => {
+              console.log(error);
+              warningMsg("Error. No se pudo editar la novedad");
+            });
     },
   });
 
@@ -86,10 +85,16 @@ const NewsForm = (props) => {
       });
   }, []);
 
+  const handleImageChange = async (event) => {
+		const base64String = await convertToBase64(event?.target.files[0]);
+		formik.setFieldValue("image", base64String);
+	};
+
   return (
     <Container className="mt-3">
-      <h2 className="title-form">{`${!props.news ? "Crear" : "Editar"
-        } novedad`}</h2>
+      <h2 className="title-form">{`${
+        !props.news ? "Crear" : "Editar"
+      } novedad`}</h2>
       <Form className="form-container" onSubmit={formik.handleSubmit}>
         <Form.Group controlId="title" className="mb-2">
           <Form.Label>Título</Form.Label>
@@ -151,11 +156,10 @@ const NewsForm = (props) => {
         <Form.Group controlId="image" className="mb-2">
           <Form.Label>Imagen</Form.Label>
           <Form.Control
-            name="image"
-            type="url"
-            value={formik.values.image || ""}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
+            accept="image/png, image/jpeg"
+            type="file"
+            name="defaultImage"
+            onChange={(event) => handleImageChange(event)}
           />
           {formik.touched.image && formik.errors.image ? (
             <div className="mt-1" style={errorsStyles}>
