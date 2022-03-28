@@ -135,7 +135,7 @@ const CategoriesForm = props => {
             ) : null}
           </Form.Group>
 
-          <Button type="submit" className="w-100 mb-2">
+          <Button type="submit" className="w-100 mb-2" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
             {!props.category ? 'Crear' : 'Editar'}
           </Button>
         </Form>
