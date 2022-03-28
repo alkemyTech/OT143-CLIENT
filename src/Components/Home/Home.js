@@ -27,9 +27,9 @@ const Home = () => {
     });
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[])
+  }, [])
 
   return (
     <>
@@ -56,7 +56,7 @@ const Home = () => {
                 <div className="container-fluid">
                   <div className="row justify-content-center text-center my-3">
                     <div className="col-4">
-                      <Link to={NEWS_WEB}><Button variant="outline-primary d-inline-block">Ver todas</Button></Link>
+                      <Link to={NEWS_WEB}><Button variant="outline-primary d-inline-block" style={{ color: "#9AC9FB", borderColor: "#9AC9FB" }}>Ver todas</Button></Link>
                     </div>
                   </div>
                 </div>
@@ -64,8 +64,8 @@ const Home = () => {
             </>
         }
         <div className="container-fluid text-center mt-5 my-3">
-            <h2 className="display-4">Miembros</h2>
-          </div>
+          <h2 className="display-4">Miembros</h2>
+        </div>
         <div className="container-fluid">
           <Miembros />
         </div>
@@ -74,7 +74,7 @@ const Home = () => {
             <h2 className="display-4">Testimonios</h2>
           </div>
         </div>
-       <Testimonials />
+        <Testimonials />
       </div>
     </>);
 }

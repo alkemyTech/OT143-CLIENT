@@ -1,179 +1,147 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { putData, postData } from '../../Services/activitiesService';
-import { v4 as uuid } from 'uuid';
+import { Form, Button, Container } from 'react-bootstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Formik, Form, useField } from 'formik';
+import { useFormik } from 'formik';
 import { successMsg, warningMsg } from '../Alerts/Alert';
 import * as Yup from 'yup';
 import '../FormStyles.css';
+import { convertToBase64 } from './../base64/toBase64';
 
-const TextInput = ({ label, foc, ...props }) => {
-	const [field, meta] = useField(props);
+const schema = Yup.object().shape({
+  title: Yup.string()
+    .required('El título es requerido')
+    .min(4, 'El título debe contener una longitud mínima de 4 caracteres'),
+  description: Yup.string().required('El contenido es requerido'),
+  image: Yup.mixed().nullable().required('La imagen es requerida'),
+});
 
-	return (
-		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
-			<input className="text-input" {...field} {...props} />
-			{meta.touched && meta.error ? (
-				<div className="error alert alert-danger">{meta.error}</div>
-			) : null}
-		</>
-	);
-};
+const errorsStyles = { color: 'red', fontSize: '.875em' };
 
-const FileInput = ({ label, ...props }) => {
-	const [field, meta] = useField(props);
+const ActivitiesForm = props => {
+  const activity = props.activity
+    ? {
+      id: props.activity.id,
+      title: props.activity.name,
+      description: props.activity.description,
+      image: props.activity.image,
+    }
+    : {
+      title: '',
+      description: '',
+      image: '',
+    };
 
-	return (
-		<>
-			<label htmlFor={props.id || props.name}>{label}</label>
-			<input className="file-input" {...field} {...props} />
-			{meta.touched && meta.error ? (
-				<div className="error alert alert-danger">{meta.error}</div>
-			) : null}
-		</>
-	);
-};
+  const formik = useFormik({
+    initialValues: activity,
+    validationSchema: schema,
+    onSubmit(values, id) {
+      if (!props.activity) {
+        try {
+          postData({
+            name: values.title,
+            description: values.description,
+            image: values.image,
+            user_id: 0,
+            category_id: 1,
+            created_at: Date(),
+          });
+          successMsg('Creacion exitosa');
+        } catch (err) {
+          warningMsg('Creacion fallida');
+        }
+      } else {
+        try {
+          putData(
+            {
+              name: values.title,
+              description: values.description,
+              image: values.image,
+              user_id: 0,
+              category_id: 1,
+              created_at: Date(),
+            },
+            id
+          );
+          successMsg('Edicion exitosa');
+          props.close();
+        } catch (err) {
+          warningMsg('Edicion fallida');
+        }
+      }
+    },
+  });
 
-const ActivitiesForm = ({ id }) => {
-	const edicion = useSelector(state => state.activities.edit);
-	const titulo = useSelector(state => state.activities.title);
-	const info = useSelector(state => state.activities.description);
-	const imagen = useSelector(state => state.activities.image);
+  const handleImageChange = async event => {
+    const base64String = await convertToBase64(event?.target.files[0]);
+    formik.setFieldValue('image', base64String);
+  };
 
-	let timeout = null;
-	let data = '';
+  return (
+    <Container className="mt-3">
+      <h2 className="title-form">{`${!props.activity ? 'Crear' : 'Editar'
+        } actividad`}</h2>
+      <div className="mt-5">
+        <Form className="form" onSubmit={formik.handleSubmit}>
+          <Form.Group controlId="title" className="mt-2 mb-3">
+            <Form.Label>Título</Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={formik.values.title || ''}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.title && formik.errors.title ? (
+              <div className="mt-1" style={errorsStyles}>
+                {formik.errors.title}
+              </div>
+            ) : null}
+          </Form.Group>
 
-	const handleEditor = (e, editor) => {
-		const desc = editor.getData();
-		clearTimeout(timeout);
-		timeout = setTimeout(() => {
-			data = desc;
-		}, 1000);
-	};
+          <Form.Group controlId="description" className="mt-3 mb-3">
+            <Form.Label>Descripción</Form.Label>
+            <CKEditor
+              placeholder="Contenido"
+              editor={ClassicEditor}
+              data={formik.values.description || ''}
+              name="description"
+              type="text"
+              onChange={(e, editor) =>
+                formik.setFieldValue('description', editor.getData())
+              }
+            />
+            {formik.touched.description && formik.errors.description ? (
+              <div className="mt-1" style={errorsStyles}>
+                {formik.errors.description}
+              </div>
+            ) : null}
+          </Form.Group>
 
-	const handleReady = editor => {
-		editor.setData(info);
-	};
+          <Form.Group controlId="image" className="mt-3 mb-3">
+            <Form.Label>Imagen</Form.Label>
+            <Form.Control
+              name="image"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={event => handleImageChange(event)}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.image && formik.errors.image ? (
+              <div className="mt-1" style={errorsStyles}>
+                {formik.errors.image}
+              </div>
+            ) : null}
+          </Form.Group>
 
-	const createActivity = (values, id) => {
-		if (edicion !== true) {
-			try {
-				postData({
-					id: uuid(),
-					name: values.title,
-					description: data,
-					image: values.image,
-					user_id: 0,
-					category_id: 1,
-					created_at: Date(),
-				});
-				successMsg('Creacion exitosa');
-			} catch (err) {
-				warningMsg('Creacion fallida');
-			}
-		} else {
-			try {
-				putData(
-					{
-						id: id,
-						name: values.title,
-						description: data,
-						image: values.image,
-						user_id: 0,
-						category_id: 1,
-						created_at: Date(),
-					},
-					id
-				);
-				successMsg('Edicion exitosa');
-			} catch (err) {
-				warningMsg('Edicion fallida');
-			}
-		}
-	};
-
-	return (
-		<>
-			<div className="container">
-				<div className="row">
-					<div className="card col-6 offset-3 mt-5 pt-3">
-						<Formik
-							initialValues={{
-								title: titulo,
-								image: imagen,
-							}}
-							validationSchema={Yup.object({
-								title: Yup.string().required('Ingresar titulo'),
-								image: Yup.mixed()
-									.required('Ingresar imagen')
-									.test('fileType', 'Unsupported File Format', value => {
-										if (value) {
-											if (value.includes('png')) {
-												return true;
-											} else if (value.includes('jpg')) {
-												return true;
-											} else if (value.includes('jpeg')) {
-												return true;
-											} else {
-												return false;
-											}
-										}
-									}),
-							})}
-							onSubmit={(values, { setFieldValue }) => {
-								createActivity(values);
-								// setFieldValue('title', '');
-								// setFieldValue('image', '');
-							}}>
-							<Form>
-								<TextInput
-									label="Titulo"
-									name="title"
-									type="text"
-									className="form-control mt-3 mb-3"
-								/>
-								<div className="mb-3">
-									<div className="mb-3">
-										<span>Descripción</span>
-									</div>
-
-									<CKEditor
-										label="Descripción"
-										editor={ClassicEditor}
-										data=""
-										name="description"
-										type="text"
-										placeholder="Descripción"
-										onChange={handleEditor}
-										onReady={handleReady}
-										className="form-control"
-									/>
-								</div>
-
-								<FileInput
-									label="Imagen"
-									name="image"
-									type="file"
-									placeholder="Imagen"
-									accept=".jpg, .jpeg, .png"
-									className="form-control mt-3 mb-3"
-								/>
-								<img src={info} alt="" />
-								<button
-									type="submit"
-									className="form-control btn btn-primary mt-3 mb-3">
-									{edicion === false ? 'Submit' : 'Edit'}
-								</button>
-							</Form>
-						</Formik>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+          <Button type="submit" className="w-100 mb-2" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
+            {!props.activity ? 'Crear' : 'Editar'}
+          </Button>
+        </Form>
+      </div>
+    </Container>
+  );
 };
 
 export default ActivitiesForm;

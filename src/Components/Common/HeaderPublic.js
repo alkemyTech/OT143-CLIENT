@@ -97,16 +97,16 @@ const HeaderPublic = () => {
               {nav.map((e, index) => {
                 return (
                   <div key={index}>
-                    {e.title == "JUGUETES" || e.title === "ESCOLAR" || e.title === "" ? null : 
-                      auth && auth === 2 && e.title === "Contacto" ? null :(
-                      <NavLink
-                        to={e.path}
-                        className="nav-link me-auto"
-                        activeStyle={{ color: "tomato" }}
-                      >
-                        {e.title}
-                      </NavLink>
-                    )}
+                    {e.title === "JUGUETES" || e.title === "ESCOLAR" || e.title === "" ? null :
+                      auth && auth === 2 && e.title === "Contacto" ? null : (
+                        <NavLink
+                          to={e.path}
+                          className="nav-link me-auto"
+                          activeStyle={{ color: "tomato" }}
+                        >
+                          {e.title}
+                        </NavLink>
+                      )}
                   </div>
                 );
               })}
@@ -116,30 +116,30 @@ const HeaderPublic = () => {
               {/* mejorar la logica recorriendo con un filter el array y que devuelva los dos elementos que necesito */}
               <NavDropdown title="Campañas">
                 <NavLink className="dropdown-item" activeStyle={{ color: "tomato" }} to={nav[3].path}>
-                    {nav[3].title}
+                  {nav[3].title}
                 </NavLink>
                 <NavLink className="dropdown-item" activeStyle={{ color: "tomato" }} to={nav[4].path} >
-                    {nav[4].title}
+                  {nav[4].title}
                 </NavLink>
               </NavDropdown>
             </Nav>
             <Nav>
               {isLogged ? (
                 <>
-                    <NavLink
-                     onClick={handleLogout}
-                      style={{ background: "#DB5752" }}
-                      className="text-decoration-none log-button"
-                      to={HOME}
-                    >
-                      <RiLogoutBoxLine /> Salir
-                    </NavLink>
+                  <NavLink
+                    onClick={handleLogout}
+                    style={{ background: "#DB5752" }}
+                    className="text-decoration-none log-button"
+                    to={HOME}
+                  >
+                    <RiLogoutBoxLine /> Salir
+                  </NavLink>
                   <Nav.Link className="d-flex align-items-center">
                     <FaUser style={{ fontSize: "1.5rem" }} className="mx-2" />
                     <span>{user}</span>
                   </Nav.Link>
                   <NavLink to={BACKOFFICE} className="d-flex align-items-center">
-                    <BsGearFill  style={{ fontSize: "1.5rem" }}/>
+                    <BsGearFill style={{ fontSize: "1.5rem" }} color="#9AC9FB" />
                   </NavLink>
                 </>
               ) : (

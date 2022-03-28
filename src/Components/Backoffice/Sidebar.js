@@ -4,43 +4,45 @@ import './Sidebar.scss';
 const SidebarBackoffice = ({ show, close }) => {
   const backofficeLinks = [
     {
-      name: "Miembros",
-      url: "/backoffice/members",
-    },
-    {
-      name: "Categorías",
-      url: "/backoffice/categories",
-    },
-    {
-      name: "Slides",
-      url: "/backoffice/slides",
+      name: "Dashboard",
+      url: "/backoffice",
     },
     {
       name: "Novedades",
       url: "/backoffice/news",
     },
     {
-      name: "Organización",
-      url: "/backoffice/organization",
-    },
-
-    {
-      name: "Usuarios",
-      url: "/backoffice/users",
-    },
-    {
       name: "Actividades",
       url: "/backoffice/activities",
+    },
+    {
+      name: "Categorías",
+      url: "/backoffice/categories",
     },
     {
       name: "Testimonios",
       url: "/backoffice/testimonials",
     },
-
-  ]
+    {
+      name: "Organización",
+      url: "/backoffice/organization",
+    },
+    {
+      name: "Slides",
+      url: "/backoffice/slides",
+    },
+    {
+      name: "Usuarios",
+      url: "/backoffice/users",
+    },
+    {
+      name: "Miembros",
+      url: "/backoffice/members",
+    },
+  ];
 
   return (
-    <div className={show ? "sidebar d-flex flex-column active-sidebar-backoffice px-3" : "sidebar flex-column"}>
+    <div className={show ? "sidebar d-flex flex-column active-sidebar-backoffice px-3 navbar-nav-scroll" : "sidebar flex-column"}>
       <span className="menu-title mb-4">Menú</span>
       {
         backofficeLinks.map((link, index) => {

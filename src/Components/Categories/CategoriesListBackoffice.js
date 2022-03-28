@@ -8,10 +8,19 @@ import Loading from '../Common/Loading';
 import Pagination from '../Common/Pagination';
 import { warningMsg } from '../Alerts/Alert';
 import moment from 'moment';
+import EditModal from './../Backoffice/EditModal';
+import CategoriesForm from './CategoriesForm';
 
 const CategoriesListBackoffice = () => {
   const [categories, setCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+  const [showEdit, setShowEdit] = useState(false);
+  const [edit, setEdit] = useState({});
+
+  const handleEdit = () => {
+    setShowEdit((prev) => !prev);
+  };
+
 
   const filteredCategories = () => {
     return categories.slice(
@@ -37,12 +46,15 @@ const CategoriesListBackoffice = () => {
   const middleStyles = { verticalAlign: "middle" };
 
   return (<>
+    <EditModal show={showEdit} close={handleEdit}>
+      <CategoriesForm category={edit} close={handleEdit} />
+    </EditModal>
     <div className="container mt-2">
       <div className="row">
         <div className="col">
           <h2 className='text-center'>Categorías</h2>
           <div className="col text-end mb-2">
-            <Link to={CATEGORY_CREATE}><Button className='btn-success'>
+            <Link to={CATEGORY_CREATE}><Button style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
               <BsPlusCircle /> Crear</Button></Link>
           </div>
           {
@@ -65,7 +77,10 @@ const CategoriesListBackoffice = () => {
                         <td style={middleStyles}>
                           <div className="row text-center">
                             <div className="mb-1 mb-md-0 col-12 col-md-6">
-                              <Button variant='dark' onClick={() => console.log("Editar")}>
+                              <Button onClick={() => {
+                                setEdit(category);
+                                handleEdit();
+                              }} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                                 <BsPencilSquare />
                               </Button>
                             </div>

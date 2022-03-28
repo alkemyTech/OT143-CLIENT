@@ -22,7 +22,7 @@ const CardDashboard = (props) => {
         </Card.Body>
         <Row className="justify-content-center mb-2 pb-2">
           <Col xs={4}>
-            <Link to={to}><Button variant="success" size="sm">
+            <Link to={to}><Button size="sm" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
               Ir
             </Button></Link>
           </Col>

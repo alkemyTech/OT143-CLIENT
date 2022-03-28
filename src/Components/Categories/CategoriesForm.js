@@ -1,127 +1,147 @@
-import React, { useState } from 'react';
-import { useFormik } from 'formik';
+import React from 'react';
+import { putData, postData } from '../../Services/serviceCategories';
+import { Form, Button, Container } from 'react-bootstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { useFormik } from 'formik';
+import { successMsg, warningMsg } from '../Alerts/Alert';
 import * as Yup from 'yup';
 import '../FormStyles.css';
-import axios from 'axios';
-import { GetCategoriesId } from '../../Services/serviceCategories';
+import { convertToBase64 } from './../base64/toBase64';
 
-const CategoriesForm = () => {
-    
-    const [dataApi, setDataApi] = useState();
-    const FORMAT_SUPPORTED = ['image/jpg', 'image/jpeg', 'image/png'];
-    
-    const SchemaValidation = Yup.object().shape({
-        name : Yup.string()
-            .required("Campo requerido")
-            .min(4,"Obligatorio mas de 4 letras"),
-        image : Yup.mixed()
-            .required("No hay imagen cargada")
-            .test("fileType","Formato de imagen invalido",(value)=> value && FORMAT_SUPPORTED.includes(value.type) ),
-        description: Yup.string()
-            .required("Campo requerido"),
+const schema = Yup.object().shape({
+  title: Yup.string()
+    .required('El título es requerido')
+    .min(4, 'El título debe contener una longitud mínima de 4 caracteres'),
+  description: Yup.string().required('El contenido es requerido'),
+  image: Yup.mixed().nullable().required('La imagen es requerida'),
+});
 
-    });
- 
-    const formCategories = useFormik({
-        initialValues:{
-            name:"",
-            image : "",
-            description : ""
-        },
-        validationSchema: SchemaValidation,
-         async onSubmit(values){
-            const resutl = await axios.post('http://ongapi.alkemy.org/api/categories', values)
-            .then((res)=>{
-                if(res.data.error){
-                    const cargoId = async()=>{
+const errorsStyles = { color: 'red', fontSize: '.875em' };
 
-                        //Harcodeo un ID para probar la funcion GetCategorias y mostrar la info
+const CategoriesForm = props => {
+  const category = props.category
+    ? {
+      id: props.category.id,
+      title: props.category.name,
+      description: props.category.description,
+      image: props.category.image,
+    }
+    : {
+      title: '',
+      description: '',
+      image: '',
+    };
 
-                        const dataId =  await GetCategoriesId(`${1606}`)
-                        console.log(dataId.data);
-                        setDataApi(dataId)
-                        formCategories.resetForm({
-                            name : dataId.data.name,
-                            image: dataId.data.image,
-                            description: dataId.data.description
-                        });
-                        formCategories.setSubmitting(false);
-                        
-                        
-                    }
-                    cargoId();
-                }
-            })
-
+  const formik = useFormik({
+    initialValues: category,
+    validationSchema: schema,
+    onSubmit(values) {
+      if (!props.category) {
+        try {
+          postData({
+            name: values.title,
+            description: values.description,
+            image: values.image,
+            user_id: 0,
+            category_id: 1,
+            created_at: Date(),
+          });
+          successMsg('Creacion exitosa');
+        } catch (err) {
+          warningMsg('Creacion fallida');
         }
-    });
+      } else {
+        try {
+          putData(
+            {
+              name: values.title,
+              description: values.description,
+              image: values.image,
+              user_id: 0,
+              category_id: 1,
+              created_at: Date(),
+            },
+            values.id
+          );
+          successMsg('Edicion exitosa');
+          props.close();
+        } catch (err) {
+          warningMsg('Edicion fallida');
+        }
+      }
+    },
+  });
 
-    return (
-       <> 
-       
-        <form className='form-container' onSubmit={formCategories.handleSubmit} >
-            <h3 className='title-form'>Categoria </h3>'
-               
-                <input 
-                    onChange={formCategories.handleChange}
-                    value={dataApi ? dataApi.data.name : formCategories.values.name }
-                    className="input-field"
-                    name="name"
-                    type="text"
-                    placeholder="Categoria" 
-                    autoComplete='Objecto que traemos de la api'
-                         />
+  const handleImageChange = async event => {
+    const base64String = await convertToBase64(event?.target.files[0]);
+    formik.setFieldValue('image', base64String);
+  };
 
-                {formCategories.touched.name && formCategories.errors.name ? 
-                 <span className='errors-forms'>
-                {formCategories.errors.name}
-                </span>: null}
+  return (
+    <Container className="mt-3">
+      <h2 className="title-form">{`${!props.category ? 'Crear' : 'Editar'
+        } categoría`}</h2>
+      <div className="mt-5">
+        <Form className="form" onSubmit={formik.handleSubmit}>
+          <Form.Group controlId="title" className="mt-2 mb-3">
+            <Form.Label>Título</Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              value={formik.values.title || ''}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.title && formik.errors.title ? (
+              <div className="mt-1" style={errorsStyles}>
+                {formik.errors.title}
+              </div>
+            ) : null}
+          </Form.Group>
 
-            <h3 className='title-form'>Imagen</h3>
-                <input className="input-field"
-                    id="image"
-                    name="image"
-                    type="file"
-                    placeholder="Imagen aqui"
-                    onChange={(e) => {formCategories.setFieldValue("image", e.currentTarget.files[0])}}
-                 />
-            {formCategories.touched.image && formCategories.errors.image ? 
-            <span className='errors-forms'>
-                {formCategories.errors.image}
-            </span>: null}
-            
+          <Form.Group controlId="description" className="mt-3 mb-3">
+            <Form.Label>Descripción</Form.Label>
+            <CKEditor
+              placeholder="Contenido"
+              editor={ClassicEditor}
+              data={formik.values.description || ''}
+              name="description"
+              type="text"
+              onChange={(e, editor) =>
+                formik.setFieldValue('description', editor.getData())
+              }
+            />
+            {formik.touched.description && formik.errors.description ? (
+              <div className="mt-1" style={errorsStyles}>
+                {formik.errors.description}
+              </div>
+            ) : null}
+          </Form.Group>
 
-            <h3 className='title-form'>Descripcion</h3>
-            <CKEditor 
-                
-                editor={ClassicEditor}
-                data={dataApi ? dataApi.data.description : "Escrbiba aqui"}
-                name="description"
-                type="text"
-                onReady={editor=> editor}
-                onChange={(e,editor)=>{
-                    const data = editor.getData();
-                    formCategories.setFieldValue("description", data);
-                }}
-                
-             />
+          <Form.Group controlId="image" className="mt-3 mb-3">
+            <Form.Label>Imagen</Form.Label>
+            <Form.Control
+              name="image"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={event => handleImageChange(event)}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.image && formik.errors.image ? (
+              <div className="mt-1" style={errorsStyles}>
+                {formik.errors.image}
+              </div>
+            ) : null}
+          </Form.Group>
 
-             
-                {formCategories.touched.description && formCategories.errors.description ? 
-                <span className='errors-forms'>
-                    {formCategories.errors.description}
-                </span> : null  }
-             
-             <span className='erros-forms' >{dataApi ? dataApi.error : ""}</span>
-                    <button type='submit' >{formCategories.isSubmitting ? `Obteniendo datos de API...` : "Enviar"}
-                    </button>
-        </form>      
-
-      
-       </>
-    );
-}
+          <Button type="submit" className="w-100 mb-2" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
+            {!props.category ? 'Crear' : 'Editar'}
+          </Button>
+        </Form>
+      </div>
+    </Container>
+  );
+};
 
 export default CategoriesForm;

@@ -49,7 +49,7 @@ const OrganizationInfo = () => {
             <p className="card-text">{organizationData.long_description}</p>
           </div>
           <div className="card-body text-center">
-            <Link to={ORGANIZATION_EDIT}><button className="btn btn-primary">Editar datos</button></Link>
+            <Link to={ORGANIZATION_EDIT}><button className="btn btn-primary" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>Editar datos</button></Link>
           </div>
         </div>
       </div>
@@ -59,18 +59,18 @@ const OrganizationInfo = () => {
 
 const HomeForm = () => {
 
-  const validationSchemaYup = Yup.object().shape({
-    welcomeText: Yup.string()
-      .min(20, "El campo debe contener mínimo 20 caracteres"),
-  })
-
-  const handleChange = (e) => {
-    e.preventDefault();
-  }
+  /*  const validationSchemaYup = Yup.object().shape({
+     welcomeText: Yup.string()
+       .min(20, "El campo debe contener mínimo 20 caracteres"),
+   })
+ 
+   const handleChange = (e) => {
+     e.preventDefault();
+   } */
 
   return (
     <div className="container">
-      <h2 className="title-form">Editar datos de la Home</h2>
+      {/*  <h2 className="title-form">Editar datos de la Home</h2>
       <Formik
         initialValues={{
           welcomeText: "",
@@ -155,11 +155,11 @@ const HomeForm = () => {
           </div>
           <div className="row">
             <div className="col text-end">
-              <Button type="submit">Editar</Button>
+              <Button type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>Editar</Button>
             </div>
           </div>
         </Form>
-      </Formik>
+      </Formik> */}
 
       <OrganizationInfo />
     </div>

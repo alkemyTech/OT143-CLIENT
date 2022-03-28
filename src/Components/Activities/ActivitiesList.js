@@ -9,11 +9,20 @@ import Loading from '../Common/Loading';
 import Pagination from '../Common/Pagination';
 import { warningMsg } from '../Alerts/Alert';
 import moment from 'moment';
+import EditModal from './../Backoffice/EditModal';
+import ActivitiesForm from './ActivitiesForm';
 
 const ActivitiesList = () => {
 
   const { list: activities } = useSelector(state => state.activities);
   const dispatch = useDispatch();
+  const [showEdit, setShowEdit] = useState(false);
+  const [edit, setEdit] = useState({});
+
+  const handleEdit = () => {
+    setShowEdit((prev) => !prev);
+  };
+
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -45,12 +54,15 @@ const ActivitiesList = () => {
 
   return (
     <>
+      <EditModal show={showEdit} close={handleEdit}>
+        <ActivitiesForm activity={edit} close={handleEdit} />
+      </EditModal>
       <div className="container mt-2">
         <div className="row">
           <div className="col">
             <h2 className='text-center'>Actividades</h2>
             <div className="col text-end mb-2">
-              <Link to={ACTIVITY_CREATE}><Button className='btn-success'>
+              <Link to={ACTIVITY_CREATE}><Button style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                 <BsPlusCircle /> Crear</Button></Link>
             </div>
             {activities.length === 0 ? <div className="d-flex justify-content-center align-items-center" style={{ height: "300px" }}><Loading /></div>
@@ -72,7 +84,10 @@ const ActivitiesList = () => {
                         <td style={middleStyles}>
                           <div className="row text-center">
                             <div className="mb-1 mb-md-0 col-12 col-md-6">
-                              <Button variant='dark' onClick={() => console.log("Editar")}>
+                              <Button onClick={() => {
+                                setEdit(act);
+                                handleEdit();
+                              }} style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                                 <BsPencilSquare />
                               </Button>
                             </div>

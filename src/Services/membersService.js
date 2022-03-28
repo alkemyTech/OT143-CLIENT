@@ -8,7 +8,7 @@ export const getAll = () => {
 };
 
 export const create = body => {
-  const request = axios.post(BASE_URL);
+  const request = axios.post(BASE_URL, body);
   return request.then(response => response.data);
 };
 

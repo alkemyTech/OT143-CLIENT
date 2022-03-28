@@ -17,7 +17,7 @@ export const create = data => {
 	return request.then(response => response);
 };
 
-export const update = (id, data) => {
+export const update = (data, id) => {
 	const request = axios.put(`${REACT_APP_USERS_API_ENDPOINT}/${id}`, data);
 	return request.then(response => response);
 };

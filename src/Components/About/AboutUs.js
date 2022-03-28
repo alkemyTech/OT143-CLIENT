@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Title from '../Title/Title';
 import { warningMsg } from './../Alerts/Alert';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import imgLogo from './../../images/somosMasOrg.png';

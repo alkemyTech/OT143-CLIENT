@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import { BACKOFFICE } from "../../config/router/routes";
+import { HOME } from "../../config/router/routes";
 import logo from "./../../images/somosMasOrg.png";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import "./Header.scss";
@@ -16,7 +16,7 @@ const HeaderBackoffice = () => {
 
   return (
     <>
-      <Container className="header-container p-0" fluid>
+      <Container className="header-container sticky-top bg-white p-0" fluid >
         {!showSidebar ? (
           <AiOutlineMenu
             onClick={toggleSidebar}
@@ -28,7 +28,7 @@ const HeaderBackoffice = () => {
             className="header-menu-icon mx-4"
           />
         )}
-        <Link to={BACKOFFICE}><img className="header-logo ms-2 me-auto" src={logo} alt="Logo de la organización" /></Link>
+        <Link to={HOME}><img className="header-logo ms-2 me-auto" src={logo} alt="Logo de la organización" /></Link>
       </Container>
       <Sidebar show={showSidebar} close={toggleSidebar} />
     </>
