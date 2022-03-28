@@ -13,7 +13,7 @@
 }
 
 
-.active{
+.active-sidebar-backoffice{
     opacity: 1;
     animation-duration: .5s;
     animation-name: aparecer;
@@ -21,7 +21,7 @@
 
 
 @media (min-width: 576px){
-    .active{
+    .active-sidebar-backoffice{
         width:576px;
     }
 }

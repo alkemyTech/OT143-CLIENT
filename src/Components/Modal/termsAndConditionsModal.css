@@ -3,9 +3,11 @@
   border: none;
   height: fit-content;
   width: fit-content;
+  
 }
 .myModal {
   background-color: #cbd2da;
+  z-index: 100;
   }
   .myModal > .header {
     width: 100%;
