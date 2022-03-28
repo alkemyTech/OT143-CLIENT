@@ -22,7 +22,7 @@ import { getUser } from '../../features/auth/authSlice';
 
 const HeaderPublic = () => {
   const { isAdmin: auth } = useSelector(state => state.auth)
-  const { token: token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const user = localStorage.getItem("user");
   const dispatch = useDispatch();
   const [isLogged, setIsLogged] = useState();

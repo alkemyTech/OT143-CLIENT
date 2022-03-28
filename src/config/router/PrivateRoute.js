@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authMe } from '../../Services/authService';
 import { isAuth, roleMe } from '../../features/auth/authSlice';
 import Loading from '../../Components/Common/Loading';
-
+import { warningMsg } from '../../Components/Alerts/Alert';
+import LoginForm from '../../Components/Auth/LoginForm';
 const PrivateRoute = ({ component: Component, ...rest }) => {
 	const [loading, setLoading] = useState(true);
+	const [show,setShow] = useState(true);
 	const dispatch = useDispatch();
 	const authS = useSelector(state => state.auth.auth);
 	const roleS = useSelector(state => state.auth.role);
@@ -19,11 +21,16 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 			})
 			.catch(res => setLoading(false));
 	}, []);
+	const loginClose = ()=>{
+		setShow(false)
+	}
 
 	return (
 		<>
 			{loading === true ? (
-				<Loading />
+				<div className="d-flex justify-content-center align-items-center" style={{height:"300px"}}>
+					<Loading />
+				</div>
 			) : (
 				<Route
 					{...rest}
@@ -31,7 +38,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 						authS === true && roleS === 1 ? (
 							<Component {...props} />
 						) : (
-							<Redirect to="/" />
+							warningMsg("Debe logearse para ingresar a este sitio"),
+							<LoginForm show={show} close={loginClose} /> &&
+							<Redirect to='/' />
+							//consultar con juan como hacer para llamar al componente loginForm.
+							
+							
 						)
 					}
 				/>
