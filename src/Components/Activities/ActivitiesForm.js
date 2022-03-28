@@ -65,6 +65,7 @@ const ActivitiesForm = props => {
             id
           );
           successMsg('Edicion exitosa');
+          props.close();
         } catch (err) {
           warningMsg('Edicion fallida');
         }

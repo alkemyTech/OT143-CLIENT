@@ -55,7 +55,7 @@ const ActivitiesList = () => {
   return (
     <>
       <EditModal show={showEdit} close={handleEdit}>
-        <ActivitiesForm activity={edit} />
+        <ActivitiesForm activity={edit} close={handleEdit} />
       </EditModal>
       <div className="container mt-2">
         <div className="row">
