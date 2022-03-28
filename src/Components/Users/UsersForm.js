@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import '../FormStyles.css';
-import { create } from '../../Services/usersService';
+// import { postUser } from '../../Services/usersService';
 
 const UserForm = () => {
 	const dispatch = useDispatch();
@@ -38,13 +38,13 @@ const UserForm = () => {
 		e.preventDefault();
 
 		if (initialValues.password === initialValues.confirmPassword) {
-			create({
-				name: initialValues.name,
-				email: initialValues.email,
-				email_verified_at: '2022-03-17T16:07:57.300Z',
-				password: initialValues.password,
-				role_id: initialValues.role_id,
-			});
+			// postUser({
+			// 	name: initialValues.name,
+			// 	email: initialValues.email,
+			// 	email_verified_at: '2022-03-17T16:07:57.300Z',
+			// 	password: initialValues.password,
+			// 	role_id: initialValues.role_id,
+			// });
 		} else {
 			return null;
 		}
