@@ -15,6 +15,7 @@ import {
 import NewsletterForm from '../Newsletter/NewsletterForm';
 import organizationService from '../../Services/organization';
 import { Container } from 'react-bootstrap';
+import './footer.scss'
 
 const Footer = () => {
 	const [organization, setOrganization] = useState({});
@@ -63,32 +64,40 @@ const Footer = () => {
 								<a
 									href={organization.facebook_url}
 									target="_blank"
-									rel="noreferrer">
-									<BsFacebook size={40} />
+									rel="noreferrer"
+									className="footer-social-icon"
+									>
+									<BsFacebook size={40}  />
 								</a>
 							</li>
 							<li className="d-inline-block">
 								<a
 									href={organization.linkedin_url}
 									target="_blank"
-									rel="noreferrer">
-									<BsLinkedin size={40} />
+									rel="noreferrer"
+									className="footer-social-icon"
+									>
+									<BsLinkedin size={40}  />
 								</a>
 							</li>
 							<li className="d-inline-block">
 								<a
 									href={organization.instagram_url}
 									target="_blank"
-									rel="noreferrer">
-									<BsInstagram size={40} />
+									rel="noreferrer"
+									className="footer-social-icon"
+									>
+									<BsInstagram size={40}  />
 								</a>
 							</li>
 							<li className="d-inline-block">
 								<a
 									href={organization.twitter_url}
 									target="_blank"
-									rel="noreferrer">
-									<BsTwitter size={40} />
+									rel="noreferrer"
+									className="footer-social-icon"
+									>
+									<BsTwitter size={40}  />
 								</a>
 							</li>
 						</ul>
