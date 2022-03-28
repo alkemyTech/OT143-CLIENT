@@ -45,7 +45,9 @@ const OrganizationInfo = () => {
             <div className="d-flex justify-content-center">
               <img className='card-img-top' src={organizationData.logo} alt="Logo de la organización" style={{ width: "50%" }} />
             </div>
-            <h5>Descripción</h5>
+            <h5>Descripción corta</h5>
+            <p className="card-text" dangerouslySetInnerHTML={{ __html: organizationData.short_description }}></p>
+            <h5>Descripción larga</h5>
             <p className="card-text">{organizationData.long_description}</p>
           </div>
           <div className="card-body text-center">
