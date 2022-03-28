@@ -48,20 +48,19 @@ const AboutUs = () => {
   //Si no recibe la posicion no debe renderizarse.(por props o state)
 
   return (<>
-    <Title text={about?.name} />
-    <div className='about__container'>
-      <h2 className='about__title text-center my-3'> {about?.welcome_text}</h2>
+    {/* <Title text={about?.name} /> */}
+    <Title text="Nosotros" />
+    <div className='about__container '>
+      <h2 className='h1 about__title text-center my-3'>{about?.name}</h2>
       <div className='about__container__banner '>
         {isFetching && <Loading />}
         <img className="img-about" src={about?.logo} alt="NosotrosIMG" />
       </div>
 
       <div className="about__container__text">
-        <span className='about__title'>{about?.long_description}</span>
         <span dangerouslySetInnerHTML={{ __html: about?.short_description }}></span>
-
-
-        <div className="row justify-content-center about__container__text__comentarios">
+        <span className='about__title'>{about?.long_description}</span>
+        <div className="row justify-content-center about__container__text__comentarios mt-3">
           <span className='text-center'>Fundada en : {moment(about?.created_at).format('LL')}</span>
         </div>
       </div>
