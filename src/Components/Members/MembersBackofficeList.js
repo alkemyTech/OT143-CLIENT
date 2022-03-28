@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect,useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MEMBER_CREATE } from '../../config/router/routes';
 import { getMembers } from '../../features/members/membersSlice';
@@ -14,6 +14,7 @@ import {remove}from './../../Services/membersService'
 
 const MembersBackofficeList = () => {
   /* const [loading, setLoading] = useState(true); */
+  const routerHistory = useHistory()
   const { list: members } = useSelector(state => state.members);
   const dispatch = useDispatch();
 
@@ -59,7 +60,9 @@ const MembersBackofficeList = () => {
     try {
       confirmMsg("Desaparece el miembro permanentemente")
       if(confirmMsg) {
-        remove(id)
+        const result  = remove(id);
+        routerHistory.push('/backoffice/members')
+        
       }else{
         alert("Error(500)-intente nuvamente");
       }
