@@ -46,8 +46,8 @@ const HeaderPublic = () => {
     { path: ABOUT, title: "Nosotros" },
     { path: HOME, title: "" },
     { path: CONTACT, title: "Contacto" },
-    { path: TOYS_CAMPAIGN, title: "JUGUETES" },
-    { path: SCHOOL_CAMPAIGN, title: "ESCOLAR" }
+    { path: TOYS_CAMPAIGN, title: "Juguetes" },
+    { path: SCHOOL_CAMPAIGN, title: "Escolar" }
   ];
 
   const handleLogout = () => {
@@ -97,7 +97,7 @@ const HeaderPublic = () => {
               {nav.map((e, index) => {
                 return (
                   <div key={index}>
-                    {e.title === "JUGUETES" || e.title === "ESCOLAR" || e.title === "" ? null :
+                    {e.title === "Juguetes" || e.title === "Escolar" || e.title === "" ? null :
                       auth && auth === 2 && e.title === "Contacto" ? null : (
                         <NavLink
                           to={e.path}
