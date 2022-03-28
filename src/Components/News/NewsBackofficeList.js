@@ -61,7 +61,7 @@ const NewsBackofficeList = () => {
   return (
     <>
       <EditModal show={showEdit} close={handleEdit}>
-        <NewsForm news={edit} />
+        <NewsForm news={edit} close={handleEdit} />
       </EditModal>
       <Container className="mt-2">
         <Row>

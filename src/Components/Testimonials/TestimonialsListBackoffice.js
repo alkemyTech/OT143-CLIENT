@@ -49,7 +49,7 @@ const TestimonialsListBackoffice = () => {
   return (
     <>
       <EditModal show={showEdit} close={handleEdit}>
-        <TestimonialsForm testimony={edit} />
+        <TestimonialsForm testimony={edit} close={handleEdit} />
       </EditModal>
 
       <div className="container mt-2">

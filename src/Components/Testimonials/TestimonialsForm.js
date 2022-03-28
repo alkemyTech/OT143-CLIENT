@@ -25,7 +25,8 @@ const TestimonialForm = (props) => {
   const testimony = props.testimony ? {
     id: props.testimony.id,
     name: props.testimony.name,
-    description: props.testimony.description
+    description: props.testimony.description,
+    image: props.testimony.image
   }
     :
     {
@@ -52,6 +53,7 @@ const TestimonialForm = (props) => {
         testimonialsService.update(values, testimony.id).then(response => {
           console.log(response);
           successMsg('Testimonio editado con éxito');
+          props.close();
         })
           .catch(error => {
             console.log(error);

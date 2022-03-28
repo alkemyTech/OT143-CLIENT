@@ -66,7 +66,8 @@ const NewsForm = props => {
         : update(body, news.id)
           .then((response) => {
             console.log(response);
-            alert("Novedad editada con éxito");
+            successMsg("Novedad editada con éxito");
+            props.close();
           })
           .catch((error) => {
             console.log(error);
