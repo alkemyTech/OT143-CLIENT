@@ -100,7 +100,7 @@ const SlidesForm = props => {
           </Form.Group>
 
           <Form.Group controlId="content" className="mt-3 mb-3">
-            <Form.Label>Descripcion</Form.Label>
+            <Form.Label>Descripción</Form.Label>
             <CKEditor
               placeholder="Contenido"
               editor={ClassicEditor}

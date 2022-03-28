@@ -101,7 +101,7 @@ const ActivitiesForm = props => {
           </Form.Group>
 
           <Form.Group controlId="description" className="mt-3 mb-3">
-            <Form.Label>Descripcion</Form.Label>
+            <Form.Label>Descripción</Form.Label>
             <CKEditor
               placeholder="Contenido"
               editor={ClassicEditor}

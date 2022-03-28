@@ -1,6 +1,6 @@
 import React from "react";
 import "../FormStyles.css";
-import { create , update } from "../../Services/usersService";
+import { create, update } from "../../Services/usersService";
 import * as Yup from "yup";
 import { Form, Button, Container } from 'react-bootstrap';
 import { warningMsg, successMsg } from '../Alerts/Alert';
@@ -20,19 +20,19 @@ const UserForm = (props) => {
 
   const user = props.user
     ? {
-        id: props.user.id,
-        name: props.user.name,
-        email: props.user.email,
-        password: props.user.password,
-        confirmPassword: props.user.confirmPassword,
-      }
+      id: props.user.id,
+      name: props.user.name,
+      email: props.user.email,
+      password: props.user.password,
+      confirmPassword: props.user.confirmPassword,
+    }
     : {
-        id: "",
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      };
+      id: "",
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
 
 
   // const handleSubmit = async (e) => {
@@ -78,9 +78,8 @@ const UserForm = (props) => {
 
   return (
     <Container className="mt-4">
-      <h2 className="title-form">{`${
-        !props.user ? "Crear" : "Editar"
-      } usuario`}</h2>
+      <h2 className="title-form">{`${!props.user ? "Crear" : "Editar"
+        } usuario`}</h2>
       <div className="mt-5">
         <Form className="form" onSubmit={formik.handleSubmit}>
           <Form.Group className="mt-2 mb-3">
@@ -112,7 +111,7 @@ const UserForm = (props) => {
             ) : null}
           </Form.Group>
           <Form.Group className="mt-2 mb-3">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Contraseña</Form.Label>
             <Form.Control
               type="password"
               name="password"
@@ -126,7 +125,7 @@ const UserForm = (props) => {
             ) : null}
           </Form.Group>
           <Form.Group className="mt-2 mb-3">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>Confirmar contraseña</Form.Label>
             <Form.Control
               type="password"
               name="confirmPassword"

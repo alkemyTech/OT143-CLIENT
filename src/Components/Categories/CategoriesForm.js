@@ -81,7 +81,7 @@ const CategoriesForm = props => {
   return (
     <Container className="mt-3">
       <h2 className="title-form">{`${!props.category ? 'Crear' : 'Editar'
-        } categoria`}</h2>
+        } categoría`}</h2>
       <div className="mt-5">
         <Form className="form" onSubmit={formik.handleSubmit}>
           <Form.Group controlId="title" className="mt-2 mb-3">
@@ -101,7 +101,7 @@ const CategoriesForm = props => {
           </Form.Group>
 
           <Form.Group controlId="description" className="mt-3 mb-3">
-            <Form.Label>Descripcion</Form.Label>
+            <Form.Label>Descripción</Form.Label>
             <CKEditor
               placeholder="Contenido"
               editor={ClassicEditor}
