@@ -49,7 +49,7 @@ const OrganizationInfo = () => {
             <p className="card-text">{organizationData.long_description}</p>
           </div>
           <div className="card-body text-center">
-            <Link to={ORGANIZATION_EDIT}><button className="btn btn-primary">Editar datos</button></Link>
+            <Link to={ORGANIZATION_EDIT}><button className="btn btn-primary" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>Editar datos</button></Link>
           </div>
         </div>
       </div>
