@@ -99,100 +99,100 @@ const MembersForm = ({ id }) => {
 
 	return (
 		<>
-			<div className="container">
-				<div className="row">
-					<div className="card col-6 offset-3 mt-5 pt-3">
-						<Formik
-							initialValues={{
-								name: nombre,
-								email: email,
-								image: imagen,
-								rol: rol,
-								password: '',
-							}}
-							validationSchema={Yup.object({
-								name: Yup.string().required('Ingresar nombre'),
-								email: Yup.string()
-									.email('Ingresar email valido')
-									.required('Ingresar email'),
-								image: Yup.mixed()
-									.required('Ingresar imagen')
-									.test('fileType', 'Unsupported File Format', value => {
-										if (value) {
-											if (value.includes('png')) {
-												return true;
-											} else if (value.includes('jpg')) {
-												return true;
-											} else if (value.includes('jpeg')) {
-												return true;
-											} else {
-												return false;
-											}
+		<div className="container">
+			<div className="row">
+				<div className="col-12 mt-5 pt-3">
+					<Formik
+						initialValues={{
+							name: nombre,
+							email: email,
+							image: imagen,
+							rol: rol,
+							password: '',
+						}}
+						validationSchema={Yup.object({
+							name: Yup.string().required('Ingresar nombre'),
+							email: Yup.string()
+								.email('Ingresar email valido')
+								.required('Ingresar email'),
+							image: Yup.mixed()
+								.required('Ingresar imagen')
+								.test('fileType', 'Unsupported File Format', value => {
+									if (value) {
+										if (value.includes('png')) {
+											return true;
+										} else if (value.includes('jpg')) {
+											return true;
+										} else if (value.includes('jpeg')) {
+											return true;
+										} else {
+											return false;
 										}
-									}),
-								rol: Yup.string()
-									.oneOf(['user', 'admin'], 'Invalid Job Type')
-									.required('Ingresar rol'),
-								password: Yup.string()
-									.min(8, 'Minimo 8 caracteres')
-									.required('Ingresar password'),
-							})}
-							onSubmit={(values, { setFieldValue }) => {
-								createMember(values);
-								// setFieldValue('title', '');
-								// setFieldValue('image', '');
-							}}>
-							<Form>
-								<TextInput
-									label="Nombre"
-									name="name"
-									type="text"
-									className="form-control mt-3 mb-3"
-								/>
+									}
+								}),
+							rol: Yup.string()
+								.oneOf(['user', 'admin'], 'Invalid Job Type')
+								.required('Ingresar rol'),
+							password: Yup.string()
+								.min(8, 'Minimo 8 caracteres')
+								.required('Ingresar password'),
+						})}
+						onSubmit={(values, { setFieldValue }) => {
+							createMember(values);
+							// setFieldValue('title', '');
+							// setFieldValue('image', '');
+						}}>
+						<Form>
+							<TextInput
+								label="Nombre"
+								name="name"
+								type="text"
+								className="form-control mt-3 mb-3"
+							/>
 
-								<TextInput
-									label="Email"
-									name="email"
-									type="email"
-									className="form-control mt-3 mb-3"
-								/>
+							<TextInput
+								label="Email"
+								name="email"
+								type="email"
+								className="form-control mt-3 mb-3"
+							/>
 
-								<FileInput
-									label="Imagen"
-									name="image"
-									type="file"
-									placeholder="Imagen"
-									accept=".jpg, .jpeg, .png"
-									className="form-control mt-3 mb-3"
-								/>
+							<FileInput
+								label="Imagen"
+								name="image"
+								type="file"
+								placeholder="Imagen"
+								accept=".jpg, .jpeg, .png"
+								className="form-control mt-3 mb-3"
+							/>
 
-								<SelectRole
-									label="Rol"
-									name="rol"
-									className="form-control mt-3 mb-3">
-									<option value="">Seleccione un rol</option>
-									<option value="user">Usuario</option>
-									<option value="admin">Administrador</option>
-								</SelectRole>
+							<SelectRole
+								label="Rol"
+								name="rol"
+								className="form-control mt-3 mb-3">
+								<option value="">Seleccione un rol</option>
+								<option value="user">Usuario</option>
+								<option value="admin">Administrador</option>
+							</SelectRole>
 
-								<TextInput
-									label="Password"
-									name="password"
-									type="password"
-									className="form-control mt-3 mb-3"
-								/>
+							<TextInput
+								label="Password"
+								name="password"
+								type="password"
+								className="form-control mt-3 mb-3"
+							/>
 
-								{/* <img src={info} alt="" /> */}
-								<button
-									type="submit"
-									className="form-control btn btn-primary mt-3 mb-3">
-									{edicion === false ? 'Submit' : 'Edit'}
-								</button>
-							</Form>
-						</Formik>
-					</div>
+							{/* <img src={info} alt="" /> */}
+							<button
+								type="submit"
+								className="form-control btn btn-primary mt-3 mb-3">
+								{edicion === false ? 'Submit' : 'Edit'}
+							</button>
+						</Form>
+					</Formik>
 				</div>
 			</div>
+		</div>
 		</>
 	);
 };
