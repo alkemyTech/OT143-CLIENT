@@ -59,10 +59,12 @@ const HeaderPublic = () => {
     setIsLogged(false);
   };
 
-  const handleShowLoginModal = () => {
+  const handleShowLoginModal = (e) => {
+    e.preventDefault();
     setShowLoginModal(true);
   };
-  const handleShowRegisterModal = () => {
+  const handleShowRegisterModal = (e) => {
+    e.preventDefault();
     setShowRegisterModal(true);
   };
 
