@@ -23,7 +23,7 @@ const HeaderPublic = () => {
   const { isAdmin: auth } = useSelector(state => state.auth)
   const { token } = useSelector((state) => state.auth);
   const localToken = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("userName");
   const dispatch = useDispatch();
   const [isLogged, setIsLogged] = useState();
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -54,6 +54,7 @@ const HeaderPublic = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userName");
     localStorage.removeItem("user");
     dispatch(logOut);
     setIsLogged(false);
@@ -102,7 +103,7 @@ const HeaderPublic = () => {
                 return (
                   <div key={index}>
                     {e.title === "Juguetes" || e.title === "Escolar" || e.title === "" ? null :
-                      auth && auth === 2 && e.title === "Contacto" ? null : (
+                      auth && auth === 1 && e.title === "Contacto" ? null : (
                         <NavLink
                           to={e.path}
                           className="nav-link me-auto"

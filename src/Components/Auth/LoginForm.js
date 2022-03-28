@@ -56,19 +56,14 @@ const LoginForm = ({ close, show }) => {
     return errors;
   };
 
-
   const handleSubmit = async e => {
-
-    setIsLoading(true) ;
-
+    setIsLoading(true);
     const res = await logIn({
       email: initialValues.email,
       password: initialValues.password,
     });
 
-    
     if (res.data.data) {
-      
       const { token, user } = res.data.data;
 
       const { role_id } = user;
@@ -78,16 +73,13 @@ const LoginForm = ({ close, show }) => {
       dispatch(isAuth(res.data.success));
 
       localStorage.setItem('token', token);
-
-      localStorage.setItem('user', user.name);
-
+      localStorage.setItem('userName', user.name);
+      localStorage.setItem('user', JSON.stringify(user));
       setIsLoading(false);
-
       close();
     } else {
-     warningMsg("Email o contraseña incorrectos");
-
-     setIsLoading(false);
+      warningMsg("Email o contraseña incorrectos");
+      setIsLoading(false);
     }
   };
 
@@ -119,11 +111,9 @@ const LoginForm = ({ close, show }) => {
                 onChange={handleChange}
                 placeholder="Contraseña"></Field>
               <ErrorMessage component="div" className="mx-3" name="password" />
-
               <button className="submit-btn rounded-pill m-2" type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                 {isLoading ? <Spinner className="spinner-border"></Spinner> : "Iniciar Sesión"}
               </button>
-
             </Form>
           )}
         </Formik>

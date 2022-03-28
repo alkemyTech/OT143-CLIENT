@@ -15,13 +15,24 @@ export const getUser = createAsyncThunk('user/getUser', async () => {
 
 const tokenStorage = localStorage.getItem('token');
 
+const getUserFromStorage = async () => {
+  try {
+    const response = localStorage.getItem('user');
+    const result = await response.json();
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+}
+const userStorage = getUserFromStorage();
+
 // GUARDAR TOKEN Y USER EN LOCALSTORAGE
 
 const initialState = {
-  isAdmin: null,
+  isAdmin: 1,
   status: null,
   token: tokenStorage ? tokenStorage : null,
-  user: null,
+  user: userStorage ? userStorage : null,
   auth: null,
   role: null,
 };
@@ -31,6 +42,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     regUser: (state, action) => {
+      state.isAdmin = action.payload.user.role_id;
       state.user = action.payload.user;
       state.auth = true;
       state.token = action.payload.token;
@@ -53,6 +65,7 @@ export const authSlice = createSlice({
     },
     [getUser.fulfilled]: (state, { payload }) => {
       state.isAdmin = token ? payload.data.user.role_id : "no hay usuario";
+      state.user = token ? payload.data.user : "no hay usuario"
       state.status = 'success'
     },
     [getUser.rejecter]: (state, action) => {

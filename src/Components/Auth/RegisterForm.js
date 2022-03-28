@@ -9,7 +9,6 @@ import TermsAndConditionsONG from "../TermsAndConditions/TermsAndConditionsONG";
 import { Modal, Spinner } from "react-bootstrap";
 import { warningMsg } from './../Alerts/Alert';
 
-
 const RegisterForm = ({ close, show }) => {
   const [checked, setChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,42 +75,36 @@ const RegisterForm = ({ close, show }) => {
     return errors;
   };
 
-
   //   Funcion para submit
 
   const handleSubmit = async (e) => {
-
-    setIsLoading(true) ;
-
+    setIsLoading(true);
     const res = await postReg({
       name: initialValues.name,
       email: initialValues.email,
       password: initialValues.password,
-    }).catch(()=>{
+    }).catch(() => {
       setIsLoading(false);
       warningMsg("Email ya registrado");
-    }
-     );
+    });
 
     const { token, user } = res.data.data;
-    
-    
+
     if (res.data.data) {
 
       dispatch(regUser({ token, user }));
-  
+
       localStorage.setItem("token", `${token}`);
-  
-      localStorage.setItem("user", user.name);
+
+      localStorage.setItem("userName", user.name);
 
       setIsLoading(false);
 
       close();
-    } else{
+    } else {
       setIsLoading(false);
       warningMsg("Email ya registrado");
     }
-
   };
 
   const handleCheckbox = (e) => {
@@ -185,7 +178,6 @@ const RegisterForm = ({ close, show }) => {
               className="mx-3"
               name="confirmPassword"
             />
-            
             <div className="text-center">
               <input
                 type="checkbox"
@@ -199,12 +191,11 @@ const RegisterForm = ({ close, show }) => {
               {checked ? <TermsAndConditionsONG /> : null}
             </div>
 
+
             <button
               disabled={checked === !true}
               type="submit"
-              className="btn btn-primary rounded-pill m-2 "
-              style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}
-            >
+              className="btn btn-primary rounded-pill m-2" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
               {isLoading ? <Spinner className="spinner-border"></Spinner> : "Registrarse"}
             </button>
           </Form>
