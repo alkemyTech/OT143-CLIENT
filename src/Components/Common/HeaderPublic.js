@@ -19,6 +19,7 @@ import LoginForm from "./../Auth/LoginForm";
 import { BsGearFill } from "react-icons/bs";
 import { BACKOFFICE } from './../../config/router/routes';
 import { getUser } from '../../features/auth/authSlice';
+import Mercadopago from "../Mercadopago/Mercadopago";
 
 const HeaderPublic = () => {
   const { isAdmin: auth } = useSelector(state => state.auth)
@@ -46,7 +47,7 @@ const HeaderPublic = () => {
     { path: HOME, title: "" },
     { path: CONTACT, title: "Contacto" },
     { path: TOYS_CAMPAIGN, title: "JUGUETES" },
-    { path: SCHOOL_CAMPAIGN, title: "ESCOLAR" },
+    { path: SCHOOL_CAMPAIGN, title: "ESCOLAR" }
   ];
 
   const handleLogout = () => {
@@ -109,6 +110,9 @@ const HeaderPublic = () => {
                   </div>
                 );
               })}
+              <NavDropdown title="Donaciones">
+                <Mercadopago />
+              </NavDropdown>
               {/* mejorar la logica recorriendo con un filter el array y que devuelva los dos elementos que necesito */}
               <NavDropdown title="Campañas">
                 <NavLink className="dropdown-item" activeStyle={{ color: "tomato" }} to={nav[3].path}>
