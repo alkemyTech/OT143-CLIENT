@@ -4,40 +4,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authMe } from '../../Services/authService';
 import { isAuth, roleMe } from '../../features/auth/authSlice';
 import Loading from '../../Components/Common/Loading';
+import { warningMsg } from "../../Components/Alerts/Alert";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-	const [loading, setLoading] = useState(true);
-	const dispatch = useDispatch();
-	const authS = useSelector(state => state.auth.auth);
-	const roleS = useSelector(state => state.auth.role);
-	useEffect(() => {
-		authMe()
-			.then(res => {
-				dispatch(roleMe(res.data.data.user.role_id));
-				dispatch(isAuth(res.data.success));
-				setLoading(false);
-			})
-			.catch(res => setLoading(false));
-	}, []);
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const authS = useSelector(state => state.auth.auth);
+  const roleS = useSelector(state => state.auth.role);
+  useEffect(() => {
+    authMe()
+      .then(res => {
+        dispatch(roleMe(res.data.data.user.role_id));
+        dispatch(isAuth(res.data.success));
+        setLoading(false);
+      })
+      .catch(res => setLoading(false));
+  }, []);
 
-	return (
-		<>
-			{loading === true ? (
-				<Loading />
-			) : (
-				<Route
-					{...rest}
-					render={props =>
-						authS === true && roleS === 1 ? (
-							<Component {...props} />
-						) : (
-							<Redirect to="/" />
-						)
-					}
-				/>
-			)}
-		</>
-	);
+  return (
+    <>
+      {loading === true ? (
+        <Loading />
+      ) : (
+        <Route
+          {...rest}
+          render={props =>
+            authS === true && roleS === 1 ? (
+              <Component {...props} />
+            ) : (
+              warningMsg("Acceso denegado"),
+              <Redirect to="/" />
+            )
+          }
+        />
+      )}
+    </>
+  );
 };
 
 export default PrivateRoute;
