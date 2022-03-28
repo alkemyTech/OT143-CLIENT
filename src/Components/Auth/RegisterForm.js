@@ -99,7 +99,7 @@ const RegisterForm = ({ close, show }) => {
     setChecked(e.target.checked);
 
   };
-  
+
   return (
     <Modal show={show} onHide={close} >
       <Modal.Header closeButton>
@@ -167,25 +167,25 @@ const RegisterForm = ({ close, show }) => {
               name="confirmPassword"
             />
             <div className="text-center">
-            <input
-              type="checkbox"
-              checked={checked}
-              onChange={handleCheckbox}
-              className="m-1"
-              onClick={() => {
-                setChecked(true);
-              }}
-            /> Aceptar terminos y condiciones
-            {checked ? <TermsAndConditionsONG /> : null}
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={handleCheckbox}
+                className="m-1"
+                onClick={() => {
+                  setChecked(true);
+                }}
+              /> Aceptar terminos y condiciones
+              {checked ? <TermsAndConditionsONG /> : null}
             </div>
-                 
-       
+
+
             <button
               disabled={checked === !true}
               type="submit"
               className="btn btn-primary rounded-pill m-2 "
             >
-              Enviar
+              Registrarse
             </button>
           </Form>
         )}
