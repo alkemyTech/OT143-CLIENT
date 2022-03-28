@@ -29,7 +29,7 @@ const userStorage = getUserFromStorage();
 // GUARDAR TOKEN Y USER EN LOCALSTORAGE
 
 const initialState = {
-  isAdmin: 1,
+  isAdmin: 2,
   status: null,
   token: tokenStorage ? tokenStorage : null,
   user: userStorage ? userStorage : null,

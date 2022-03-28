@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { NEWS_CREATE } from "../../config/router/routes";
 import { getNews } from "./../../features/news/newsSlice";
@@ -7,16 +7,18 @@ import { BsPlusCircle, BsPencilSquare, BsTrash } from "react-icons/bs";
 import { Container, Button, Table, Row, Col } from "react-bootstrap";
 import Loading from "../Common/Loading";
 import Pagination from '../Common/Pagination';
-import { warningMsg } from '../Alerts/Alert';
+import { confirmMsg, warningMsg } from '../Alerts/Alert';
 import moment from "moment";
 import EditModal from './../Backoffice/EditModal';
 import NewsForm from './NewsForm';
+import {remove}from './../../Services/news'
 
 const NewsBackofficeList = () => {
   const { list: news, status } = useSelector((state) => state.news);
   const dispatch = useDispatch();
   const [showEdit, setShowEdit] = useState(false);
   const [edit, setEdit] = useState({});
+  const routerHistory = useHistory()
 
   const handleEdit = () => {
     setShowEdit((prev) => !prev);
@@ -55,6 +57,22 @@ const NewsBackofficeList = () => {
       setIsFetching(false);
     }
   }, [status]);
+
+  const eliminarClick = (id) => {
+    try {
+      confirmMsg("Desaparece el miembro permanentemente")
+      if(confirmMsg) {
+        const result  = remove(id);
+        routerHistory.push('/backoffice/news')
+        
+      }else{
+        alert("Error(500)-intente nuvamente");
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const middleStyles = { verticalAlign: "middle" };
 
@@ -104,7 +122,7 @@ const NewsBackofficeList = () => {
                             </div>
 
                             <div className="mb-1 mb-md-0 col-12 col-md-6">
-                              <Button variant='danger' onClick={() => console.log("Eliminar")}>
+                              <Button variant='danger' onClick={() => eliminarClick(news.id)}>
                                 <BsTrash />
                               </Button>
                             </div>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { TESTIMONY_CREATE } from "../../config/router/routes";
 import testimonialsService from "../../Services/testimonialsService";
 import { BsPlusCircle, BsPencilSquare, BsTrash } from "react-icons/bs";
 import { Button, Table } from "react-bootstrap";
 import Loading from "../Common/Loading";
 import Pagination from "../Common/Pagination";
-import { warningMsg } from "../Alerts/Alert";
+import { confirmMsg, warningMsg } from '../Alerts/Alert';
 import moment from "moment";
 import EditModal from "../Backoffice/EditModal";
 import TestimonialsForm from "./TestimonialsForm";
@@ -16,6 +16,7 @@ const TestimonialsListBackoffice = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [showEdit, setShowEdit] = useState(false);
   const [edit, setEdit] = useState({});
+  const routerHistory = useHistory()
 
   const handleEdit = () => {
     setShowEdit((prev) => !prev);
@@ -43,6 +44,22 @@ const TestimonialsListBackoffice = () => {
       })
       .catch((error) => warningMsg("Error. No se pudo cargar los datos."));
   }, []);
+
+  const eliminarClick = (id) => {
+    try {
+      confirmMsg("Desaparece el miembro permanentemente")
+      if(confirmMsg) {
+        const result  = testimonialsService.remove(id);
+        routerHistory.push('/backoffice/testimonials')
+        
+      }else{
+        alert("Error(500)-intente nuvamente");
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const middleStyles = { verticalAlign: "middle" };
 
@@ -115,7 +132,7 @@ const TestimonialsListBackoffice = () => {
                             <div className="col-12 col-md-6">
                               <Button
                                 variant="danger"
-                                onClick={() => console.log("Eliminar")}
+                                onClick={() => eliminarClick(testimony.id)}
                               >
                                 <BsTrash />
                               </Button>
