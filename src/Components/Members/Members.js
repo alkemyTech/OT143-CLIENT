@@ -112,7 +112,7 @@ const Members = () => {
     >
       {
         status === "success" ?
-          members.map((member, index) => (
+          members?.map((member, index) => (
             <SwiperSlide key={index} className="swiper-slide">
               <div className="member">
                 <div>
