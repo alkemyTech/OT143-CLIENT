@@ -185,7 +185,7 @@ const RegisterForm = ({ close, show }) => {
               type="submit"
               className="btn btn-primary rounded-pill m-2 "
             >
-              Submit
+              Enviar
             </button>
           </Form>
         )}
