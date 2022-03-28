@@ -27,3 +27,26 @@ export const warningMsg = text => {
 		title: `${text}`,
 	});
 };
+
+export const confirmMsg = (text) =>{
+	Swal.fire({
+		title: 'Esta seguro que quiere eliminar?',
+		text: "",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Si, Eliminar'
+	  }).then((result) => {
+		if (result.isConfirmed) {
+		  Swal.fire(
+			'Eliminado!',
+			'Eliminado Correctamente.',
+			'success'
+		  )
+		 
+		}
+	  });
+
+
+}

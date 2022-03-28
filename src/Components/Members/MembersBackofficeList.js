@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect,useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MEMBER_CREATE } from '../../config/router/routes';
 import { getMembers } from '../../features/members/membersSlice';
@@ -7,12 +7,14 @@ import { BsPlusCircle, BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { Button, Table } from 'react-bootstrap';
 import Loading from '../Common/Loading';
 import Pagination from '../Common/Pagination';
-import { warningMsg } from '../Alerts/Alert';
+import { confirmMsg, warningMsg } from '../Alerts/Alert';
 import EditModal from './../Backoffice/EditModal'
 import MembersEdit from './MembersEdit';
+import {remove}from './../../Services/membersService'
 
 const MembersBackofficeList = () => {
   /* const [loading, setLoading] = useState(true); */
+  const routerHistory = useHistory()
   const { list: members } = useSelector(state => state.members);
   const dispatch = useDispatch();
 
@@ -54,8 +56,20 @@ const MembersBackofficeList = () => {
   }, [dispatch]);
 
 
-  const eliminarClick = () => {
-    alert("Click Eliminar");
+  const eliminarClick = (id) => {
+    try {
+      confirmMsg("Desaparece el miembro permanentemente")
+      if(confirmMsg) {
+        const result  = remove(id);
+        routerHistory.push('/backoffice/members')
+        
+      }else{
+        alert("Error(500)-intente nuvamente");
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const middleStyles = { verticalAlign: "middle" };
@@ -103,7 +117,7 @@ const MembersBackofficeList = () => {
                               </Button>
                             </div>
                             <div className="col-12 col-md-6">
-                              <Button variant='danger' onClick={() => eliminarClick()}>
+                              <Button variant='danger' onClick={() => eliminarClick(member.id)}>
                                 <BsTrash />
                               </Button>
                             </div>
