@@ -36,7 +36,6 @@ const FileInput = ({ label, ...props }) => {
 };
 
 const ActivitiesForm = props => {
-  console.log(props);
   const activity = props.activity
     ? {
       id: props.activity.id,
