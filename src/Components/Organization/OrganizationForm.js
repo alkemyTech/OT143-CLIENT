@@ -95,7 +95,7 @@ const OrganizationForm = () => {
 
   return (
     <Container className="mb-3">
-      <h2 className="title-form">Editar datos</h2>
+      <h2 className="title-form text-center">Editar datos de la organización</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="name" className="mb-2">
           <Form.Label>Nombre</Form.Label>
@@ -228,11 +228,7 @@ const OrganizationForm = () => {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <Col className="text-end">
-            <Button type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>Editar</Button>
-          </Col>
-        </Row>
+        <Button type="submit" className="w-100 my-3" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>Editar</Button>
       </Form>
     </Container>
   );
