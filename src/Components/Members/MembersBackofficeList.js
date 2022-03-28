@@ -53,9 +53,6 @@ const MembersBackofficeList = () => {
 
   }, [dispatch]);
 
-  const editarClick = () => {
-    alert("Click Editar");
-  };
 
   const eliminarClick = () => {
     alert("Click Eliminar");
@@ -67,7 +64,7 @@ const MembersBackofficeList = () => {
     <>
 
       <EditModal show={showEdit} close={handleEdit} >
-        <MembersEdit member={edit} />
+        <MembersEdit member={edit} close={handleEdit} />
       </EditModal>
 
       <div className="container mt-2">

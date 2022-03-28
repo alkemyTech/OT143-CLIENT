@@ -6,17 +6,16 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { create, update } from "../../Services/membersService";
+import { convertToBase64 } from './../base64/toBase64';
 import { successMsg, warningMsg } from "../Alerts/Alert";
-
-const FORMAT_SUPPORTED = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 const SchemaValidation = Yup.object().shape({
   name: Yup.string()
     .required("El nombre es requerido")
     .min(4, "El nombre debe tener más de 4 letras"),
   image: Yup.mixed()
-    .required("La imagen es requerida")
-    .test("fileType", "Formato de imagen inválido", (value) => value && FORMAT_SUPPORTED.includes(value.type)),
+    .nullable()
+    .required("La imagen es requerida"),
   description: Yup.string()
     .required("La descripción es requerida"),
   facebookUrl: Yup.string()
@@ -34,7 +33,6 @@ const MembersEdit = (props) => {
     ? {
       id: props.member.id,
       name: props.member.name,
-      image: props.member.image,
       description: props.member.description,
       facebookUrl: props.member.facebookUrl,
       linkedinUrl: props.member.linkedinUrl,
@@ -51,11 +49,19 @@ const MembersEdit = (props) => {
     initialValues: member,
     validationSchema: SchemaValidation,
     onSubmit(values) {
+      console.log(values)
+      const body = {
+        name: values.name,
+        image: values.image,
+        description: values.description,
+        facebookUrl: values.facebookUrl,
+        linkedinUrl: values.linkedinUrl
+      }
+
       !props.member
         ?
-        create(values)
+        create(body)
           .then((response) => {
-            console.log(response);
             successMsg("Miembro creado con éxito");
           })
           .catch((error) => {
@@ -63,18 +69,23 @@ const MembersEdit = (props) => {
             warningMsg("Error. No se pudo crear el nuevo miembro");
           })
 
-        : update(values, values.id)
+        : update(body, values.id)
           .then((response) => {
-            console.log(response);
             successMsg("Miembro editado con éxito");
+            props.close();
           })
           .catch((error) => {
             console.log(error);
             warningMsg("Error. No se pudo editar el miembro");
           });
-
     }
   });
+
+  const handleImageChange = async (event) => {
+    const base64String = await convertToBase64(event?.target.files[0]);
+    editFormik.setFieldValue("image", base64String);
+  };
+
   return (
     <Container className="mt-3">
       <h2 className="title-form">{`${!props.member ? "Crear" : "Editar"
@@ -91,7 +102,7 @@ const MembersEdit = (props) => {
         <Form.Group controlId="image" className="mb-2">
           <Form.Label>Imagen</Form.Label>
           <Form.Control type="file" name="image" accept="image/jpg, image/jpeg, image/gif, image/png"
-            onChange={(e) => { editFormik.setFieldValue("image", e.currentTarget.files[0]) }} onBlur={editFormik.handleBlur} />
+            onChange={(event) => handleImageChange(event)} onBlur={editFormik.handleBlur} />
           {editFormik.touched.image && editFormik.errors.image ? (
             <span className="mt-1" style={errorsStyles}>{editFormik.errors.image}</span>
           ) : null}
@@ -151,7 +162,7 @@ const MembersEdit = (props) => {
           </Col>
         </Row>
 
-        <Button type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>{!props.member ? "Crear" : "Editar"}</Button>
+        <Button type="submit">{!props.member ? "Crear" : "Editar"}</Button>
       </Form>
     </Container>
   );
