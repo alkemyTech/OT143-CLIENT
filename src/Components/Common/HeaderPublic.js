@@ -132,7 +132,7 @@ const HeaderPublic = () => {
                       className="text-decoration-none log-button"
                       to={HOME}
                     >
-                      <RiLogoutBoxLine /> Log-out
+                      <RiLogoutBoxLine /> Salir
                     </NavLink>
                   <Nav.Link className="d-flex align-items-center">
                     <FaUser style={{ fontSize: "1.5rem" }} className="mx-2" />
@@ -151,7 +151,7 @@ const HeaderPublic = () => {
                     onClick={handleShowLoginModal}
                   >
                     <RiLoginBoxLine />
-                    Log-in
+                    Ingresar
                   </NavLink>
 
                   <NavLink
