@@ -110,7 +110,7 @@ const LoginForm = ({ close, show }) => {
                 placeholder="Contraseña"></Field>
               <ErrorMessage component="div" className="mx-3" name="password" />
               {errorLogin}
-              <button className="submit-btn rounded-pill m-2" type="submit">
+              <button className="submit-btn rounded-pill m-2" type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
                 Iniciar sesión
               </button>
             </Form>
