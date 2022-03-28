@@ -36,16 +36,16 @@ const FileInput = ({ label, ...props }) => {
 };
 
 const CategoriesForm = props => {
-  const categories = props.categories
+  const category = props.category
     ? {
-      id: props.categories.id,
-      title: props.categories.name,
-      content: props.categories.content,
-      /* image: props.categories.image, */
+      id: props.category.id,
+      title: props.category.name,
+      description: props.category.description,
+      /* image: props.category.image, */
     }
     : {
       title: '',
-      content: '',
+      description: '',
       image: '',
     };
 
@@ -60,12 +60,12 @@ const CategoriesForm = props => {
     }, 1000);
   };
 
-  const handleReady = editor => {
-    editor.setData(categories.content);
-  };
+  /*  const handleReady = editor => {
+     editor.setData(category.content);
+   }; */
 
   const createCategory = (values, id) => {
-    if (!props.categories) {
+    if (!props.category) {
       try {
         postData({
           name: values.title,
@@ -103,12 +103,12 @@ const CategoriesForm = props => {
   return (
     <>
       <div className="container mt-3">
-        <h2 className="title-form">{`${!props.activities ? 'Crear' : 'Editar'
+        <h2 className="title-form">{`${!props.category ? 'Crear' : 'Editar'
           } categoria`}</h2>
         <div className="row">
           <div className="mt-5 pt-3">
             <Formik
-              initialValues={categories}
+              initialValues={category}
               validationSchema={Yup.object({
                 title: Yup.string()
                   .required('Ingresar titulo')
@@ -149,7 +149,7 @@ const CategoriesForm = props => {
                   <CKEditor
                     label="Descripción"
                     editor={ClassicEditor}
-                    data={categories.content || ""}
+                    data={category.description || ''}
                     name="description"
                     type="text"
                     placeholder="Descripción"
@@ -169,7 +169,7 @@ const CategoriesForm = props => {
                 <button
                   type="submit"
                   className="form-control btn btn-primary mt-3 mb-3">
-                  {!props.categories ? 'Crear' : 'Editar'}
+                  {!props.category ? 'Crear' : 'Editar'}
                 </button>
               </Form>
             </Formik>
