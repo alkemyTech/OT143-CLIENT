@@ -36,7 +36,7 @@ const CategoriesForm = props => {
   const formik = useFormik({
     initialValues: category,
     validationSchema: schema,
-    onSubmit(values, id) {
+    onSubmit(values) {
       if (!props.category) {
         try {
           postData({
@@ -62,9 +62,10 @@ const CategoriesForm = props => {
               category_id: 1,
               created_at: Date(),
             },
-            id
+            values.id
           );
           successMsg('Edicion exitosa');
+          props.close();
         } catch (err) {
           warningMsg('Edicion fallida');
         }

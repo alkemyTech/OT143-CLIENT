@@ -47,7 +47,7 @@ const CategoriesListBackoffice = () => {
 
   return (<>
     <EditModal show={showEdit} close={handleEdit}>
-      <CategoriesForm category={edit} />
+      <CategoriesForm category={edit} close={handleEdit} />
     </EditModal>
     <div className="container mt-2">
       <div className="row">
