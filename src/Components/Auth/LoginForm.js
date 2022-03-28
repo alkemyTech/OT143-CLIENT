@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import '../FormStyles.css';
-import { Modal } from 'react-bootstrap';
+import { Modal, Spinner } from 'react-bootstrap';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { logIn } from '../../Services/authService';
 import { regUser, roleMe, isAuth } from '../../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import { warningMsg } from './../Alerts/Alert';
 
 const LoginForm = ({ close, show }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [initialValues, setInitialValues] = useState({
     email: '',
     password: '',
@@ -54,15 +56,19 @@ const LoginForm = ({ close, show }) => {
     return errors;
   };
 
-  let errorLogin;
 
   const handleSubmit = async e => {
+
+    setIsLoading(true) ;
+
     const res = await logIn({
       email: initialValues.email,
       password: initialValues.password,
     });
 
+    
     if (res.data.data) {
+      
       const { token, user } = res.data.data;
 
       const { role_id } = user;
@@ -75,9 +81,13 @@ const LoginForm = ({ close, show }) => {
 
       localStorage.setItem('user', user.name);
 
+      setIsLoading(false);
+
       close();
     } else {
-      errorLogin = <div className="ms-3"> Email o contraseña incorrectos</div>;
+     warningMsg("Email o contraseña incorrectos");
+
+     setIsLoading(false);
     }
   };
 
@@ -109,10 +119,11 @@ const LoginForm = ({ close, show }) => {
                 onChange={handleChange}
                 placeholder="Contraseña"></Field>
               <ErrorMessage component="div" className="mx-3" name="password" />
-              {errorLogin}
+
               <button className="submit-btn rounded-pill m-2" type="submit" style={{ backgroundColor: "#9AC9FB", borderColor: "#9AC9FB" }}>
-                Iniciar sesión
+                {isLoading ? <Spinner className="spinner-border"></Spinner> : "Iniciar Sesión"}
               </button>
+
             </Form>
           )}
         </Formik>
