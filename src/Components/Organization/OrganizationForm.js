@@ -91,8 +91,6 @@ const OrganizationForm = () => {
     });
   };
 
-  console.log(organization);
-
   return (
     <Container className="mb-3">
       <h2 className="title-form text-center">Editar datos de la organización</h2>
@@ -168,9 +166,9 @@ const OrganizationForm = () => {
             <Form.Group controlId="facebook" className="mb-2">
               <Form.Label>Facebook (url)</Form.Label>
               <Form.Control
-                name="facebookUrl"
+                name="facebook_url"
                 value={organization.facebook_url}
-                onChange={(e) => handleChange(e, "facebookUrl")}
+                onChange={(e) => handleChange(e, "facebook_url")}
               />
               {/* {formik.touched.facebookUrl && formik.errors.facebookUrl ? (
                 <div className="mt-1" style={errorsStyles}>
@@ -183,9 +181,9 @@ const OrganizationForm = () => {
             <Form.Group controlId="linkedin" className="mb-2">
               <Form.Label>LinkedIn (url)</Form.Label>
               <Form.Control
-                name="linkedinUrl"
+                name="linkedin_url"
                 value={organization.linkedin_url}
-                onChange={(e) => handleChange(e, "linkedinUrl")}
+                onChange={(e) => handleChange(e, "linkedin_url")}
               />
               {/* {formik.touched.linkedinUrl && formik.errors.linkedinUrl ? (
                 <div className="mt-1" style={errorsStyles}>
@@ -201,9 +199,9 @@ const OrganizationForm = () => {
             <Form.Group controlId="instagram" className="mb-2">
               <Form.Label>Instagram (url)</Form.Label>
               <Form.Control
-                name="instagramUrl"
+                name="instagram_url"
                 value={organization.instagram_url}
-                onChange={(e) => handleChange(e, "instagramUrl")}
+                onChange={(e) => handleChange(e, "instagram_url")}
               />
               {/* {formik.touched.instagramUrl && formik.errors.instagramUrl ? (
                 <div className="mt-1" style={errorsStyles}>
@@ -216,9 +214,9 @@ const OrganizationForm = () => {
             <Form.Group controlId="twitter" className="mb-2">
               <Form.Label>Twitter (url)</Form.Label>
               <Form.Control
-                name="twitterUrl"
+                name="twitter_url"
                 value={organization.twitter_url}
-                onChange={(e) => handleChange(e, "twitterUrl")}
+                onChange={(e) => handleChange(e, "twitter_url")}
               />
               {/* {formik.touched.twitterUrl && formik.errors.twitterUrl ? (
                 <div className="mt-1" style={errorsStyles}>
