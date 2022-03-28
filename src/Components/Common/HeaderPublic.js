@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import imgLogo from "./../../images/somosMasOrg.png";
 import {
   ABOUT,
+  BACKOFFICE,
   HOME,
   CONTACT,
   TOYS_CAMPAIGN,
   SCHOOL_CAMPAIGN,
 } from "./../../config/router/routes";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser, logOut } from '../../features/auth/authSlice';
+import imgLogo from "./../../images/somosMasOrg.png";
 import { FaUser } from "react-icons/fa";
 import { RiLoginBoxLine, RiLogoutBoxLine } from "react-icons/ri";
-import "./HeaderPublic.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { logOut } from "./../../features/auth/authSlice";
-import RegisterForm from "./../Auth/RegisterForm";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import LoginForm from "./../Auth/LoginForm";
-import { BsGearFill } from "react-icons/bs";
-import { BACKOFFICE } from './../../config/router/routes';
-import { getUser } from '../../features/auth/authSlice';
+import RegisterForm from "./../Auth/RegisterForm";
 import Mercadopago from "../Mercadopago/Mercadopago";
+import "./HeaderPublic.scss";
 
 const HeaderPublic = () => {
   const { isAdmin: auth } = useSelector(state => state.auth)
@@ -134,12 +132,9 @@ const HeaderPublic = () => {
                   >
                     <RiLogoutBoxLine /> Salir
                   </NavLink>
-                  <Nav.Link className="d-flex align-items-center">
-                    <FaUser style={{ fontSize: "1.5rem" }} className="mx-2" />
+                  <NavLink to={BACKOFFICE} className="nav-link d-flex align-items-center">
+                    <FaUser style={{ fontSize: "1.5rem" }} color="#9AC9FB" className="mx-2" />
                     <span>{user}</span>
-                  </Nav.Link>
-                  <NavLink to={BACKOFFICE} className="d-flex align-items-center">
-                    <BsGearFill style={{ fontSize: "1.5rem" }} color="#9AC9FB" />
                   </NavLink>
                 </>
               ) : (
