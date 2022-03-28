@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap';
 import Cards from '../Common/Cards';
 import { Link, useHistory } from 'react-router-dom';
 import Miembros from '../Members/Members';
-import Retrato from '../../images/members/Cecilia Mendez.jpeg'
 import { NEWS_WEB } from '../../config/router/routes';
 import { getAll } from '../../Services/news';
 import Loading from '../Common/Loading';

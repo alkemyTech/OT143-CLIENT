@@ -21,7 +21,8 @@ import "./HeaderPublic.scss";
 
 const HeaderPublic = () => {
   const { isAdmin: auth } = useSelector(state => state.auth)
-  const { token: token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
+  const localToken = localStorage.getItem("token");
   const user = localStorage.getItem("user");
   const dispatch = useDispatch();
   const [isLogged, setIsLogged] = useState();
@@ -37,7 +38,10 @@ const HeaderPublic = () => {
   }, [token]);
 
   useEffect(() => {
-    dispatch(getUser());
+    if (localToken != null) {
+      dispatch(getUser());
+    }
+    console.log(auth);
   }, [dispatch]);
 
   const nav = [
