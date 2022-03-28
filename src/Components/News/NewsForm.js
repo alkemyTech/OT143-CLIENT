@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import '../../Components/FormStyles.css';
-import axios from 'axios';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Form, Button, Container } from 'react-bootstrap';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { create, update } from '../../Services/news';
-import { successMsg, warningMsg } from '../Alerts/Alert.js';
+import React, { useState, useEffect } from "react";
+import "../../Components/FormStyles.css";
+import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Form, Button, Container } from "react-bootstrap";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { create, update } from "../../Services/news";
+import { warningMsg, successMsg } from "../Alerts/Alert.js";
+import { convertToBase64 } from "./../base64/toBase64";
 
-const BASE_URL = 'https://ongapi.alkemy.org/api';
+const BASE_URL = "https://ongapi.alkemy.org/api";
 
 const schema = Yup.object().shape({
   title: Yup.string()
-    .required('El título es requerido')
-    .min(4, 'El título debe contener una longitud mínima de 4 caracteres'),
-  content: Yup.string().required('El contenido es requerido'),
-  category: Yup.number().required().positive('Debe seleccionar una categoría'),
-  image: Yup.string()
-    .url('La imagen debe ser una URL válida')
-    .required('La imagen es requerida'),
+    .required("El título es requerido")
+    .min(4, "El título debe contener una longitud mínima de 4 caracteres"),
+  content: Yup.string().required("El contenido es requerido"),
+  category: Yup.number().required().positive("Debe seleccionar una categoría"),
+  image: Yup.mixed()
+    .nullable()
+    .required("La imagen es requerida"),
 });
 
 const errorsStyles = { color: 'red', fontSize: '.875em' };
@@ -54,22 +55,22 @@ const NewsForm = props => {
       };
       !props.news
         ? create(body)
-          .then(response => {
+          .then((response) => {
             console.log(response);
-            successMsg('Novedad creada con éxito');
+            successMsg("Novedad creada con éxito");
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
-            warningMsg('Error. No se pudo crear la novedad');
+            warningMsg("Error. No se pudo crear la novedad");
           })
         : update(body, news.id)
-          .then(response => {
+          .then((response) => {
             console.log(response);
-            successMsg('Novedad editada con éxito');
+            alert("Novedad editada con éxito");
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
-            warningMsg('Error. No se pudo editar la novedad');
+            warningMsg("Error. No se pudo editar la novedad");
           });
     },
   });
@@ -83,6 +84,11 @@ const NewsForm = props => {
         warningMsg('Error. No se pudo cargar las categorías');
       });
   }, []);
+
+  const handleImageChange = async (event) => {
+    const base64String = await convertToBase64(event?.target.files[0]);
+    formik.setFieldValue("image", base64String);
+  };
 
   return (
     <Container className="mt-3">
@@ -149,11 +155,10 @@ const NewsForm = props => {
           <Form.Group controlId="image" className="mt-3 mb-3">
             <Form.Label>Imagen</Form.Label>
             <Form.Control
-              name="image"
-              type="url"
-              value={formik.values.image || ''}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              accept="image/png, image/jpeg"
+              type="file"
+              name="defaultImage"
+              onChange={(event) => handleImageChange(event)}
             />
             {formik.touched.image && formik.errors.image ? (
               <div className="mt-1" style={errorsStyles}>

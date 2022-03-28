@@ -6,39 +6,29 @@ import * as Yup from 'yup';
 import testimonialsService from "../../Services/testimonialsService";
 import { Form, Button, Container } from 'react-bootstrap';
 import { warningMsg, successMsg } from '../Alerts/Alert';
-import '../FormStyles.css';
+import { convertToBase64 } from './../base64/toBase64';
 
 const schema = Yup.object().shape({
-  name: Yup.string()
-    .required('El campo nombre es requerido')
-    .min(4, 'El campo nombre debe tener más de 4 letras'),
+  name: Yup.string("Ingrese su nombre")
+    .required("El campo nombre es requerido")
+    .min(4, "El campo nombre debe tener más de 4 letras"),
   image: Yup.mixed()
-    .required('La imagen es requerida')
-    .test('filetype', 'Formato de imágen inválido', value => {
-      if (value) {
-        if (value.includes('png')) {
-          return true;
-        } else if (value.includes('jpg')) {
-          return true;
-        } else if (value.includes('jpeg')) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }),
-  description: Yup.string().required('El campo descripción es requerido'),
+    .nullable()
+    .required("La imagen es requerida"),
+  description: Yup.string("Ingrese una descripción")
+    .required("El campo descripción es requerido")
 });
 
-const TestimonialForm = props => {
-  const testimony = props.testimony
-    ? {
-      id: props.testimony.id,
-      name: props.testimony.name,
-      description: props.testimony.description,
-      /* image: props.testimony.image, */
-    }
-    : {
+
+const TestimonialForm = (props) => {
+
+  const testimony = props.testimony ? {
+    id: props.testimony.id,
+    name: props.testimony.name,
+    description: props.testimony.description
+  }
+    :
+    {
       name: '',
       description: '',
       image: '',
@@ -69,6 +59,11 @@ const TestimonialForm = props => {
           });
     },
   });
+
+  const handleImageChange = async (event) => {
+    const base64String = await convertToBase64(event?.target.files[0]);
+    formik.setFieldValue("image", base64String);
+  };
 
   return (
     <Container className="mt-4">
@@ -109,13 +104,10 @@ const TestimonialForm = props => {
           <Form.Group className="mt-3 mb-3">
             <Form.Label>Imagen</Form.Label>
             <Form.Control
-              name="image"
+              accept="image/png, image/jpeg"
               type="file"
-              placeholder="Imagen"
-              accept=".jpg, .jpeg, .png"
-              value={formik.values.image || ''}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
+              name="defaultImage"
+              onChange={(event) => handleImageChange(event)}
             />
             {formik.touched.image && formik.errors.image ? (
               <div className="mt-1">{formik.errors.image}</div>
