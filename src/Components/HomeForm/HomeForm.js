@@ -59,18 +59,18 @@ const OrganizationInfo = () => {
 
 const HomeForm = () => {
 
-  const validationSchemaYup = Yup.object().shape({
-    welcomeText: Yup.string()
-      .min(20, "El campo debe contener mínimo 20 caracteres"),
-  })
-
-  const handleChange = (e) => {
-    e.preventDefault();
-  }
+  /*  const validationSchemaYup = Yup.object().shape({
+     welcomeText: Yup.string()
+       .min(20, "El campo debe contener mínimo 20 caracteres"),
+   })
+ 
+   const handleChange = (e) => {
+     e.preventDefault();
+   } */
 
   return (
     <div className="container">
-      <h2 className="title-form">Editar datos de la Home</h2>
+      {/*  <h2 className="title-form">Editar datos de la Home</h2>
       <Formik
         initialValues={{
           welcomeText: "",
@@ -159,7 +159,7 @@ const HomeForm = () => {
             </div>
           </div>
         </Form>
-      </Formik>
+      </Formik> */}
 
       <OrganizationInfo />
     </div>
