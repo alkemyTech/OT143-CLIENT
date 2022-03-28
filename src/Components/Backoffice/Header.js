@@ -16,7 +16,7 @@ const HeaderBackoffice = () => {
 
   return (
     <>
-      <Container className="header-container p-0" fluid>
+      <Container className="header-container sticky-top bg-white p-0" fluid >
         {!showSidebar ? (
           <AiOutlineMenu
             onClick={toggleSidebar}
