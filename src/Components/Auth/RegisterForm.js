@@ -97,10 +97,11 @@ const RegisterForm = ({ close, show }) => {
 
   const handleCheckbox = (e) => {
     setChecked(e.target.checked);
-  };
 
+  };
+  
   return (
-    <Modal show={show} onHide={close}>
+    <Modal show={show} onHide={close} >
       <Modal.Header closeButton>
         <Modal.Title>Registrarse</Modal.Title>
       </Modal.Header>
@@ -165,6 +166,7 @@ const RegisterForm = ({ close, show }) => {
               className="mx-3"
               name="confirmPassword"
             />
+            <div className="text-center">
             <input
               type="checkbox"
               checked={checked}
@@ -173,11 +175,11 @@ const RegisterForm = ({ close, show }) => {
               onClick={() => {
                 setChecked(true);
               }}
-            />
-            <TermsAndConditionsModal
-              className="rounded-pill m-3"
-              setChecked={setChecked}
-            />
+            /> Aceptar terminos y condiciones
+            {checked ? <TermsAndConditionsONG /> : null}
+            </div>
+                 
+       
             <button
               disabled={checked === !true}
               type="submit"
@@ -188,6 +190,7 @@ const RegisterForm = ({ close, show }) => {
           </Form>
         )}
       </Formik>
+
     </Modal>
   );
 };

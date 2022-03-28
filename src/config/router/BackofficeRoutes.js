@@ -30,6 +30,7 @@ import {
 } from './routes';
 import ScreenDashboard from '../../Components/Dashboard/ScreenDashboard';
 import ProjectsForm from '../../Components/Projects/ProjectsForm';
+import Testimonials from "../../Components/Testimonials/TestimonialsListBackoffice";
 import TestimonialForm from '../../Components/Testimonials/TestimonialsForm';
 import Activities from '../../Components/Activities/ActivitiesList';
 import ActivitiesForm from '../../Components/Activities/ActivitiesForm';
@@ -45,7 +46,6 @@ import HomeForm from '../../Components/HomeForm/HomeForm';
 import Members from '../../Components/Members/MembersBackofficeList';
 import MembersForm from '../../Components/Members/MembersEdit';
 import OrganizationForm from '../../Components/Organization/OrganizationForm';
-import Testimonials from "../../Components/Testimonials/TestimonialsListBackoffice";
 import Layout from "../../Components/Backoffice/Layout";
 import PrivateRoute from './PrivateRoute';
 

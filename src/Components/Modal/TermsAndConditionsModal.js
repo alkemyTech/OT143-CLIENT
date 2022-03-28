@@ -16,7 +16,7 @@ const TermsAndConditionsModal = ({setChecked})=>{
         }
       modal nested 
     >{ close => ( 
-      <div backdrop="static" keyboard={false} className="myModal">
+      <div  keyboard={false} className="myModal">
         <button className="close" type="button" onClick={close}> x </button>
         <div className="header"> Términos y condiciones </div>
         <div className="content">

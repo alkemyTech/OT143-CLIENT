@@ -30,7 +30,7 @@ const TermsAndConditionsONG = ()=>{
   return (
     <>
     <Document file={TermsAndConditions} onLoadSuccess={onDocumentLoadSuccess}>
-      <Page height={1150} pageNumber={pageNumber} scale={0.36}/>
+      <Page height={1150} pageNumber={pageNumber} scale={0.55}/>
     </Document>
     <div className="content">
       <p>
